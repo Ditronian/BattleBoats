@@ -35,7 +35,7 @@
             <br />
             <asp:Label ID="resultLabel" runat="server" Text="Result: "></asp:Label>
         </div>
-
+        <p></p>
 
         <div id="randomDiv">
             <table>
