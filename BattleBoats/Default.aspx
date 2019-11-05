@@ -8,10 +8,13 @@
 </head>
 <body>
     <form id="form1" runat="server">
+
+
         <div id="headerDiv">
             <h1>Welcome to BattleBoats</h1>
             <h3>This page exists only to show off what ASP.Net can do.</h3>
         </div>
+
 
         <div id="postBackDiv">
             <span>This simple table showcases a postback.  Enter some text into the textbox and press the button.</span>
@@ -31,6 +34,21 @@
             </table>
             <br />
             <asp:Label ID="resultLabel" runat="server" Text="Result: "></asp:Label>
+        </div>
+
+
+        <div id="randomDiv">
+            <table>
+                <tr>
+                    <td>Write stuff here</td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+            </table>
         </div>
 
     </form>
