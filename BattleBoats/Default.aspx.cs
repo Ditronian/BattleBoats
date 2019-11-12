@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace BattleBoats
 {
-    //This is a codebehind file, each .aspx (Web Form) page has one.
+    //This is a codebehind file, each .aspx (Web Form) page has one
     public partial class Default : System.Web.UI.Page
     {
         /*
