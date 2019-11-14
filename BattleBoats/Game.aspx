@@ -1,11 +1,15 @@
-<%@ Page Title="Title" Language="C#" MasterPageFile="MasterPage" CodeBehind="Game.aspx.cs" Inherits="BattleBoats.Game" %>
-<html lang="html5">
-    <header>
-        <title>BattleBoats</title>
-    </header>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Game.aspx.cs" Inherits="BattleBoats.Game" %>
 
-    <body>
-        <canvas></canvas>
-        
-    </body>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+        </div>
+    </form>
+</body>
 </html>
