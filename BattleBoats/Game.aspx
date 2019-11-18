@@ -7,7 +7,10 @@
     <title></title>
 </head>
 <body>
+    <script type="text/javascript" src="Javascripts/game.js"></script>
     <form id="form1" runat="server">
+        <h1>Magic....</h1>
+        <canvas id="gamecanvas" style="width: 100%; height: 100%;" width=1000 height=1000></canvas>
         <div>
         </div>
     </form>
