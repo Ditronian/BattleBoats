@@ -68,6 +68,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CSS\Home.css" />
     <Content Include="CSS\Login.css" />
     <Content Include="Default.aspx" />
     <Content Include="Game.aspx" />

@@ -1,0 +1,31 @@
+h1 {
+    text-align: center;
+}
+
+#headerDiv {
+    width: 100%;
+    text-align: center;
+}
+
+.headerBtn {
+    float: right;
+    margin: 5px;
+}
+
+.subheader {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+ul {
+    list-style-type: none;
+    text-indent: -1em;
+}
+
+li:before {
+    content: " - "
+}
+
+#bodyDiv {
+    text-align: center;
+}
