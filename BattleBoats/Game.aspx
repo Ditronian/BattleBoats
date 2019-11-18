@@ -6,11 +6,11 @@
 <head runat="server">
     <title></title>
 </head>
-<body>
+<body style="width: 100%; height: 100%;">
     <form id="form1" runat="server">
-        <h1>Magic....</h1>
-        <canvas id="gamecanvas" width="500" height="500" style="width: 100%; height: 100%;">Does not support canvas</canvas>
-        <div>
+        <h1>Game Magic Goes Here!!!</h1>
+        <div id="gamecontainer">
+            <canvas id="gamecanvas" style="height: 100%; width:  100%;">Does not support canvas</canvas>
         </div>
     </form>
     <script type="text/javascript" src="Javascripts/game.js"></script>
