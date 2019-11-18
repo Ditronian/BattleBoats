@@ -6,14 +6,21 @@
     float: left;
     flex: 1;
     border:groove;
+    margin-left: 30px;
 }
 
 #ExistingUser{
     float: right;
     flex: 1;
+    border: groove;
+    margin-right: 30px;
 }
 
 #LoginDivs {
     display: flex;
+    text-align: center;
+}
+
+#Creators {
     text-align: center;
 }
