@@ -1,1 +1,19 @@
-﻿
+﻿#HeaderDiv{
+    text-align:center;
+}
+
+#Registration{
+    float: left;
+    flex: 1;
+    border:groove;
+}
+
+#ExistingUser{
+    float: right;
+    flex: 1;
+}
+
+#LoginDivs {
+    display: flex;
+    text-align: center;
+}
