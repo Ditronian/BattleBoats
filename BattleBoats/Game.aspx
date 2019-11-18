@@ -7,12 +7,12 @@
     <title></title>
 </head>
 <body>
-    <script type="text/javascript" src="Javascripts/game.js"></script>
     <form id="form1" runat="server">
         <h1>Magic....</h1>
-        <canvas id="gamecanvas" style="width: 100%; height: 100%;" width=1000 height=1000></canvas>
+        <canvas id="gamecanvas" width="500" height="500" style="width: 100%; height: 100%;">Does not support canvas</canvas>
         <div>
         </div>
     </form>
+    <script type="text/javascript" src="Javascripts/game.js"></script>
 </body>
 </html>
