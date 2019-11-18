@@ -4,7 +4,11 @@ h1 {
 
 #headerDiv {
     width: 100%;
-    text-align: center;
+}
+
+.headerLabel {
+    float: left;
+    padding-right: 60%;
 }
 
 .headerBtn {
