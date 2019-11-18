@@ -68,9 +68,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CSS\Login.css" />
     <Content Include="Default.aspx" />
     <Content Include="Game.aspx" />
     <Content Include="Home.aspx" />
+    <Content Include="Javascripts\game.js" />
     <Content Include="Login.aspx" />
     <Content Include="Statistics.aspx" />
     <Content Include="Web.config" />
@@ -124,7 +126,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
-    <Folder Include="CSS\" />
     <Folder Include="Javascripts\" />
   </ItemGroup>
   <PropertyGroup>

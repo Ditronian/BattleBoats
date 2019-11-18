@@ -9,8 +9,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div id="Login Header">
-            <h1>Welcome to BattleBoats!</h1>
+        <div>
         </div>
     </form>
 </body>
