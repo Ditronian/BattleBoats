@@ -18,5 +18,10 @@ namespace BattleBoats
         {
             Response.Redirect("Game.aspx");
         }
+
+        protected void homeButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Home.aspx");
+        }
     }
 }

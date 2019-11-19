@@ -10,7 +10,10 @@
 </head>
 <body style="width: 100%; height: 100%;">
     <form id="form1" runat="server">
-        
+        <div id="navDiv">
+            <asp:Button ID="homeButton" runat="server" Text="Home" OnClick="homeButton_Click" />
+        </div>
+        <br />
         <div id="greaterDiv">
         <h2>Game Magic Goes Here!!!</h2>
             <div id="gamecontainer">

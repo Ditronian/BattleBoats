@@ -15,3 +15,8 @@
 #greaterDiv{
     text-align:center;
 }
+
+#navDiv{
+    float:right;
+    margin-right: 20%;
+}

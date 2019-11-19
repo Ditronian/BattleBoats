@@ -41,4 +41,7 @@ li:before {
 
 #bodyDiv {
     text-align: center;
+    border: groove;
+    margin: 30%;
+    margin-top: 0;
 }
