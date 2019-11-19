@@ -1,3 +1,8 @@
+Previous Days:
+    Completed Paper Prototype (Storyboard)
+    Completed Database Tables in MS SQL Server
+    
+
 Monday Group Meeting (2-5pm):
     Worked on HTML/CSS Prototype
         David/Emily worked on Login.aspx page
