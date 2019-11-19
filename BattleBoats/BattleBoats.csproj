@@ -72,6 +72,7 @@
     <Content Include="CSS\Home.css" />
     <Content Include="CSS\Login.css" />
     <Content Include="CSS\Master.css" />
+    <Content Include="CSS\Statistics.css" />
     <Content Include="Default.aspx" />
     <Content Include="Game.aspx" />
     <Content Include="Home.aspx" />

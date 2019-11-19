@@ -19,6 +19,7 @@
             <div id="gamecontainer">
                 <canvas id="gamecanvas">Does not support canvas</canvas>
             </div>
+            <br />
             <asp:Button ID="newGameButton" runat="server" Text="New Game" OnClick="newGameButton_Click" />
         </div>
 

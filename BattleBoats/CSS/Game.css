@@ -1,6 +1,5 @@
 ﻿#gamecontainer {
-    border: solid;
-    border-width: 3px;
+    border: groove;
     margin: auto;
     width: 800px;
     height: 400px;

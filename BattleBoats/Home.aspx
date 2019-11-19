@@ -21,6 +21,7 @@
                 </div>
             </div>
         </div>
+        <p></p>
         <div id="bodyDiv">
             <p class="subheader">Goal: </p>
             <ul>

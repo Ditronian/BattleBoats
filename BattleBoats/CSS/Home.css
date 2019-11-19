@@ -50,3 +50,10 @@ li:before {
     margin: 30%;
     margin-top: 0;
 }
+
+#header {
+    text-align: center;
+    border: groove;
+    margin: 30%;
+    margin-top: 0;
+}

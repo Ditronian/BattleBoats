@@ -5,18 +5,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <link rel="stylesheet" type="text/css" href="CSS/Master.css" />
+    <link rel="stylesheet" type="text/css" href="CSS/Statistics.css" />
 </head>
 <body>
     <form id="form1" runat="server">
-                  <div>
-                <asp:Button id = "HomeButton" runat="server" Text = "HOME"></asp:Button>
+            <div id="buttonDiv">
+                <asp:Button id = "HomeButton" runat="server" Text = "HOME" OnClick="HomeButton_Click"></asp:Button>
             </div>
-         
-            <h1>
-                USERNAME STATISTICS!
-            </h1>
-        <div>
-               
+        <div id="outerDiv"><h1 id="header">USERNAME STATISTICS!</h1>
+        <div id="bodyDiv">
                 <asp:Label ID = "GamesPlayedLabel" Text = "Total Games Played: " runat="server"></asp:Label>
                  <p> </p>
                 <asp:Label ID="WinLossLabel" runat="server" Text="Win/Loss Ratio: "></asp:Label>
@@ -77,6 +75,7 @@
                </table>
               
         </div>
+    </div>
     </form>
 </body>
 </html>
