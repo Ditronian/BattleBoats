@@ -4,16 +4,25 @@ h1 {
 
 #headerDiv {
     width: 100%;
+    display: inline-flex;
 }
 
-.headerLabel {
-    float: left;
-    padding-right: 60%;
+#hDiv1, #hDiv2, #hDiv3 {
+    flex: 1;
+}
+
+#hDiv2 {
+    text-align: center;
+}
+
+#headerBtns {
+    display: flex;
+    height: 100%;
+    float: right;
 }
 
 .headerBtn {
-    float: right;
-    margin: 5px;
+    margin-left: 5px;
 }
 
 .subheader {
