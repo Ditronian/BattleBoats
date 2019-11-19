@@ -1,0 +1,30 @@
+Previous Days:
+    Completed Paper Prototype (Storyboard)
+    Completed Database Tables in MS SQL Server
+    
+
+Monday NOV 18:
+    Group Meeting  (2-5pm):
+        Worked on HTML/CSS Prototype
+            David/Emily worked on Login.aspx page
+            Linda worked on Statistics.aspx
+            Isaac worked on Home.aspx
+            David/Isaac worked on Game.aspx
+
+    Monday Evening:
+        David
+            Worked on the database diagram.
+            Assisted Isaac with UML Class Diagram.
+            Made fun of Isaac for using 30 divs in Statistics.aspx
+        Isaac
+            I did stuff....
+            Made Home Page for Prototype
+            Added 500 divs to home page
+            Added ugly styling to buttons and textboxes
+        Linda
+            Dealt with IDE issues
+        
+ Tuesday NOV 19:
+    Linda:
+        Fixed IDE issues
+        Commited on statistics.aspx
