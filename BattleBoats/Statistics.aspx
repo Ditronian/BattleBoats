@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Statistics.aspx.cs" Inherits="BattleBoats.Statistics" %>
 
 <!DOCTYPE html>
+<!-- Rider test linda -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
