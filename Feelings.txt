@@ -15,3 +15,8 @@ Monday Evening:
         Worked on the database diagram.
         Assisted Isaac with UML Class Diagram.
         Made fun of Isaac for using 30 divs in Statistics.aspx
+    Isaac
+        I did stuff....
+        Made Home Page for Prototype
+        Added 500 divs to home page
+        Added ugly styling to buttons and textboxes
