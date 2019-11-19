@@ -1,5 +1,6 @@
 ﻿body {
-    background-color: steelblue
+    background-color: steelblue;
+    margin: 0;
 }
 
 input[type=submit] {
@@ -32,5 +33,6 @@ input[type=text] {
 input[type=text]:focus {
     background-color: floralwhite;
     border-color: darkcyan;
+    outline: none;
 }
 
