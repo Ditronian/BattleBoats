@@ -3,7 +3,7 @@ Previous Days:
     Completed Database Tables in MS SQL Server
     
 
-Monday Group Meeting (2-5pm):
+Monday Group Meeting NOV 18 (2-5pm):
     Worked on HTML/CSS Prototype
         David/Emily worked on Login.aspx page
         Linda worked on Statistics.aspx
@@ -20,3 +20,10 @@ Monday Evening:
         Made Home Page for Prototype
         Added 500 divs to home page
         Added ugly styling to buttons and textboxes
+    Linda
+        Dealt with IDE issues
+        
+ Tuesday NOV 19:
+    Linda:
+        Fixed IDE issues
+        Commited on statistics.aspx
