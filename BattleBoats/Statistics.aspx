@@ -21,6 +21,12 @@
                 <asp:Label ID="WinLossLabel" runat="server" Text="Win/Loss Ratio: "></asp:Label>
                 <p> </p>
                 <asp:Label id = "TotalPointsLabel" Text = "Total Points: " runat="server"></asp:Label>
+                <p></p>
+            
+            <h3>
+                LEADER BOARD
+            </h3>
+            
                <table>
                     <tr>
                         <td> 1. </td>
