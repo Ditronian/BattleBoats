@@ -1,3 +1,23 @@
 ﻿body {
     background-color: steelblue
 }
+
+input[type=submit] {
+    background-color: rgb(176, 196, 222);
+    color: black;
+    border-style: solid;
+    border-radius: 3px;
+    border-width: 2px 4px 2px 4px;
+    border-color: rgb(221, 221, 221);
+}
+
+input[type=submit]:hover {
+    background-color: rgb(186, 206, 232);
+    border-color: rgb(211, 211, 211);
+}
+
+input[type=submit]:active {
+    background-color: darkcyan;
+    border-color: darkslategray;
+}
+

@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>BattleBoats</title>
+    <link rel="stylesheet" type="text/css" href="CSS/Master.css" />
     <link rel="stylesheet" type="text/css" href="CSS/Home.css" />
 </head>
 <body>
