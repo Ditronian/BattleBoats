@@ -14,19 +14,20 @@ namespace BattleBoats
 
         }
 
-        protected void playGameBtn_Click(object sender, EventArgs e)
+
+        protected void statsButton_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Game.aspx");
+            Response.Redirect("Statistics.aspx");
         }
 
-        protected void logout_Click(object sender, EventArgs e)
+        protected void logoutButton_Click(object sender, EventArgs e)
         {
             Response.Redirect("Login.aspx");
         }
 
-        protected void stats_Click(object sender, EventArgs e)
+        protected void playGameBtn_Click1(object sender, EventArgs e)
         {
-            Response.Redirect("Statistics.aspx");
+            Response.Redirect("Game.aspx");
         }
     }
 }
