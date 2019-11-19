@@ -13,5 +13,10 @@ namespace BattleBoats
         {
 
         }
+
+        protected void newGameButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Game.aspx");
+        }
     }
 }

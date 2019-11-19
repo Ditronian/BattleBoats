@@ -5,13 +5,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <link rel="stylesheet" type="text/css" href="CSS/Game.css" />
+    <link rel="stylesheet" type="text/css" href="CSS/Master.css" />
 </head>
 <body style="width: 100%; height: 100%;">
     <form id="form1" runat="server">
-        <h1>Game Magic Goes Here!!!</h1>
-        <div id="gamecontainer">
-            <canvas id="gamecanvas" style="height: 100%; width:  100%;">Does not support canvas</canvas>
+        
+        <div id="greaterDiv">
+        <h2>Game Magic Goes Here!!!</h2>
+            <div id="gamecontainer">
+                <canvas id="gamecanvas">Does not support canvas</canvas>
+            </div>
+            <asp:Button ID="newGameButton" runat="server" Text="New Game" OnClick="newGameButton_Click" />
         </div>
+
     </form>
     <script type="text/javascript" src="Javascripts/game.js"></script>
 </body>

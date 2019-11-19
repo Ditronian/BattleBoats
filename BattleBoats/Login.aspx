@@ -5,9 +5,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Login Page</title>
+    <link rel="stylesheet" type="text/css" href="CSS/Master.css" />
     <link rel="stylesheet" type="text/css" href="CSS/Login.css" />
 </head>
-<body style="background-color: steelblue">
+<body style="">
     <form id="form1" runat="server">
         <div id="HeaderDiv">
             <h2>WELCOME TO</h2>
@@ -41,7 +42,7 @@
                 <br />
                 <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
                 <br /><br />
-                <asp:Button ID="ExistingUserButton" runat="server" Text="Continue" />
+                <asp:Button ID="ExistingUserButton" runat="server" Text="Continue" OnClick="ExistingUserButton_Click" />
             </div>
         </section>
         <div id="Creators">

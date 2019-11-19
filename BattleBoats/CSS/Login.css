@@ -2,18 +2,20 @@
     text-align:center;
 }
 
-#Registration{
+#Registration {
     float: left;
     flex: 1;
-    border:groove;
-    margin-left: 30px;
+    border: groove;
+    margin-left: 30%;
+    margin-right: 3%;
 }
 
-#ExistingUser{
+#ExistingUser {
     float: right;
     flex: 1;
     border: groove;
-    margin-right: 30px;
+    margin-right: 30%;
+    margin-left: 3%;
 }
 
 #LoginDivs {
