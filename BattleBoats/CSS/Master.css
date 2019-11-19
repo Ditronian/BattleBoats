@@ -21,3 +21,16 @@ input[type=submit]:active {
     border-color: darkslategray;
 }
 
+input[type=text] {
+    background-color: antiquewhite;
+    border-color: darkslategray;
+    border-radius: 0;
+    border-style: double;
+    border-width: 2px;
+}
+
+input[type=text]:focus {
+    background-color: floralwhite;
+    border-color: darkcyan;
+}
+
