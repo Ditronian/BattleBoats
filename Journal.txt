@@ -28,3 +28,7 @@ Monday NOV 18:
     Linda:
         Fixed IDE issues
         Commited on statistics.aspx
+        
+ Thursday Nov 21:
+    Linda & David:
+        Broke mySQL server connection 
