@@ -33,9 +33,11 @@ Monday NOV 18:
     Linda & David:
         Broke mySQL server connection
         SQL Clients stopped showing database, don't know why.
+    Linda:
+        Created Database Connection under App_Code DataConnection.cs -1hr 20min
 
     David
         Added User, and Score classes.
         Assisted Linda with DataConnect class.
-        Spent: 1 hr 50m
+        Spent: 1 hr 20m
         
