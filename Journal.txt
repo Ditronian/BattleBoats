@@ -31,4 +31,11 @@ Monday NOV 18:
         
  Thursday Nov 21:
     Linda & David:
-        Broke mySQL server connection 
+        Broke mySQL server connection
+        SQL Clients stopped showing database, don't know why.
+
+    David
+        Added User, and Score classes.
+        Assisted Linda with DataConnect class.
+        Spent: 1 hr 50m
+        
