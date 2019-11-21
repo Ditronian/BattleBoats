@@ -9,6 +9,9 @@ class Tile {
         this.ctx = ctx;
     }
     
+    update(timeStep) {
+    }
+    
     draw(timeStep, x, y, width, height) {
     }
     
@@ -27,10 +30,12 @@ class AnimatedTile extends Tile {
     }
     
     draw(timeStep, x, y, width, height) {
-        this.cTime = (this.cTime + timeStep) % (this.renderRate * this.numSteps);
         var currentStep = Math.floor(this.cTime / this.renderRate);
-        
         this.ctx.drawImage(this.img, x, y, width, height, this.img.height * currentStep, 0, this.img.height, this.img.width)
+    }
+    
+    update(timeStep) {
+        this.cTime = (this.cTime + timeStep) % (this.renderRate * this.numSteps);
     }
 }
 
@@ -54,7 +59,15 @@ class Board {
     }
     
     getTileClicked(x, y) {
-        //TODO: Code!!!
+        var tileCoordW = (this.width / this.gridSize);
+        var tileCoordH = (this.height / this.gridSize);
+        
+        var tileX = Math.floor(x % tileCoordW);
+        var tileY = Math.floor(y % tileCoordH);
+        
+        if((tileX < 0) || (tileY < 0) || (tileY >= this.gridSize) || (tileX >= this.gridSize)) {
+            return [-1, -1]
+        }
         
         return [tileX, tileY];
     }
@@ -136,20 +149,13 @@ var keyMap = {
     87: 'up',
     83: 'down'
 }
-function keydown(event) {
-    var key = keyMap[event.keyCode]
-    state.pressedKeys[key] = true
-}
-function keyup(event) {
-    var key = keyMap[event.keyCode]
-    state.pressedKeys[key] = false
-}
 
 function onclick(event) {
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
     // TODO: Finish
+    
 }
 
 canvas.addEventListener("click", onclick, false);
