@@ -1,15 +1,73 @@
 var canvas = document.getElementById("gamecanvas");
 var ctx = canvas.getContext("2d");
 
-var width
-var height
+var width;
+var height;
 
-var resize = function() {
-    width = window.innerWidth * 2
-    height = window.innerHeight * 2
-    canvas.width = width
-    canvas.height = height
+class Tile {
+    constructor(ctx) {
+        this.ctx = ctx;
+    }
+    
+    draw(timeStep, x, y, width, height) {
+    }
+    
+    rotateLeft() {
+    }
 }
+
+class AnimatedTile extends Tile {
+    constructor(ctx, img) {
+        super(ctx);
+        this.renderRate = 10;
+        this.rotateState = 0;
+        this.img = img;
+        this.numSteps = img.width % img.height;
+        this.cTime = 0;
+    }
+    
+    draw(timeStep, x, y, width, height) {
+        this.cTime = (this.cTime + timeStep) % (this.renderRate * this.numSteps);
+        var currentStep = Math.floor(this.cTime / this.renderRate);
+        
+        this.ctx.drawImage(this.img, x, y, width, height, this.img.height * currentStep, 0, this.img.height, this.img.width)
+    }
+}
+
+class Board {
+    constructor(x, y, width, height, size) {
+        this.ctx = ctx;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.gridSize = size;
+    }
+    
+    renderTile(tileX, tileY, tile, timeStep) {
+        var tileCoordW = (this.width / this.gridSize);
+        var tileCoordH = (this.height / this.gridSize);
+        var tCoordX = this.x + Math.floor(tileX * tileCoordW);
+        var tCoordY = this.y + Math.floor(tileY * tileCoordH);
+        
+        tile.draw(timeStep, tCoordX, tCoordY, tileCoordW, tileCoordH);
+    }
+    
+    getTileClicked(x, y) {
+        //TODO: Code!!!
+        
+        return [tileX, tileY];
+    }
+}
+    
+    
+var resize = function() {
+    width = window.innerWidth * 2;
+    height = window.innerHeight * 2;
+    canvas.width = width;
+    canvas.height = height;
+}
+
 window.onresize = resize
 resize()
 
@@ -87,5 +145,11 @@ function keyup(event) {
     state.pressedKeys[key] = false
 }
 
-window.addEventListener("keydown", keydown, false)
-window.addEventListener("keyup", keyup, false)
+function onclick(event) {
+    const rect = canvas.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    // TODO: Finish
+}
+
+canvas.addEventListener("click", onclick, false);
