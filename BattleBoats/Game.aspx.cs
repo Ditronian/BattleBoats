@@ -18,7 +18,19 @@ namespace BattleBoats
 
             //Check if this is a postback, and a game is active, if so handle the game
             if (this.IsPostBack && Session["activeGame"] != null) updateGame();
+            else startGame();
         }
+
+
+
+        //Handles any thing needed from the server on Game Start
+        private void startGame()
+        {
+            //Make the new Game and save it to the Session
+            game = new GameController();
+            Session["activeGame"] = game;
+        }
+
 
         //Do what is needed to pass information to the Javascript.
         private void updateGame()
@@ -47,8 +59,10 @@ namespace BattleBoats
             Response.Redirect("Game.aspx");
         }
 
+        //Gracefully handle game closure
         protected void homeButton_Click(object sender, EventArgs e)
         {
+            if (Session["activeGame"] != null) Session.Remove("activeGame");
             Response.Redirect("Home.aspx");
         }
     }
