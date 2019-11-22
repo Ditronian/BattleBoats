@@ -68,6 +68,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Audio\tnt.mp3" />
     <Content Include="CSS\Game.css" />
     <Content Include="CSS\Home.css" />
     <Content Include="CSS\Login.css" />

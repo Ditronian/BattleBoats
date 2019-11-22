@@ -9,6 +9,79 @@ function sleepWait(millis) {
 }
 
 /**
+ * Represents game audio. Can be used to play sounds in game
+ */
+class Sound {
+    
+    static MUTED = false;
+    static ALL_SOUNDS = [];
+
+    /**
+     * Creates a new sound element for playing a sound effect...
+     * 
+     * @param soundSrc: The path to the sound file.
+     * @param background: If true, this sound is considered background music and will be auto played on construction 
+     *                    and whenever music is unmuted...
+     */
+    constructor(soundSrc, background) {
+        this.soundElm = document.createElement("audio");
+        this.soundElm.src = soundSrc;
+        this.soundElm.setAttribute("preload", "auto");
+        this.soundElm.setAttribute("controls", "none");
+        this.soundElm.style.display = "none";
+        Sound.ALL_SOUNDS.push(this);
+        
+        document.body.append(this.soundElm);
+        
+        // If background music immediately start playing it...
+        if(background) {
+            this.background = true;
+            this.play();
+        }
+        else {
+            this.background = false;
+        }
+    }
+
+    /**
+     * Play the sound effect...
+     */
+    play() {
+        if(!Sound.MUTED) {
+            this.soundElm.play();
+        }
+    }
+    
+    /**
+     * Stop the sound effect...
+     */
+    stop() {
+        this.soundElm.pause();
+        if(!this.background) this.soundElm.currentTime = 0;
+    }
+
+    /**
+     * Mute all sound effects, stopping them immediately...
+     */
+    static mute() {
+        this.MUTED = true;
+        for(const s in this.ALL_SOUNDS) {
+            s.stop();
+        }
+    }
+
+    /**
+     * Unmute all sound effects, starting them if they are background music...
+     */
+    static unmute() {
+        this.MUTED = false;
+        for(const s in this.ALL_SOUNDS) {
+            if(s.background) s.play();
+        }
+    }
+}
+
+/**
  * A Tile, Abstract class used for representing game tiles. Can be updated and rendered... No concept of collision
  * detection...
  */
@@ -111,6 +184,8 @@ class AnimatedTile extends Tile {
     }
 }
 
+
+// TODO: More Docs, especially for class below...
 class Board {
     constructor(x, y, width, height, size) {
         this.ctx = ctx;
@@ -169,6 +244,24 @@ function draw() {
     if((HoverLocation.tileX >= 0) && (HoverLocation.tileY >= 0)) {
         battleBoard.renderTile(HoverLocation.tileX, HoverLocation.tileY, ImageTiles.hover);
     }
+    
+    if((ClickLocation.tileX >= 0) && (ClickLocation.tileY >= 0)) {
+        if(ClickLocation.initialTrigger) SoundEffects.explosion.play();
+        ClickLocation.initialTrigger = false;
+        
+        if(ImageTiles.explosion.hasCycled()) {
+            ClickLocation.tileX = -1;
+            ClickLocation.tileY = -1;
+            ImageTiles.explosion.reset();
+            SoundEffects.explosion.stop();
+        }
+        else {
+            battleBoard.renderTile(ClickLocation.tileX, ClickLocation.tileY, ImageTiles.explosion);
+        }
+    }
+    else {
+        ImageTiles.explosion.reset();
+    }
 }
 
 function loop(timestamp) {
@@ -183,13 +276,14 @@ function loop(timestamp) {
 
 function onclick(event) {
     // If the animation is still running return immediately...
-    if(ClickLocation.stillRunning) return;
+    if((ClickLocation.tileX >= 0) || (ClickLocation.tileY >= 0)) return;
     // Get mouse location...
     var [x, y] = getCanvasMousePosition(event, canvas);
     // Get tile location and set it as the current click...
     var tileLoc = battleBoard.getTileClicked(x, y);
     ClickLocation.tileX = tileLoc[0];
     ClickLocation.tileY = tileLoc[1];
+    ClickLocation.initialTrigger = true;
 }
 
 function onhover(event) {
@@ -237,19 +331,31 @@ canvas.addEventListener("mouseout", onhoverout, false);
 var imagesSources = [
     ["water", "Images/TestWaterTiles.png", 150], 
     ["hover", "Images/TestHoverTiles.png", 200],
-    ["explosion", "BattleBoats/Images/TestExplosionTiles.png", 25]
+    ["explosion", "Images/TestExplosionTiles.png", 50]
 ];
+
+// Array specifies what sounds should be loaded. First value is the name in the SoundEffects object, second is the 
+// source file, and the third is whether or not the sound is background music.
+var soundSources = [
+    ["explosion", "Audio/tnt.mp3", false]
+];
+
+// Stores all loaded image tiles...
 var ImageTiles = {};
+// Stores all sound effects...
+var SoundEffects = {};
+
 // Represents current hover location, set to -1, -1 if user mouse in not within canvas...
 var HoverLocation = {
     "tileX": -1,
     "tileY": -1
 };
+
 // Represents current click location in an identical way as HoverLocation does...
 var ClickLocation = {
     "tileX": -1,
     "tileY": -1,
-    "stillRunning": false
+    "initialTrigger": false
 };
 
 var lastRender = 0;
@@ -261,6 +367,12 @@ battleBoard = new Board(0, 0, canvas.width, canvas.height, 10);
  * @returns {Promise<void>}
  */
 async function beginGame() {
+    // Phase 1, load all sound effects...
+    for(var i = 0; i < soundSources.length; i++) {
+        SoundEffects[soundSources[i][0]] = new Sound(soundSources[i][1], soundSources[i][2]);
+    }
+    
+    // Phase 2, load all game tiles...
     for(var i = 0; i < imagesSources.length; i++) {
         // Create an image and set its source...
         var image = new Image();
@@ -273,8 +385,6 @@ async function beginGame() {
         // Add the newly created animated tile to our list of tile objects...
         ImageTiles[imagesSources[i][0]] = tile;
     }
-    
-    ImageTiles.explosion.
     
     // Begin the game loop...
     window.requestAnimationFrame(loop);
