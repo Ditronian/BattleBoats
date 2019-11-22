@@ -17,7 +17,7 @@
         <div id="greaterDiv">
         <h2>Game Magic Goes Here!!!</h2>
             <div id="gamecontainer">
-                <canvas id="gamecanvas" width=500 height=500>Does not support canvas</canvas>
+                <canvas id="gamecanvas">Does not support canvas</canvas>
             </div>
             <br />
             <asp:Button ID="newGameButton" runat="server" Text="New Game" OnClick="newGameButton_Click" />
