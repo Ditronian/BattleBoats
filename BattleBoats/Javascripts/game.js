@@ -1,9 +1,6 @@
 var canvas = document.getElementById("gamecanvas");
 var ctx = canvas.getContext("2d");
 
-var width;
-var height;
-
 class Tile {
     constructor(ctx) {
         this.ctx = ctx;
@@ -22,16 +19,18 @@ class Tile {
 class AnimatedTile extends Tile {
     constructor(ctx, img) {
         super(ctx);
-        this.renderRate = 10;
+        this.renderRate = 50; // Rate of rendering in seconds...
         this.rotateState = 0;
         this.img = img;
-        this.numSteps = img.width % img.height;
+        this.numSteps = Math.floor(img.width / img.height);
         this.cTime = 0;
     }
     
-    draw(timeStep, x, y, width, height) {
+    draw(x, y, width, height) {
         var currentStep = Math.floor(this.cTime / this.renderRate);
-        this.ctx.drawImage(this.img, x, y, width, height, this.img.height * currentStep, 0, this.img.height, this.img.width)
+        
+        this.ctx.drawImage(this.img, this.img.height * currentStep, 0, this.img.height, this.img.height, x, y, width, height);
+        console.log(currentStep, this.img.height * currentStep, 0, this.img.height, this.img.height);
     }
     
     update(timeStep) {
@@ -46,16 +45,19 @@ class Board {
         this.y = y;
         this.width = width;
         this.height = height;
+        this.tileW = width / size;
+        this.tileH = height / size;
         this.gridSize = size;
     }
     
-    renderTile(tileX, tileY, tile, timeStep) {
+    renderTile(tileX, tileY, tile) {
+        if((tileX < 0) || (tileY < 0) || (tileY >= this.gridSize) || (tileX >= this.gridSize)) {
+            return;
+        }
         var tileCoordW = (this.width / this.gridSize);
         var tileCoordH = (this.height / this.gridSize);
-        var tCoordX = this.x + Math.floor(tileX * tileCoordW);
-        var tCoordY = this.y + Math.floor(tileY * tileCoordH);
         
-        tile.draw(timeStep, tCoordX, tCoordY, tileCoordW, tileCoordH);
+        tile.draw(this.x + (tileCoordW * tileX), this.y + (tileCoordH * tileY), tileCoordW, tileCoordH);
     }
     
     getTileClicked(x, y) {
@@ -64,90 +66,35 @@ class Board {
         
         var tileX = Math.floor(x % tileCoordW);
         var tileY = Math.floor(y % tileCoordH);
-        
+
         if((tileX < 0) || (tileY < 0) || (tileY >= this.gridSize) || (tileX >= this.gridSize)) {
-            return [-1, -1]
+            return [-1, -1];
         }
         
         return [tileX, tileY];
     }
 }
-    
-    
-var resize = function() {
-    width = window.innerWidth * 2;
-    height = window.innerHeight * 2;
-    canvas.width = width;
-    canvas.height = height;
-}
-
-window.onresize = resize
-resize()
-
-ctx.fillStyle = 'red'
-
-var state = {
-    x: (width / 2),
-    y: (height / 2),
-    pressedKeys: {
-        left: false,
-        right: false,
-        up: false,
-        down: false
-    }
-}
 
 function update(progress) {
-    if (state.pressedKeys.left) {
-        state.x -= progress
-    }
-    if (state.pressedKeys.right) {
-        state.x += progress
-    }
-    if (state.pressedKeys.up) {
-        state.y -= progress
-    }
-    if (state.pressedKeys.down) {
-        state.y += progress
-    }
-
-    if (state.x > width) {
-        state.x -= width
-    }
-    else if (state.x < 0) {
-        state.x += width
-    }
-    if (state.y > height) {
-        state.y -= height
-    }
-    else if (state.y < 0) {
-        state.y += height
-    }
+    waterTile.update(progress);
 }
 
 function draw() {
-    ctx.clearRect(0, 0, width, height)
-
-    ctx.fillRect(state.x - 10, state.y - 10, 20, 20)
+    for(var i = 0; i < battleBoard.gridSize; i++) {
+        for(var j = 0; j < battleBoard.gridSize; j++) {
+            battleBoard.renderTile(i, j, waterTile);
+        }
+    }
 }
 
 function loop(timestamp) {
-    var progress = timestamp - lastRender
+    var progress = timestamp - lastRender;
 
-    update(progress)
-    draw()
+    update(progress);
+    draw();
 
-    lastRender = timestamp
-    window.requestAnimationFrame(loop)
-}
-var lastRender = 0
-window.requestAnimationFrame(loop)
-
-var keyMap = {
-    68: 'right',
-    65: 'left',
-    87: 'up',
-    83: 'down'
+    lastRender = timestamp;
+    window.requestAnimationFrame(loop);
 }
 
 function onclick(event) {
@@ -159,3 +106,20 @@ function onclick(event) {
 }
 
 canvas.addEventListener("click", onclick, false);
+
+const image = new Image();
+
+image.onload = function() {
+    waterTile = new AnimatedTile(ctx, image);
+    waterTile.renderRate = 100;
+    battleBoard = new Board(0, 0, canvas.width, canvas.height, 10);
+
+    window.requestAnimationFrame(loop);
+}
+
+var waterTile = undefined;
+var battleBoard = undefined;
+image.src = "Images/TestWaterTiles.png";
+var lastRender = 0;
+
+

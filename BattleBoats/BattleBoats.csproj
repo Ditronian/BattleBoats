@@ -76,6 +76,7 @@
     <Content Include="Default.aspx" />
     <Content Include="Game.aspx" />
     <Content Include="Home.aspx" />
+    <Content Include="Images\TestWaterTiles.png" />
     <Content Include="Javascripts\game.js" />
     <Content Include="Login.aspx" />
     <Content Include="Statistics.aspx" />
