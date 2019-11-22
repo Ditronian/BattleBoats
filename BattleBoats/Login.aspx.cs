@@ -11,11 +11,12 @@ namespace BattleBoats
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         protected void ExistingUserButton_Click(object sender, EventArgs e)
         {
+            Session["UserID"] = 3;
             Response.Redirect("Home.aspx");
         }
     }
