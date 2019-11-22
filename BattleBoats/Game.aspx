@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="CSS/Game.css" />
     <link rel="stylesheet" type="text/css" href="CSS/Master.css" />
 </head>
-<body style="width: 100%; height: 100%;">
+<body>
     <form id="form1" runat="server">
         <div id="navDiv">
             <asp:Button ID="homeButton" runat="server" Text="Home" OnClick="homeButton_Click" />
