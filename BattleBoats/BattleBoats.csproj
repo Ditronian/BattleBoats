@@ -68,6 +68,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Audio\mi.mp3" />
     <Content Include="Audio\tnt.mp3" />
     <Content Include="CSS\Game.css" />
     <Content Include="CSS\Home.css" />
@@ -77,6 +78,8 @@
     <Content Include="Default.aspx" />
     <Content Include="Game.aspx" />
     <Content Include="Home.aspx" />
+    <Content Include="Images\TestExplosionTiles.png" />
+    <Content Include="Images\TestHoverTiles.png" />
     <Content Include="Images\TestWaterTiles.png" />
     <Content Include="Javascripts\game.js" />
     <Content Include="Login.aspx" />

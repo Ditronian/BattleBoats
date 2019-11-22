@@ -226,8 +226,6 @@ class Board {
 function update(progress) {
     // Iterate through the tiles and update the current image they are on...
     for (const tileName in ImageTiles) {
-        console.log(tileName);
-        console.log(ImageTiles[tileName]);
         ImageTiles[tileName].update(progress);
     }
 }
@@ -337,7 +335,8 @@ var imagesSources = [
 // Array specifies what sounds should be loaded. First value is the name in the SoundEffects object, second is the 
 // source file, and the third is whether or not the sound is background music.
 var soundSources = [
-    ["explosion", "Audio/tnt.mp3", false]
+    ["explosion", "Audio/tnt.mp3", false],
+    ["missionImpossible", "Audio/mi.mp3", true]
 ];
 
 // Stores all loaded image tiles...
