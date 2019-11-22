@@ -36,11 +36,29 @@ class Sound {
         // If background music immediately start playing it...
         if(background) {
             this.background = true;
-            this.play();
+            this.soundElm.loop = true;
         }
         else {
             this.background = false;
         }
+    }
+
+    /**
+     * Set the volume of the audio...
+     * 
+     * @param value: A float between 0 and 1, 1 being max volume and 0 being no volume...
+     */
+    setVolume(value) {
+        this.soundElm.volume = value;
+    }
+
+    /**
+     * Get the volume of this sound effect.
+     * 
+     * @returns {number}: Float between 0 and 1 representing the volume of this sound when played...
+     */
+    getVolume() {
+        return this.soundElm.volume;
     }
 
     /**
@@ -65,8 +83,8 @@ class Sound {
      */
     static mute() {
         this.MUTED = true;
-        for(const s in this.ALL_SOUNDS) {
-            s.stop();
+        for(var i = 0; i < this.ALL_SOUNDS.length; i++) {
+            this.ALL_SOUNDS[i].stop();
         }
     }
 
@@ -75,8 +93,8 @@ class Sound {
      */
     static unmute() {
         this.MUTED = false;
-        for(const s in this.ALL_SOUNDS) {
-            if(s.background) s.play();
+        for(var i = 0; i < this.ALL_SOUNDS.length; i++) {
+            if(this.ALL_SOUNDS[i].background) this.ALL_SOUNDS[i].play();
         }
     }
 }
@@ -273,6 +291,12 @@ function loop(timestamp) {
 }
 
 function onclick(event) {
+    // Initialize sound if not already done...
+    if(firstMute) {
+        Sound.unmute();
+        firstMute = false;
+    }
+    
     // If the animation is still running return immediately...
     if((ClickLocation.tileX >= 0) || (ClickLocation.tileY >= 0)) return;
     // Get mouse location...
@@ -333,16 +357,18 @@ var imagesSources = [
 ];
 
 // Array specifies what sounds should be loaded. First value is the name in the SoundEffects object, second is the 
-// source file, and the third is whether or not the sound is background music.
+// source file, the third is the volume, and the fourth is whether or not the sound is background music.
 var soundSources = [
-    ["explosion", "Audio/tnt.mp3", false],
-    ["missionImpossible", "Audio/mi.mp3", true]
+    ["explosion", "Audio/tnt.mp3", 1, false],
+    ["missionImpossible", "Audio/mi.mp3", 0.5, true]
 ];
 
 // Stores all loaded image tiles...
 var ImageTiles = {};
 // Stores all sound effects...
 var SoundEffects = {};
+
+var firstMute = true;
 
 // Represents current hover location, set to -1, -1 if user mouse in not within canvas...
 var HoverLocation = {
@@ -368,7 +394,10 @@ battleBoard = new Board(0, 0, canvas.width, canvas.height, 10);
 async function beginGame() {
     // Phase 1, load all sound effects...
     for(var i = 0; i < soundSources.length; i++) {
-        SoundEffects[soundSources[i][0]] = new Sound(soundSources[i][1], soundSources[i][2]);
+        var sound = new Sound(soundSources[i][1], soundSources[i][3]);
+        sound.setVolume(soundSources[i][2]);
+        SoundEffects[soundSources[i][0]] = sound;
+        Sound.mute();
     }
     
     // Phase 2, load all game tiles...
