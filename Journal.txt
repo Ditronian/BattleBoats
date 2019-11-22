@@ -41,3 +41,9 @@ Monday NOV 18:
         Assisted Linda with DataConnect class.
         Spent: 1 hr 20m
         
+Friday Nov 22
+    David
+        Added Page redirects if not logged in.
+        Added Code to lay the ground work for Game Updating in Game Page Codebehind
+        Fixed Classes not being accessable
+        Spent: ~1 hr
