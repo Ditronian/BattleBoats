@@ -51,6 +51,11 @@ class Tile {
      * Reset the tile, clearing timing information...
      */
     reset() {};
+
+    /**
+     * Determines if the tile has rendered a complete cycle yet. If so, returns true...
+     */
+    hasCycled() {};
 }
 
 /**
@@ -65,6 +70,20 @@ class AnimatedTile extends Tile {
         this.img = img;
         this.numSteps = Math.floor(img.width / img.height);
         this.cTime = 0;
+        this.cycle = false;
+    }
+    
+    getRenderRate() {
+        return this.renderRate;
+    }
+    
+    setRenderRate(rate) {
+        if(0 < rate) {
+            this.renderRate = rate;
+        }
+        else{
+            throw RangeError("Render rate must be greater then 0...");
+        }
     }
     
     draw(x, y, width, height) {
@@ -74,7 +93,21 @@ class AnimatedTile extends Tile {
     }
     
     update(timeStep) {
-        this.cTime = (this.cTime + timeStep) % (this.renderRate * this.numSteps);
+        // Update the current time...
+        this.cTime = (this.cTime + timeStep);
+        // If the current time has surpassed all images, flip hasCycles Flag...
+        if(this.cTime >= (this.renderRate * this.numSteps)) this.cycle = true;
+        // Modulo current time in the case it has moved passed all frames, so as to loop around...
+        this.cTime = this.cTime % (this.renderRate * this.numSteps);
+    }
+    
+    reset() {
+        this.cTime = 0;
+        this.cycle = false;
+    }
+    
+    hasCycled() {
+        return this.cycle;
     }
 }
 
@@ -149,11 +182,14 @@ function loop(timestamp) {
 }
 
 function onclick(event) {
-    const rect = canvas.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    // TODO: Finish
-    
+    // If the animation is still running return immediately...
+    if(ClickLocation.stillRunning) return;
+    // Get mouse location...
+    var [x, y] = getCanvasMousePosition(event, canvas);
+    // Get tile location and set it as the current click...
+    var tileLoc = battleBoard.getTileClicked(x, y);
+    ClickLocation.tileX = tileLoc[0];
+    ClickLocation.tileY = tileLoc[1];
 }
 
 function onhover(event) {
@@ -165,6 +201,7 @@ function onhover(event) {
     HoverLocation.tileY = tileLoc[1];
 }
 
+// Sets hover positions to off state when mouse exits canvas...
 function onhoverout(event) {
     HoverLocation.tileX = -1;
     HoverLocation.tileY = -1;
@@ -190,18 +227,31 @@ function getCanvasMousePosition(event, canvas) {
     return [x, y];
 }
 
+// Adding all event listeners to listen for user input...
 canvas.addEventListener("click", onclick, false);
 canvas.addEventListener("mousemove", onhover, false);
 canvas.addEventListener("mouseout", onhoverout, false);
 
 // Array specifies what tiles should be loaded. First value is the final name in the image tiles object. The second
 // value specifies the source image for the tile. The last value specifies the animation speed.
-var imagesSources = [["water", "Images/TestWaterTiles.png", 100], ["hover", "Images/TestHoverTiles.png", 100]];
+var imagesSources = [
+    ["water", "Images/TestWaterTiles.png", 150], 
+    ["hover", "Images/TestHoverTiles.png", 200],
+    ["explosion", "BattleBoats/Images/TestExplosionTiles.png", 25]
+];
 var ImageTiles = {};
+// Represents current hover location, set to -1, -1 if user mouse in not within canvas...
 var HoverLocation = {
     "tileX": -1,
     "tileY": -1
 };
+// Represents current click location in an identical way as HoverLocation does...
+var ClickLocation = {
+    "tileX": -1,
+    "tileY": -1,
+    "stillRunning": false
+};
+
 var lastRender = 0;
 battleBoard = new Board(0, 0, canvas.width, canvas.height, 10);
 
@@ -223,6 +273,8 @@ async function beginGame() {
         // Add the newly created animated tile to our list of tile objects...
         ImageTiles[imagesSources[i][0]] = tile;
     }
+    
+    ImageTiles.explosion.
     
     // Begin the game loop...
     window.requestAnimationFrame(loop);
