@@ -11,7 +11,8 @@ namespace BattleBoats
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            //Gate Keeper
+            if (Session["userID"] == null) Response.Redirect("~/Login.aspx");
         }
 
         protected void newGameButton_Click(object sender, EventArgs e)
