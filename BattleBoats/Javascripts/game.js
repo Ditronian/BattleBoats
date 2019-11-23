@@ -97,6 +97,15 @@ class Sound {
             if(this.ALL_SOUNDS[i].background) this.ALL_SOUNDS[i].play();
         }
     }
+
+    /**
+     * Mutes all background music... Use unmute to restart background music...
+     */
+    static muteBackground() {
+        for(var i = 0; i < this.ALL_SOUNDS.length; i++) {
+            if(this.ALL_SOUNDS[i].background) this.ALL_SOUNDS[i].stop();
+        }
+    }
 }
 
 /**
