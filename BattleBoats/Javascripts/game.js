@@ -1,11 +1,55 @@
-var canvas = document.getElementById("gamecanvas");
-var ctx = canvas.getContext("2d");
+let canvas = document.getElementById("gamecanvas");
+let ctx = canvas.getContext("2d");
 
 /**
  * Sleeps for the specified amount of milliseconds... should be called with await keyword...
  */
 function sleepWait(millis) {
     return new Promise(resolve => setTimeout(resolve, millis));
+}
+
+/**
+ * Utility class which provides useful methods for drawing to the canvas...
+ */
+class CanvasDrawer {
+    constructor(canvas, context) {
+        this.canvas = canvas;
+        this.context = context;
+    }
+
+    /**
+     * Draws an image to the canvas...
+     * 
+     * @param img: The image to render to the screen... Required argument...
+     * @param canvasX: The x location in the canvas to draw the object to. Defaults to 0.
+     * @param canvasY: The y location in the canvas to draw the object to. Defaults to 0.
+     * @param canvasW: The width of the image on the canvas... Defaults to the image height...
+     * @param canvasH: The height of the image on the canvas... Defaults to the image width...
+     * @param canvasRot: The rotation of the image on the canvas in degrees. Note method computes bounding box first 
+     *                   then rotates the object using the center of the bounding box as the reference. Defaults to 0.
+     * @param imgX: The x location within the image to use (right edge of bounding box). Defaults to 0.
+     * @param imgY: The y location within the image to use (top edge of bounding box). Defaults to 0.
+     * @param imgW: The width of the bounds within the image to include in drawing to canvas. Defaults to entire image width...
+     * @param imgH: The height of the bounds within the image to include in drawing to canvas. Defaults to entire image height...
+     */
+    drawImage(img, canvasX = 0, canvasY = 0, canvasW = img.width, canvasH = img.height, canvasRot = 0, 
+              imgX = 0, imgY = 0, imgW = img.width, imgH = img.height) {
+        // Save current context for restoring it later...
+        this.context.save();
+        // Magic Coordinate Adjustment Code.... To fix position of tile...
+        let rotRad = canvasRot * (Math.PI / 180);
+        let [cosRot, sinRot] = [Math.abs(Math.cos(rotRad)), Math.abs(Math.sin(rotRad))];
+        let rotW = (cosRot * canvasW) + (sinRot * canvasH);
+        let rotH = (sinRot * canvasW) + (cosRot * canvasH);
+        // Move the origin of the canvas to the center of where we want to plot the tile...
+        this.context.translate(canvasX + (rotW / 2), canvasY + (rotH / 2));
+        // Rotate the context renderer...
+        this.context.rotate(rotRad);
+        // Execute the draw command now...
+        this.context.drawImage(img, imgX, imgY, imgW, imgH, -(canvasW / 2), -(canvasH / 2), canvasW, canvasH);
+        // Restore original context rendering settings...
+        this.context.restore();
+    }
 }
 
 /**
@@ -83,7 +127,7 @@ class Sound {
      */
     static mute() {
         this.MUTED = true;
-        for(var i = 0; i < this.ALL_SOUNDS.length; i++) {
+        for(let i = 0; i < this.ALL_SOUNDS.length; i++) {
             this.ALL_SOUNDS[i].stop();
         }
     }
@@ -93,7 +137,7 @@ class Sound {
      */
     static unmute() {
         this.MUTED = false;
-        for(var i = 0; i < this.ALL_SOUNDS.length; i++) {
+        for(let i = 0; i < this.ALL_SOUNDS.length; i++) {
             if(this.ALL_SOUNDS[i].background) this.ALL_SOUNDS[i].play();
         }
     }
@@ -102,7 +146,7 @@ class Sound {
      * Mutes all background music... Use unmute to restart background music...
      */
     static muteBackground() {
-        for(var i = 0; i < this.ALL_SOUNDS.length; i++) {
+        for(let i = 0; i < this.ALL_SOUNDS.length; i++) {
             if(this.ALL_SOUNDS[i].background) this.ALL_SOUNDS[i].stop();
         }
     }
@@ -113,13 +157,19 @@ class Sound {
  * detection...
  */
 class Tile {
+    
+    static UP = 0;
+    static DOWN = 2;
+    static LEFT = 3;
+    static RIGHT = 1;
+
     /**
      * Construct a new Tile;
      * 
-     * @param ctx: The canvas 2d context which to render to...
+     * @param drawer: The CanvasDrawer object to use for rendering...
      */
-    constructor(ctx) {
-        this.ctx = ctx;
+    constructor(drawer) {
+        this.drawer = drawer;
     }
 
     /**
@@ -137,16 +187,21 @@ class Tile {
      * @param y
      * @param width
      * @param height
+     * @param rotateState
      */
-    draw(timeStep, x, y, width, height) {};
+    draw(timeStep, x, y, width, height, rotateState = Tile.UP) {};
 
     /**
-     * Rotate the tile. Tile will be rotated in all following draws...
+     * For use by subclasses converts rotate argument on draw to an angle in radians...
      * 
-     * @param deg: The rotation amount, in degrees...
+     * @param direction: The direction, as passed to the draw method...
      */
-    rotate(deg) {};
-
+    static getRotateAngle(direction) {
+        if((direction > 3) || (direction < 0)) throw RangeError("Rotation direction must be between 0 and 3");
+        // Multiply number by pi/2 radians since each increase in the direction values rotates the tile 90 degrees... 
+        return (direction * 90);
+    }
+    
     /**
      * Reset the tile, clearing timing information...
      */
@@ -158,15 +213,19 @@ class Tile {
     hasCycled() {};
 }
 
+class GroupedTiles {
+    constructor() {
+    }
+}
+
 /**
  * Animated game tile, accepts an image with all frames layed out horizontally and renders them at the renderRate,
  * which can be adjusted...
  */
 class AnimatedTile extends Tile {
-    constructor(ctx, img) {
-        super(ctx);
+    constructor(drawer, img) {
+        super(drawer);
         this.renderRate = 50;
-        this.rotateState = 0;
         this.img = img;
         this.numSteps = Math.floor(img.width / img.height);
         this.cTime = 0;
@@ -176,7 +235,7 @@ class AnimatedTile extends Tile {
     getRenderRate() {
         return this.renderRate;
     }
-    
+
     setRenderRate(rate) {
         if(0 < rate) {
             this.renderRate = rate;
@@ -186,10 +245,21 @@ class AnimatedTile extends Tile {
         }
     }
     
-    draw(x, y, width, height) {
-        var currentStep = Math.floor(this.cTime / this.renderRate);
+    draw(x, y, width, height, rotate = AnimatedTile.UP) {
+        // Compute the current frame we are on...
+        if((rotate === AnimatedTile.RIGHT) || (rotate === AnimatedTile.LEFT)) {
+            // If plotting in left or right mode flip the width and the height...
+            let temp = width;
+            width = height;
+            height = temp;
+        }
         
-        this.ctx.drawImage(this.img, this.img.height * currentStep, 0, this.img.height, this.img.height, x, y, width, height);
+        rotate = AnimatedTile.getRotateAngle(rotate);
+        
+        let currentStep = Math.floor(this.cTime / this.renderRate);
+        
+        this.drawer.drawImage(this.img, x, y, width, height, rotate, this.img.height * currentStep, 0, 
+                              this.img.height, this.img.height);
     }
     
     update(timeStep) {
@@ -200,7 +270,7 @@ class AnimatedTile extends Tile {
         // Modulo current time in the case it has moved passed all frames, so as to loop around...
         this.cTime = this.cTime % (this.renderRate * this.numSteps);
     }
-    
+
     reset() {
         this.cTime = 0;
         this.cycle = false;
@@ -213,36 +283,37 @@ class AnimatedTile extends Tile {
 
 
 // TODO: More Docs, especially for class below...
+/**
+ * Represents a game board. Allows a user to draw tiles without having to give the exact coordinates for the tiles...
+ */
 class Board {
-    constructor(x, y, width, height, size) {
-        this.ctx = ctx;
+    constructor(x, y, width, height, tilesX, tilesY) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.tileW = width / size;
-        this.tileH = height / size;
-        this.gridSize = size;
+        this.xTiles = tilesX;
+        this.yTiles = tilesY;
     }
     
-    renderTile(tileX, tileY, tile) {
-        if((tileX < 0) || (tileY < 0) || (tileY >= this.gridSize) || (tileX >= this.gridSize)) {
+    renderTile(tileX, tileY, tile, rotationState = Tile.UP) {
+        if((tileX < 0) || (tileY < 0) || (tileY >= this.yTiles) || (tileX >= this.xTiles)) {
             return;
         }
-        var tileCoordW = (this.width / this.gridSize);
-        var tileCoordH = (this.height / this.gridSize);
+        let tileCoordW = (this.width / this.xTiles);
+        let tileCoordH = (this.height / this.yTiles);
         
-        tile.draw(this.x + (tileCoordW * tileX), this.y + (tileCoordH * tileY), tileCoordW, tileCoordH);
+        tile.draw(this.x + (tileCoordW * tileX), this.y + (tileCoordH * tileY), tileCoordW, tileCoordH, rotationState);
     }
     
     getTileClicked(x, y) {
-        var tileCoordW = (this.width / this.gridSize);
-        var tileCoordH = (this.height / this.gridSize);
+        let tileCoordW = (this.width / this.xTiles);
+        let tileCoordH = (this.height / this.yTiles);
         
-        var tileX = Math.floor(x / tileCoordW);
-        var tileY = Math.floor(y / tileCoordH);
+        let tileX = Math.floor(x / tileCoordW);
+        let tileY = Math.floor(y / tileCoordH);
 
-        if((tileX < 0) || (tileY < 0) || (tileY >= this.gridSize) || (tileX >= this.gridSize)) {
+        if((tileX < 0) || (tileY < 0) || (tileY >= this.yTiles) || (tileX >= this.xTiles)) {
             return [-1, -1];
         }
         
@@ -259,8 +330,8 @@ function update(progress) {
 
 function draw() {
     // We begin by filling in the background animated water tiles...
-    for(var i = 0; i < battleBoard.gridSize; i++) {
-        for(var j = 0; j < battleBoard.gridSize; j++) {
+    for(let i = 0; i < battleBoard.xTiles; i++) {
+        for(let j = 0; j < battleBoard.yTiles; j++) {
             battleBoard.renderTile(i, j, ImageTiles.water);
         }
     }
@@ -290,7 +361,7 @@ function draw() {
 }
 
 function loop(timestamp) {
-    var progress = timestamp - lastRender;
+    let progress = timestamp - lastRender;
 
     update(progress);
     draw();
@@ -309,9 +380,9 @@ function onclick(event) {
     // If the animation is still running return immediately...
     if((ClickLocation.tileX >= 0) || (ClickLocation.tileY >= 0)) return;
     // Get mouse location...
-    var [x, y] = getCanvasMousePosition(event, canvas);
+    let [x, y] = getCanvasMousePosition(event, canvas);
     // Get tile location and set it as the current click...
-    var tileLoc = battleBoard.getTileClicked(x, y);
+    let tileLoc = battleBoard.getTileClicked(x, y);
     ClickLocation.tileX = tileLoc[0];
     ClickLocation.tileY = tileLoc[1];
     ClickLocation.initialTrigger = true;
@@ -319,9 +390,9 @@ function onclick(event) {
 
 function onhover(event) {
     // Get mouse location...
-    var [x, y] = getCanvasMousePosition(event, canvas);
+    let [x, y] = getCanvasMousePosition(event, canvas);
     // Get the tile location, if valid set the current hovered over tile location.
-    var tileLoc = battleBoard.getTileClicked(x, y);
+    let tileLoc = battleBoard.getTileClicked(x, y);
     HoverLocation.tileX = tileLoc[0];
     HoverLocation.tileY = tileLoc[1];
 }
@@ -341,7 +412,7 @@ function onhoverout(event) {
  */
 function getCanvasMousePosition(event, canvas) {
     // Get absolute width and height of the canvas...
-    var boundingRect = canvas.getBoundingClientRect();
+    let boundingRect = canvas.getBoundingClientRect();
     // Compute the scaling required to convert to canvas coordinate system...
     scaleX = canvas.width / boundingRect.width;
     scaleY = canvas.height / boundingRect.height;
@@ -359,7 +430,7 @@ canvas.addEventListener("mouseout", onhoverout, false);
 
 // Array specifies what tiles should be loaded. First value is the final name in the image tiles object. The second
 // value specifies the source image for the tile. The last value specifies the animation speed.
-var imagesSources = [
+let imagesSources = [
     ["water", "Images/TestWaterTiles.png", 150], 
     ["hover", "Images/TestHoverTiles.png", 200],
     ["explosion", "Images/TestExplosionTiles.png", 50]
@@ -367,33 +438,36 @@ var imagesSources = [
 
 // Array specifies what sounds should be loaded. First value is the name in the SoundEffects object, second is the 
 // source file, the third is the volume, and the fourth is whether or not the sound is background music.
-var soundSources = [
+let soundSources = [
     ["explosion", "Audio/tnt.mp3", 1, false],
     ["missionImpossible", "Audio/mi.mp3", 0.5, true]
 ];
 
 // Stores all loaded image tiles...
-var ImageTiles = {};
+let ImageTiles = {};
 // Stores all sound effects...
-var SoundEffects = {};
+let SoundEffects = {};
 
-var firstMute = true;
+let firstMute = true;
 
 // Represents current hover location, set to -1, -1 if user mouse in not within canvas...
-var HoverLocation = {
+let HoverLocation = {
     "tileX": -1,
     "tileY": -1
 };
 
 // Represents current click location in an identical way as HoverLocation does...
-var ClickLocation = {
+let ClickLocation = {
     "tileX": -1,
     "tileY": -1,
     "initialTrigger": false
 };
 
-var lastRender = 0;
-battleBoard = new Board(0, 0, canvas.width, canvas.height, 10);
+let lastRender = 0;
+battleBoard = new Board(0, 0, canvas.width, canvas.height, 10, 10);
+
+// Create canvas drawing object...
+let drawer = new CanvasDrawer(canvas, ctx);
 
 /**
  * Begins game execution and loads tiles, setting up the tiling system...
@@ -402,27 +476,26 @@ battleBoard = new Board(0, 0, canvas.width, canvas.height, 10);
  */
 async function beginGame() {
     // Phase 1, load all sound effects...
-    for(var i = 0; i < soundSources.length; i++) {
-        var sound = new Sound(soundSources[i][1], soundSources[i][3]);
+    for(let i = 0; i < soundSources.length; i++) {
+        let sound = new Sound(soundSources[i][1], soundSources[i][3]);
         sound.setVolume(soundSources[i][2]);
         SoundEffects[soundSources[i][0]] = sound;
         Sound.mute();
     }
     
     // Phase 2, load all game tiles...
-    for(var i = 0; i < imagesSources.length; i++) {
+    for(let i = 0; i < imagesSources.length; i++) {
         // Create an image and set its source...
-        var image = new Image();
+        let image = new Image();
         image.src = imagesSources[i][1];
         // Wait around until image is actually loaded and width has been computed...
         while((image.width === undefined) || (image.width === 0)) await sleepWait(5);
         // Create a new animated tile and set it's render speed to the one specified in the array...
-        var tile = new AnimatedTile(ctx, image);
-        tile.renderRate = imagesSources[i][2];
+        let tile = new AnimatedTile(drawer, image);
+        tile.setRenderRate(imagesSources[i][2]);
         // Add the newly created animated tile to our list of tile objects...
         ImageTiles[imagesSources[i][0]] = tile;
     }
-    
     // Begin the game loop...
     window.requestAnimationFrame(loop);
 }
