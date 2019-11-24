@@ -213,8 +213,172 @@ class Tile {
     hasCycled() {};
 }
 
-class GroupedTiles {
-    constructor() {
+/**
+ * Represents a collection of tiles... These are set up as coordinates away from a relative origin...
+ * TODO: Really needs some docs... Cause this class is absurdly complex...
+ * TODO: Implement all methods from Tile super class
+ */
+class MultiTile extends Tile {
+    constructor(tileList, coordinateList, rotationStates) {
+        super();
+        this.tiles = {};
+        this.minX = 0;
+        this.minY = 0;
+        this.maxX = 0;
+        this.maxY = 0;
+        this._size = 0;
+        this.rotateState = Tile.UP;
+        // If tiles were passed add them...
+        if(tileList !== undefined) this.addTiles(tileList, coordinateList, rotationStates);
+    }
+    
+    getRotateState() {
+        return this.rotateState;
+    }
+    
+    setRotateState(val) {
+        val = Math.floor(val);
+        if((val <= Tile.LEFT) && (val >= Tile.UP)) this.rotateState = val;
+    }
+    
+    // Magical iterator for this object to iterate coords of all tiles...
+    *[Symbol.iterator]() {
+        for(const strCoord in this.tiles) {
+            yield Array.from(strCoord.split(","), Number);
+        }
+    }
+    
+    width() {
+        return (this.maxX - this.minX) + 1;
+    }
+    
+    height() {
+        return (this.maxY - this.minY) + 1;
+    }
+    
+    addTiles(tiles, coordinates, rotationStates) {
+        for(let i = 0; i < tiles.length; i++) {
+            if(!(coordinates[i] in this.tiles)) this._size++;
+            this.tiles[coordinates[i]] = [tiles[i], rotationStates[i]];
+        }
+        this.updateBounds();
+    }
+    
+    addTile(tile, coordinates, rotationState) {
+        if(!(coordinates in this.tiles)) this._size++;
+        this.tiles[coordinates] = [tile, rotationState];
+        this.updateBounds();
+    }
+    
+    getTile(coordinates) {
+        return this.tiles[coordinates][0];
+    }
+    
+    getTileRotation(coordinates) {
+        return this.tiles[coordinates][1];
+    }
+    
+    delTile(coordinates) {
+        delete this.tiles[coordinates];
+        this._size--;
+        this.updateBounds();
+    }
+    
+    size() {
+        return this._size;
+    }
+    
+    update(timeStep) {
+        for(const [x, y] of this) {
+            let tile = this.getTile([x, y]);
+            tile.update(timeStep);
+        }
+    }
+    
+    hasCycled() {
+        for(const coord of this) {
+            if(!this.getTile(coord).hasCycled()) return false;
+        }
+        return true;
+    }
+    
+    reset() {
+        for(const coord of this) {
+            this.getTile(coord).reset();
+        }
+    }
+
+    getRotatedCoords(x, y) {
+        switch (this.getRotateState()) {
+            case Tile.UP:
+                return [x, y];
+            case Tile.RIGHT:
+                return [y, -x];
+            case Tile.DOWN:
+                return [-x, -y];
+            case Tile.LEFT:
+                return [-y, x];
+            default:
+                throw RangeError("NOOOO!!!!")
+        }
+    }
+    
+    getRotatedWidthHeight() {
+        if((this.getRotateState() === Tile.LEFT) || (this.getRotateState() === Tile.RIGHT)) {
+            return [this.height(), this.width()];
+        }
+        else {
+            return [this.width(), this.height()];
+        }
+    }
+    
+    *getTranslatedCoords(board, tileX, tileY) {
+        // LOOK OUT BELOW!!! Ridiculous translation and rotation code below...
+        // All this makes sure multi tile will actually fit...
+        const [width, height] = this.getRotatedWidthHeight();
+            
+        if((width > board.width) || (height > board.height)) {
+            throw RangeError("Board is smaller then the multi tile!!!");
+        }
+        // Transform min/max values to match rotations... Literally rotate them around in an array...
+        let bounds = [this.minX, this.minY, this.maxX, this.maxY];
+        let transform = [-1, -1, 1, 1];
+        // N^2 but who cares, always just 4 elements...
+        for(let i = 0; i < this.getRotateState(); i++) {
+            bounds.unshift(bounds.pop());
+        }
+        // Correct the signs on the values...
+        for(let i = 0; i < bounds.length; i++) bounds[i] = Math.abs(bounds[i]) * transform[i];
+        
+        // Correct center coordinate if origin is to close to the edges...
+        if((tileX + Math.abs(bounds[2])) >= board.xTiles) tileX = board.xTiles - (Math.abs(bounds[2]) + 1);
+        if((tileX - Math.abs(bounds[0])) < 0) tileX = Math.abs(bounds[0]);
+        if((tileY + Math.abs(bounds[3])) >= board.yTiles) tileY = board.yTiles - (Math.abs(bounds[3]) + 1);
+        if((tileY - Math.abs(bounds[1])) < 0) tileY = Math.abs(bounds[1]);
+        
+        for(const [x, y] of this) {
+            let [rx, ry] = this.getRotatedCoords(x, y);
+            yield [x, y, tileX + rx, tileY + ry];
+        }
+    }
+    
+    drawToBoard(board, tileX, tileY) {
+        // Iterate all coordinates correctly translated using getTranslatedCoords generator...
+        for(const [x, y, transX, transY] of this.getTranslatedCoords(board, tileX, tileY)) {
+            // Render, rotating tile relative to rotation of the whole thing...
+            let [tile, rot] = this.tiles[[x, y]];
+            board.renderTile(transX, transY, tile, (this.getRotateState() + rot) % 3)
+        }
+    }
+    
+    // Does exactly what you expect...
+    updateBounds() {
+        for(const [x, y] of this) {
+            if(x < this.minX) this.minX = x;
+            if(x > this.maxX) this.maxX = x;
+            if(y < this.minY) this.minY = y;
+            if(y > this.maxY) this.maxY = y;
+        }
     }
 }
 
@@ -296,14 +460,23 @@ class Board {
         this.yTiles = tilesY;
     }
     
+    invalidCoordinate(tileX, tileY) {
+        return (tileX < 0) || (tileY < 0) || (tileY >= this.yTiles) || (tileX >= this.xTiles);
+    }
+    
     renderTile(tileX, tileY, tile, rotationState = Tile.UP) {
-        if((tileX < 0) || (tileY < 0) || (tileY >= this.yTiles) || (tileX >= this.xTiles)) {
+        if(this.invalidCoordinate(tileX, tileY)) {
             return;
         }
         let tileCoordW = (this.width / this.xTiles);
         let tileCoordH = (this.height / this.yTiles);
         
         tile.draw(this.x + (tileCoordW * tileX), this.y + (tileCoordH * tileY), tileCoordW, tileCoordH, rotationState);
+    }
+    
+    renderMultiTile(tileX, tileY, multiTile) {
+        if(this.invalidCoordinate(tileX, tileY)) return;
+        multiTile.drawToBoard(this, tileX, tileY);
     }
     
     getTileClicked(x, y) {
@@ -313,7 +486,7 @@ class Board {
         let tileX = Math.floor(x / tileCoordW);
         let tileY = Math.floor(y / tileCoordH);
 
-        if((tileX < 0) || (tileY < 0) || (tileY >= this.yTiles) || (tileX >= this.xTiles)) {
+        if(this.invalidCoordinate(tileX, tileY)) {
             return [-1, -1];
         }
         
@@ -352,7 +525,7 @@ function draw() {
             SoundEffects.explosion.stop();
         }
         else {
-            battleBoard.renderTile(ClickLocation.tileX, ClickLocation.tileY, ImageTiles.explosion);
+            battleBoard.renderMultiTile(ClickLocation.tileX, ClickLocation.tileY, ImageTiles.explosion);
         }
     }
     else {
@@ -496,6 +669,14 @@ async function beginGame() {
         // Add the newly created animated tile to our list of tile objects...
         ImageTiles[imagesSources[i][0]] = tile;
     }
+    // FOR TESTING....
+    ImageTiles.explosion = new MultiTile(
+        new Array(5).fill(ImageTiles.explosion), 
+        [[-1, 0], [0, 0], [1, 0], [0, -1], [0, 1]], 
+        [0, 1, 2, 3, 2]
+    );
+    ImageTiles.explosion.setRotateState(Tile.UP);
+    
     // Begin the game loop...
     window.requestAnimationFrame(loop);
 }
