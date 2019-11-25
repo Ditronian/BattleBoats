@@ -29,7 +29,7 @@
                 <br />
                 <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
                 <br /><br />
-                <asp:Button ID="RegisterButton" runat="server" Text="Continue" OnClick="ExistingUserButton_Click"/>
+                <asp:Button ID="RegisterButton" runat="server" Text="Continue" OnClick="RegisterButton_Click"/>
                 <br /><br />
             </div>
             <div id="ExistingUser">

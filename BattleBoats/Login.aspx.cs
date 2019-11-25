@@ -19,5 +19,10 @@ namespace BattleBoats
             Session["UserID"] = 3;
             Response.Redirect("Home.aspx");
         }
+
+        protected void RegisterButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
