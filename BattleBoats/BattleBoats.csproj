@@ -91,7 +91,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Code\DataConnection.cs" />
+    <Compile Include="App_Code\DatabaseStuff\DataConnection.cs" />
+    <Compile Include="App_Code\DatabaseStuff\ScoresTable.cs" />
+    <Compile Include="App_Code\DatabaseStuff\UsersTable.cs" />
     <Compile Include="App_Code\Game\GameController.cs" />
     <Compile Include="App_Code\Score.cs" />
     <Compile Include="App_Code\User.cs" />
