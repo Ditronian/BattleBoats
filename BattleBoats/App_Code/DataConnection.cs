@@ -9,6 +9,7 @@ namespace BattleBoats
 {
     public class DataConnection
     {
+        
         SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
 
         public void uploadCommand(string query, SqlParameter[] parameters = null)
