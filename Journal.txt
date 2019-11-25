@@ -56,4 +56,5 @@ Sunday Nov 24:
 
 Monday Nov 25:
     Group Meeting  (3-?pm):
-        Did stuff.
+        Linda
+            Worked on UsersTable.cs 2 hrs
