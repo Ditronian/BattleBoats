@@ -78,11 +78,15 @@
     <Content Include="Default.aspx" />
     <Content Include="Game.aspx" />
     <Content Include="Home.aspx" />
+    <Content Include="Images\BoatFrontTile.png" />
+    <Content Include="Images\BoatMiddleTile.png" />
     <Content Include="Images\TestExplosionTiles.png" />
     <Content Include="Images\TestHoverTiles.png" />
     <Content Include="Images\TestWaterTiles.png" />
     <Content Include="Javascripts\game.js" />
     <Content Include="Login.aspx" />
+    <Content Include="SourceImageFiles\boatfront.svg" />
+    <Content Include="SourceImageFiles\boatmiddle.svg" />
     <Content Include="Statistics.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -137,7 +141,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

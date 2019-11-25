@@ -197,7 +197,7 @@ class Tile {
      * @param direction: The direction, as passed to the draw method...
      */
     static getRotateAngle(direction) {
-        if((direction > 3) || (direction < 0)) throw RangeError("Rotation direction must be between 0 and 3");
+        if((direction > 3) || (direction < 0)) throw new RangeError("Rotation direction must be between 0 and 3");
         // Multiply number by pi/2 radians since each increase in the direction values rotates the tile 90 degrees... 
         return (direction * 90);
     }
@@ -267,7 +267,7 @@ class MultiTile extends Tile {
     addTile(tile, coordinates, rotationState) {
         if(!(coordinates in this.tiles)) this._size++;
         this.tiles[coordinates] = [tile, rotationState];
-        this.updateBounds();
+        this.updateBounds(coordinates);
     }
     
     getTile(coordinates) {
@@ -319,7 +319,7 @@ class MultiTile extends Tile {
             case Tile.LEFT:
                 return [-y, x];
             default:
-                throw RangeError("NOOOO!!!!")
+                throw new RangeError("NOOOO!!!!")
         }
     }
     
@@ -338,7 +338,7 @@ class MultiTile extends Tile {
         const [width, height] = this.getRotatedWidthHeight();
             
         if((width > board.width) || (height > board.height)) {
-            throw RangeError("Board is smaller then the multi tile!!!");
+            throw new RangeError("Board is smaller then the multi tile!!!");
         }
         // Transform min/max values to match rotations... Literally rotate them around in an array...
         let bounds = [this.minX, this.minY, this.maxX, this.maxY];
@@ -372,13 +372,52 @@ class MultiTile extends Tile {
     }
     
     // Does exactly what you expect...
-    updateBounds() {
-        for(const [x, y] of this) {
+    updateBounds(tileCoord) {
+        if(tileCoord !== undefined) {
+            let [x, y] = tileCoord;
             if(x < this.minX) this.minX = x;
             if(x > this.maxX) this.maxX = x;
             if(y < this.minY) this.minY = y;
             if(y > this.maxY) this.maxY = y;
         }
+        else {
+            for(const [x, y] of this) {
+                if(x < this.minX) this.minX = x;
+                if(x > this.maxX) this.maxX = x;
+                if(y < this.minY) this.minY = y;
+                if(y > this.maxY) this.maxY = y;
+            }
+        }
+    }
+}
+
+/**
+ * Special MultiTile which represents a boat...
+ */
+class Boat extends MultiTile {
+    constructor(tileLength = 2) {
+        if(tileLength < 2) throw new RangeError("Boat needs to be at least length 2...");
+        // Compute relative start and end y locations of the boat relative to origin...
+        let startY = -Math.floor((tileLength + 1) / 2) + 1;
+        let endY = Math.floor(tileLength / 2);
+        
+        // Add the boat tips...
+        super(new Array(2).fill(ImageTiles.boatTip), [[0, startY], [0, endY]], [Tile.UP, Tile.DOWN]);
+        startY++;
+        endY--;
+        
+        for(let y = startY; y <= endY; y++) {
+            let rot = (Math.abs(y % 2) === 0)? Tile.UP: Tile.DOWN;
+            this.addTile(ImageTiles.boatMiddle, [0, y], rot);
+        }
+        // Create another multi-tile for previewing boat info...
+        this.preview = new MultiTile(new Array(this.size()).fill(ImageTiles.hover), [...this], 
+            new Array(this.size()).fill(Tile.UP));
+    }
+    
+    getPreview() {
+        this.preview.setRotateState(this.getRotateState());
+        return this.preview;
     }
 }
 
@@ -405,7 +444,7 @@ class AnimatedTile extends Tile {
             this.renderRate = rate;
         }
         else{
-            throw RangeError("Render rate must be greater then 0...");
+            throw new RangeError("Render rate must be greater then 0...");
         }
     }
     
@@ -499,6 +538,7 @@ function update(progress) {
     for (const tileName in ImageTiles) {
         ImageTiles[tileName].update(progress);
     }
+    if(delayTime > 0) delayTime = delayTime - progress;
 }
 
 function draw() {
@@ -508,13 +548,33 @@ function draw() {
             battleBoard.renderTile(i, j, ImageTiles.water);
         }
     }
+    // Render placed boats...
+    for(const [coords, boat] of placedBoats) {
+        battleBoard.renderMultiTile(coords[0], coords[1], boat);
+    }
     
     // If user is hovered over a tile, render a hover tile to that location...
     if((HoverLocation.tileX >= 0) && (HoverLocation.tileY >= 0)) {
-        battleBoard.renderTile(HoverLocation.tileX, HoverLocation.tileY, ImageTiles.hover);
+        if(unplacedBoats.length > 0) {
+            battleBoard.renderMultiTile(HoverLocation.tileX, HoverLocation.tileY, 
+                unplacedBoats[unplacedBoats.length - 1].getPreview())
+        }
+        else {
+            battleBoard.renderTile(HoverLocation.tileX, HoverLocation.tileY, ImageTiles.hover);
+        }
     }
     
+    if(delayTime > 0) return;
+    
     if((ClickLocation.tileX >= 0) && (ClickLocation.tileY >= 0)) {
+        if(unplacedBoats.length > 0) {
+            placedBoats.push([[ClickLocation.tileX, ClickLocation.tileY], unplacedBoats.pop()]);
+            ClickLocation.tileX = -1;
+            ClickLocation.tileY = -1;
+            delayTime = 500;
+            return;
+        }
+        
         if(ClickLocation.initialTrigger) SoundEffects.explosion.play();
         ClickLocation.initialTrigger = false;
         
@@ -525,7 +585,7 @@ function draw() {
             SoundEffects.explosion.stop();
         }
         else {
-            battleBoard.renderMultiTile(ClickLocation.tileX, ClickLocation.tileY, ImageTiles.explosion);
+            battleBoard.renderTile(ClickLocation.tileX, ClickLocation.tileY, ImageTiles.explosion);
         }
     }
     else {
@@ -606,7 +666,9 @@ canvas.addEventListener("mouseout", onhoverout, false);
 let imagesSources = [
     ["water", "Images/TestWaterTiles.png", 150], 
     ["hover", "Images/TestHoverTiles.png", 200],
-    ["explosion", "Images/TestExplosionTiles.png", 50]
+    ["explosion", "Images/TestExplosionTiles.png", 50],
+    ["boatTip", "Images/BoatFrontTile.png", 100],
+    ["boatMiddle", "Images/BoatMiddleTile.png", 100]
 ];
 
 // Array specifies what sounds should be loaded. First value is the name in the SoundEffects object, second is the 
@@ -637,7 +699,8 @@ let ClickLocation = {
 };
 
 let lastRender = 0;
-battleBoard = new Board(0, 0, canvas.width, canvas.height, 10, 10);
+let delayTime = 0;
+battleBoard = new Board(0, 0, canvas.width, canvas.height, 20, 20);
 
 // Create canvas drawing object...
 let drawer = new CanvasDrawer(canvas, ctx);
@@ -669,13 +732,9 @@ async function beginGame() {
         // Add the newly created animated tile to our list of tile objects...
         ImageTiles[imagesSources[i][0]] = tile;
     }
-    // FOR TESTING....
-    ImageTiles.explosion = new MultiTile(
-        new Array(5).fill(ImageTiles.explosion), 
-        [[-1, 0], [0, 0], [1, 0], [0, -1], [0, 1]], 
-        [0, 1, 2, 3, 2]
-    );
-    ImageTiles.explosion.setRotateState(Tile.UP);
+
+    unplacedBoats = [new Boat(2), new Boat(2), new Boat(3), new Boat(5)];
+    placedBoats = [];
     
     // Begin the game loop...
     window.requestAnimationFrame(loop);
