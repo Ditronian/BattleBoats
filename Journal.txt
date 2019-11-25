@@ -3,7 +3,7 @@ Previous Days:
     Completed Database Tables in MS SQL Server
     
 
-Monday NOV 18:
+Monday Nov 18:
     Group Meeting  (2-5pm):
         Worked on HTML/CSS Prototype
             David/Emily worked on Login.aspx page
@@ -24,7 +24,7 @@ Monday NOV 18:
         Linda
             Dealt with IDE issues
         
- Tuesday NOV 19:
+ Tuesday Nov 19:
     Linda:
         Fixed IDE issues
         Commited on statistics.aspx
@@ -41,9 +41,17 @@ Monday NOV 18:
         Assisted Linda with DataConnect class.
         Spent: 1 hr 20m
         
-Friday Nov 22
+Friday Nov 22:
     David
         Added Page redirects if not logged in.
         Added Code to lay the ground work for Game Updating in Game Page Codebehind
         Fixed Classes not being accessable
         Spent: ~1 hr
+        
+Sunday Nov 24:
+    Isaac
+        Did a ton of stuff.
+
+Monday Nov 25:
+    Group Meeting  (3-?pm):
+        Did stuff.
