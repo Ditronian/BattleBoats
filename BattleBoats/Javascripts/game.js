@@ -334,10 +334,10 @@ class MultiTile extends Tile {
     
     collision(board, tileX, tileY, otherTile, otherTileX, otherTileY) {
         let thisCoords = {};
-        for(const coord of this.getTranslatedCoords(board, tileX, tileY)) thisCoords[coord] = true; 
+        for(const [oldx, oldy, x, y] of this.getTranslatedCoords(board, tileX, tileY)) thisCoords[[x, y]] = true; 
         
-        for(const coord of otherTile.getTranslatedCoords(board, otherTileX, otherTileY)) {
-            if(coord in thisCoords) return true;
+        for(const [oldx, oldy, x, y] of otherTile.getTranslatedCoords(board, otherTileX, otherTileY)) {
+            if([x, y] in thisCoords) return true;
         }
         
         return false;
@@ -567,9 +567,8 @@ function draw() {
     // If user is hovered over a tile, render a hover tile to that location...
     if((HoverLocation.tileX >= 0) && (HoverLocation.tileY >= 0)) {
         if(unplacedBoats.length > 0) {
-            if(!boatCollision()) {
-                battleBoard.renderMultiTile(HoverLocation.tileX, HoverLocation.tileY,
-                    unplacedBoats[unplacedBoats.length - 1].getPreview())
+            if(!boatCollision(HoverLocation.tileX, HoverLocation.tileY)) {
+                battleBoard.renderMultiTile(HoverLocation.tileX, HoverLocation.tileY, unplacedBoats[unplacedBoats.length - 1].getPreview())
             }
         }
         else {
@@ -580,7 +579,7 @@ function draw() {
     if(delayTime > 0) return;
     
     if((ClickLocation.tileX >= 0) && (ClickLocation.tileY >= 0)) {
-        if(boatCollision()) {
+        if(boatCollision(ClickLocation.tileX, ClickLocation.tileY)) {
             ClickLocation.tileX = -1;
             ClickLocation.tileY = -1;
             delayTime = 500;
@@ -613,10 +612,12 @@ function draw() {
     }
 }
 
-function boatCollision() {
+function boatCollision(attemptXPlace, attemptYPlace) {
+    if((placedBoats.length === 0) || (unplacedBoats.length <= 0)) return false;
+    
     for(const [coords, boat] of placedBoats) {
         let [x, y] = coords;
-        if(boat.collision(battleBoard, x, y, unplacedBoats[unplacedBoats.length - 1], ClickLocation.tileX, ClickLocation.tileY)) {
+        if(boat.collision(battleBoard, x, y, unplacedBoats[unplacedBoats.length - 1], attemptXPlace, attemptYPlace)) {
             console.log("Collision...");
             return true;
         }
