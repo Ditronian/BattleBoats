@@ -7,18 +7,18 @@ namespace BattleBoats
 {
     public class User
     {
-        private int UserID;
-        private string Username;
-        private Byte[] Password;
-        private int TotalGames;
-        private int GamesWon;
-        private int GamesLost;
+        private int userID;
+        private string username;
+        private Byte[] password;
+        private int totalGames;
+        private int gamesWon;
+        private int gamesLost;
 
-        public int UserID1 { get => UserID; set => UserID = value; }
-        public string Username1 { get => Username; set => Username = value; }
-        public byte[] Password1 { get => Password; set => Password = value; }
-        public int TotalGames1 { get => TotalGames; set => TotalGames = value; }
-        public int GamesWon1 { get => GamesWon; set => GamesWon = value; }
-        public int GamesLost1 { get => GamesLost; set => GamesLost = value; }
+        public int UserID { get => UserID; set => UserID = value; }
+        public string Username { get => Username; set => Username = value; }
+        public byte[] Password { get => Password; set => Password = value; }
+        public int TotalGames { get => TotalGames; set => TotalGames = value; }
+        public int GamesWon { get => GamesWon; set => GamesWon = value; }
+        public int GamesLost { get => GamesLost; set => GamesLost = value; }
     }
 }

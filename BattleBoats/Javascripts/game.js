@@ -332,6 +332,17 @@ class MultiTile extends Tile {
         }
     }
     
+    collision(board, tileX, tileY, otherTile, otherTileX, otherTileY) {
+        let thisCoords = {};
+        for(const [oldx, oldy, x, y] of this.getTranslatedCoords(board, tileX, tileY)) thisCoords[[x, y]] = true; 
+        
+        for(const [oldx, oldy, x, y] of otherTile.getTranslatedCoords(board, otherTileX, otherTileY)) {
+            if([x, y] in thisCoords) return true;
+        }
+        
+        return false;
+    }
+    
     *getTranslatedCoords(board, tileX, tileY) {
         // LOOK OUT BELOW!!! Ridiculous translation and rotation code below...
         // All this makes sure multi tile will actually fit...
@@ -556,8 +567,9 @@ function draw() {
     // If user is hovered over a tile, render a hover tile to that location...
     if((HoverLocation.tileX >= 0) && (HoverLocation.tileY >= 0)) {
         if(unplacedBoats.length > 0) {
-            battleBoard.renderMultiTile(HoverLocation.tileX, HoverLocation.tileY, 
-                unplacedBoats[unplacedBoats.length - 1].getPreview())
+            if(!boatCollision(HoverLocation.tileX, HoverLocation.tileY)) {
+                battleBoard.renderMultiTile(HoverLocation.tileX, HoverLocation.tileY, unplacedBoats[unplacedBoats.length - 1].getPreview())
+            }
         }
         else {
             battleBoard.renderTile(HoverLocation.tileX, HoverLocation.tileY, ImageTiles.hover);
@@ -567,6 +579,13 @@ function draw() {
     if(delayTime > 0) return;
     
     if((ClickLocation.tileX >= 0) && (ClickLocation.tileY >= 0)) {
+        if(boatCollision(ClickLocation.tileX, ClickLocation.tileY)) {
+            ClickLocation.tileX = -1;
+            ClickLocation.tileY = -1;
+            delayTime = 500;
+            return;
+        }
+        
         if(unplacedBoats.length > 0) {
             placedBoats.push([[ClickLocation.tileX, ClickLocation.tileY], unplacedBoats.pop()]);
             ClickLocation.tileX = -1;
@@ -591,6 +610,19 @@ function draw() {
     else {
         ImageTiles.explosion.reset();
     }
+}
+
+function boatCollision(attemptXPlace, attemptYPlace) {
+    if((placedBoats.length === 0) || (unplacedBoats.length <= 0)) return false;
+    
+    for(const [coords, boat] of placedBoats) {
+        let [x, y] = coords;
+        if(boat.collision(battleBoard, x, y, unplacedBoats[unplacedBoats.length - 1], attemptXPlace, attemptYPlace)) {
+            console.log("Collision...");
+            return true;
+        }
+    }
+    return false;
 }
 
 function loop(timestamp) {
