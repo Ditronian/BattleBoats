@@ -14,11 +14,11 @@ namespace BattleBoats
         private int gamesWon;
         private int gamesLost;
 
-        public int UserID { get => UserID; set => UserID = value; }
-        public string Username { get => Username; set => Username = value; }
-        public byte[] Password { get => Password; set => Password = value; }
-        public int TotalGames { get => TotalGames; set => TotalGames = value; }
-        public int GamesWon { get => GamesWon; set => GamesWon = value; }
-        public int GamesLost { get => GamesLost; set => GamesLost = value; }
+        public int UserID { get => userID; set => userID = value; }
+        public string Username { get => username; set => username = value; }
+        public byte[] Password { get => password; set => password = value; }
+        public int TotalGames { get => totalGames; set => totalGames = value; }
+        public int GamesWon { get => gamesWon; set => gamesWon = value; }
+        public int GamesLost { get => gamesLost; set => gamesLost = value; }
     }
 }
