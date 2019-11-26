@@ -7,7 +7,7 @@ using System.Web;
 
 namespace BattleBoats
 {
-    public class Security
+    public static class Security
     {
         //Cassens' encrypy code fo sho
         public static Byte[] encrypt(string unencryptedString)

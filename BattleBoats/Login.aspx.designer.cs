@@ -22,22 +22,22 @@ namespace BattleBoats {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// usernameTextBox control.
+        /// registerUsernameTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox usernameTextBox;
+        protected global::System.Web.UI.WebControls.TextBox registerUsernameTextBox;
         
         /// <summary>
-        /// passwordTextBox control.
+        /// registerPasswordTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox passwordTextBox;
+        protected global::System.Web.UI.WebControls.TextBox registerPasswordTextBox;
         
         /// <summary>
         /// confirmPasswordTextBox control.
@@ -58,22 +58,22 @@ namespace BattleBoats {
         protected global::System.Web.UI.WebControls.Button RegisterButton;
         
         /// <summary>
-        /// TextBox4 control.
+        /// loginUsernameTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox4;
+        protected global::System.Web.UI.WebControls.TextBox loginUsernameTextBox;
         
         /// <summary>
-        /// TextBox5 control.
+        /// loginPasswordTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox5;
+        protected global::System.Web.UI.WebControls.TextBox loginPasswordTextBox;
         
         /// <summary>
         /// ExistingUserButton control.

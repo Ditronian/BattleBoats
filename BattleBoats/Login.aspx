@@ -19,11 +19,11 @@
                 <h2>New User</h2>
                 Username:
                 <br />
-                <asp:TextBox ID="usernameTextBox" runat="server"></asp:TextBox>
+                <asp:TextBox ID="registerUsernameTextBox" runat="server"></asp:TextBox>
                 <br />
                 Password:
                 <br />
-                <asp:TextBox ID="passwordTextBox" runat="server"></asp:TextBox>
+                <asp:TextBox ID="registerPasswordTextBox" runat="server"></asp:TextBox>
                 <br />
                 Confirm Password:
                 <br />
@@ -36,11 +36,11 @@
                 <h2>Existing User</h2>
                 Username:
                 <br />
-                <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
+                <asp:TextBox ID="loginUsernameTextBox" runat="server"></asp:TextBox>
                 <br />
                 Password:
                 <br />
-                <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
+                <asp:TextBox ID="loginPasswordTextBox" runat="server"></asp:TextBox>
                 <br /><br />
                 <asp:Button ID="ExistingUserButton" runat="server" Text="Continue" OnClick="ExistingUserButton_Click" />
             </div>

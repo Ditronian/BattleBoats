@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using BattleBoats.;
 
 namespace BattleBoats
 {
@@ -17,6 +16,17 @@ namespace BattleBoats
 
         protected void ExistingUserButton_Click(object sender, EventArgs e)
         {
+            User user = new User();
+            user.Username = loginUsernameTextBox.Text;
+            user.Password = Security.encrypt(loginPasswordTextBox.Text);
+
+            //Awaiting hookup in database
+            //UsersTable userTable = new UsersTable(new DataConnection());
+            //int userID = userTable.authenticateUser(user);
+
+            //if(userID != 0){Login and save userID to session var}
+
+
             Session["UserID"] = 3;
             Response.Redirect("Home.aspx");
         }
@@ -24,8 +34,13 @@ namespace BattleBoats
         protected void RegisterButton_Click(object sender, EventArgs e)
         {
             User user = new User();
-            user.Username = usernameTextBox.Text;
-            user.Password = Security.
+            user.Username = registerUsernameTextBox.Text;
+            user.Password = Security.encrypt(registerPasswordTextBox.Text);
+
+            UsersTable userTable = new UsersTable(new DataConnection());
+            //userTable.insertUser(user);
+
+
         }
     }
 }
