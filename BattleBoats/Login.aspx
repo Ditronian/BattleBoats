@@ -23,11 +23,11 @@
                 <br />
                 Password:
                 <br />
-                <asp:TextBox ID="registerPasswordTextBox" runat="server"></asp:TextBox>
+                <asp:TextBox ID="registerPasswordTextBox" runat="server" TextMode="Password"></asp:TextBox>
                 <br />
                 Confirm Password:
                 <br />
-                <asp:TextBox ID="confirmPasswordTextBox" runat="server"></asp:TextBox>
+                <asp:TextBox ID="confirmPasswordTextBox" runat="server" TextMode="Password"></asp:TextBox>
                 <br /><br />
                 <asp:Button ID="RegisterButton" runat="server" Text="Continue" OnClick="RegisterButton_Click"/>
                 <br /><br />
@@ -40,7 +40,7 @@
                 <br />
                 Password:
                 <br />
-                <asp:TextBox ID="loginPasswordTextBox" runat="server"></asp:TextBox>
+                <asp:TextBox ID="loginPasswordTextBox" runat="server" TextMode="Password"></asp:TextBox>
                 <br /><br />
                 <asp:Button ID="ExistingUserButton" runat="server" Text="Continue" OnClick="ExistingUserButton_Click" />
             </div>

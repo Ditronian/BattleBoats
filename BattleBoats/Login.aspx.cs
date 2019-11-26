@@ -14,33 +14,52 @@ namespace BattleBoats
             
         }
 
+        //Handles User Login
         protected void ExistingUserButton_Click(object sender, EventArgs e)
         {
+            //Make User Object
             User user = new User();
             user.Username = loginUsernameTextBox.Text;
             user.Password = Security.encrypt(loginPasswordTextBox.Text);
 
-            //Awaiting hookup in database
-            //UsersTable userTable = new UsersTable(new DataConnection());
-            //int userID = userTable.authenticateUser(user);
+            //Authenticate User in Database
+            UsersTable userTable = new UsersTable(new DataConnection());
+            int userID = userTable.authenticateUser(user);
 
-            //if(userID != 0){Login and save userID to session var}
+            //Login and save userID to session var
+            if (userID != 0)
+            {
+                Session["UserID"] = userID;
+                Response.Redirect("Home.aspx");
+            }
 
+            //Login failed message in a nonexistant label.
+            else; 
 
-            Session["UserID"] = 3;
-            Response.Redirect("Home.aspx");
         }
 
+        //Handles User Registration and auto-login
         protected void RegisterButton_Click(object sender, EventArgs e)
         {
+            //Password Confirmation
+            if (registerPasswordTextBox.Text != confirmPasswordTextBox.Text) return; //Needs an angry message label created.
+
+            //Make User Object
             User user = new User();
             user.Username = registerUsernameTextBox.Text;
             user.Password = Security.encrypt(registerPasswordTextBox.Text);
 
+            //Register User in Database
             UsersTable userTable = new UsersTable(new DataConnection());
-            //userTable.insertUser(user);
+            userTable.insertUser(user);
 
-
+            //Login and save userID to session var
+            int userID = userTable.authenticateUser(user);
+            if (userID != 0)
+            {
+                Session["UserID"] = userID;
+                Response.Redirect("Home.aspx");
+            }
         }
     }
 }
