@@ -5,9 +5,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
-namespace BattleBoats.App_Code
+namespace BattleBoats
 {
-    public static class Security
+    public class Security
     {
         //Cassens' encrypy code fo sho
         public static Byte[] encrypt(string unencryptedString)

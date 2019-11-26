@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BattleBoats
-{
-
-
-    public partial class Login
-    {
-
+namespace BattleBoats {
+    
+    
+    public partial class Login {
+        
         /// <summary>
         /// form1 control.
         /// </summary>
@@ -22,34 +20,34 @@ namespace BattleBoats
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-
+        
         /// <summary>
-        /// TextBox1 control.
+        /// usernameTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
-
+        protected global::System.Web.UI.WebControls.TextBox usernameTextBox;
+        
         /// <summary>
-        /// TextBox2 control.
+        /// passwordTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
-
+        protected global::System.Web.UI.WebControls.TextBox passwordTextBox;
+        
         /// <summary>
-        /// TextBox3 control.
+        /// confirmPasswordTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox3;
-
+        protected global::System.Web.UI.WebControls.TextBox confirmPasswordTextBox;
+        
         /// <summary>
         /// RegisterButton control.
         /// </summary>
@@ -58,7 +56,7 @@ namespace BattleBoats
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button RegisterButton;
-
+        
         /// <summary>
         /// TextBox4 control.
         /// </summary>
@@ -67,7 +65,7 @@ namespace BattleBoats
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBox4;
-
+        
         /// <summary>
         /// TextBox5 control.
         /// </summary>
@@ -76,7 +74,7 @@ namespace BattleBoats
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBox5;
-
+        
         /// <summary>
         /// ExistingUserButton control.
         /// </summary>

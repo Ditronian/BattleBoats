@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BattleBoats.;
 
 namespace BattleBoats
 {
@@ -22,7 +23,9 @@ namespace BattleBoats
 
         protected void RegisterButton_Click(object sender, EventArgs e)
         {
-
+            User user = new User();
+            user.Username = usernameTextBox.Text;
+            user.Password = Security.
         }
     }
 }

@@ -19,15 +19,15 @@
                 <h2>New User</h2>
                 Username:
                 <br />
-                <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                <asp:TextBox ID="usernameTextBox" runat="server"></asp:TextBox>
                 <br />
                 Password:
                 <br />
-                <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                <asp:TextBox ID="passwordTextBox" runat="server"></asp:TextBox>
                 <br />
                 Confirm Password:
                 <br />
-                <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+                <asp:TextBox ID="confirmPasswordTextBox" runat="server"></asp:TextBox>
                 <br /><br />
                 <asp:Button ID="RegisterButton" runat="server" Text="Continue" OnClick="RegisterButton_Click"/>
                 <br /><br />
