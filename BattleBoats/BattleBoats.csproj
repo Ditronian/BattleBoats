@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Audio\mi.mp3" />
+    <Content Include="Audio\sounds.json" />
     <Content Include="Audio\tnt.mp3" />
     <Content Include="CSS\Game.css" />
     <Content Include="CSS\Home.css" />
@@ -83,6 +84,7 @@
     <Content Include="Images\TestExplosionTiles.png" />
     <Content Include="Images\TestHoverTiles.png" />
     <Content Include="Images\TestWaterTiles.png" />
+    <Content Include="Images\tiles.json" />
     <Content Include="Javascripts\game.js" />
     <Content Include="Login.aspx" />
     <Content Include="SourceImageFiles\boatfront.svg" />
