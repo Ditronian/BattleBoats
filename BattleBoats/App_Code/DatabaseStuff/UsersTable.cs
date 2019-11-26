@@ -20,7 +20,7 @@ namespace BattleBoats
         {
             string query = "spInsertUser";
             SqlParameter[] parameters = new SqlParameter[2];
-            parameters[0] = new SqlParameter("UserName", user.Username);
+            parameters[0] = new SqlParameter("Username", user.Username);
             parameters[1] = new SqlParameter("Password", user.Password);
             
             database.uploadCommand(query, parameters);
@@ -31,7 +31,7 @@ namespace BattleBoats
         {
             string query = "spAuthenticateUser";
             SqlParameter[] parameters = new SqlParameter[2];
-            parameters[0] = new SqlParameter("UserName", user.Username);
+            parameters[0] = new SqlParameter("Username", user.Username);
             parameters[1] = new SqlParameter("Password", user.Password);
 
             DataSet data = database.downloadCommand(query, parameters);
