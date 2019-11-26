@@ -96,6 +96,7 @@
     <Compile Include="App_Code\DatabaseStuff\DataConnection.cs" />
     <Compile Include="App_Code\DatabaseStuff\ScoresTable.cs" />
     <Compile Include="App_Code\DatabaseStuff\UsersTable.cs" />
+    <Compile Include="App_Code\Game\GameBoardUF.cs" />
     <Compile Include="App_Code\Game\GameController.cs" />
     <Compile Include="App_Code\Game\Score.cs" />
     <Compile Include="App_Code\Security.cs" />
