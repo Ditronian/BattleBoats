@@ -49,12 +49,19 @@ Friday Nov 22:
         Spent: ~1 hr
         
 Sunday Nov 24:
-    Isaac
-        Did a ton of stuff.
     Linda
         Worked on Web.cofig connection sting and tried to learn about connections 30 min
 
 Monday Nov 25:
-    Group Meeting  (3-?pm):
+    Group Meeting  (3-5pm):
         Linda
             Worked on UsersTable.cs 2 hrs
+        David
+            Assisted with Database Coding and CSS.
+        Emily
+            Worked CSS on Login Page
+
+Saturay, Sunday, Monday Nov 23-25:
+    Isaac: 
+        Began and nearly finished tiled rendering engine. Supports rendering animated tiles, and also supports
+        group a bunch of tiles into 1 object that can be rotated/drawn. Renders boats, water, explosions etc.
