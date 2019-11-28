@@ -34,7 +34,7 @@ namespace BattleBoats
             }
 
             //Login failed message in a nonexistant label.
-            else; 
+            else angryLoginLabel.Text = "Invalid Username and Password.";
 
         }
 
@@ -42,7 +42,11 @@ namespace BattleBoats
         protected void RegisterButton_Click(object sender, EventArgs e)
         {
             //Password Confirmation
-            if (registerPasswordTextBox.Text != confirmPasswordTextBox.Text) return; //Needs an angry message label created.
+            if (registerPasswordTextBox.Text != confirmPasswordTextBox.Text)
+            {
+                angryRegisterLabel.Text = "The provided Passwords do not match.";
+                return;
+            }
 
             //Make User Object
             User user = new User();
@@ -60,6 +64,7 @@ namespace BattleBoats
                 Session["UserID"] = userID;
                 Response.Redirect("Home.aspx");
             }
+            else angryRegisterLabel.Text = "An error has occured, it is Linda's fault.";
         }
     }
 }
