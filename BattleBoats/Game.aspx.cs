@@ -16,9 +16,23 @@ namespace BattleBoats
             //Gate Keeper
             if (Session["UserID"] == null) Response.Redirect("~/Login.aspx");
 
+            //Check if AJAX PostBack
+            if (scriptManager.IsInAsyncPostBack )
+            {
+
+                // partial (asynchronous) postback occured
+                // insert Ajax custom logic here
+                Label1.Text += "PartialPostBack";
+            }
             //Check if this is a postback, and a game is active, if so handle the game
-            if (this.IsPostBack && Session["activeGame"] != null) updateGame();
+            else if (this.IsPostBack && Session["activeGame"] != null) 
+            {
+                Label1.Text += "PostBack";
+                updateGame();
+            }
             else startGame();
+
+
         }
 
 
@@ -64,6 +78,11 @@ namespace BattleBoats
         {
             if (Session["activeGame"] != null) Session.Remove("activeGame");
             Response.Redirect("Home.aspx");
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Label1.Text += "Click";
         }
     }
 }

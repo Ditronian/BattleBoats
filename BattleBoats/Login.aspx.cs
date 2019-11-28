@@ -14,15 +14,57 @@ namespace BattleBoats
             
         }
 
+        //Handles User Login
         protected void ExistingUserButton_Click(object sender, EventArgs e)
         {
-            Session["UserID"] = 3;
-            Response.Redirect("Home.aspx");
+            //Make User Object
+            User user = new User();
+            user.Username = loginUsernameTextBox.Text;
+            user.Password = Security.encrypt(loginPasswordTextBox.Text);
+
+            //Authenticate User in Database
+            UsersTable userTable = new UsersTable(new DataConnection());
+            int userID = userTable.authenticateUser(user);
+
+            //Login and save userID to session var
+            if (userID != 0)
+            {
+                Session["UserID"] = userID;
+                Response.Redirect("Home.aspx");
+            }
+
+            //Login failed message in a nonexistant label.
+            else angryLoginLabel.Text = "Invalid Username and Password.";
+
         }
 
+        //Handles User Registration and auto-login
         protected void RegisterButton_Click(object sender, EventArgs e)
         {
+            //Password Confirmation
+            if (registerPasswordTextBox.Text != confirmPasswordTextBox.Text)
+            {
+                angryRegisterLabel.Text = "The provided Passwords do not match.";
+                return;
+            }
 
+            //Make User Object
+            User user = new User();
+            user.Username = registerUsernameTextBox.Text;
+            user.Password = Security.encrypt(registerPasswordTextBox.Text);
+
+            //Register User in Database
+            UsersTable userTable = new UsersTable(new DataConnection());
+            userTable.insertUser(user);
+
+            //Login and save userID to session var
+            int userID = userTable.authenticateUser(user);
+            if (userID != 0)
+            {
+                Session["UserID"] = userID;
+                Response.Redirect("Home.aspx");
+            }
+            else angryRegisterLabel.Text = "An error has occured, it is Linda's fault.";
         }
     }
 }

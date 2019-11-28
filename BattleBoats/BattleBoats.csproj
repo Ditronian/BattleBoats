@@ -69,13 +69,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Audio\mi.mp3" />
+    <Content Include="Audio\sounds.json" />
     <Content Include="Audio\tnt.mp3" />
     <Content Include="CSS\Game.css" />
     <Content Include="CSS\Home.css" />
     <Content Include="CSS\Login.css" />
     <Content Include="CSS\Master.css" />
     <Content Include="CSS\Statistics.css" />
-    <Content Include="Default.aspx" />
     <Content Include="Game.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="Images\BoatFrontTile.png" />
@@ -83,6 +83,7 @@
     <Content Include="Images\TestExplosionTiles.png" />
     <Content Include="Images\TestHoverTiles.png" />
     <Content Include="Images\TestWaterTiles.png" />
+    <Content Include="Images\tiles.json" />
     <Content Include="Javascripts\game.js" />
     <Content Include="Login.aspx" />
     <Content Include="SourceImageFiles\boatfront.svg" />
@@ -94,17 +95,12 @@
     <Compile Include="App_Code\DatabaseStuff\DataConnection.cs" />
     <Compile Include="App_Code\DatabaseStuff\ScoresTable.cs" />
     <Compile Include="App_Code\DatabaseStuff\UsersTable.cs" />
+    <Compile Include="App_Code\Game\GameBoard.cs" />
+    <Compile Include="App_Code\Game\GameBoardUF.cs" />
     <Compile Include="App_Code\Game\GameController.cs" />
     <Compile Include="App_Code\Game\Score.cs" />
-    <Content Include="App_Code\Security.cs" />
+    <Compile Include="App_Code\Security.cs" />
     <Compile Include="App_Code\Game\User.cs" />
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Game.aspx.cs">
       <DependentUpon>Game.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

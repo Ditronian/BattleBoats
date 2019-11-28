@@ -14,15 +14,31 @@
             <asp:Button ID="homeButton" runat="server" Text="Home" OnClick="homeButton_Click" />
         </div>
         <br />
+
         <div id="greaterDiv">
         <h2>Game Magic Goes Here!!!</h2>
             <div id="gamecontainer">
-                <canvas id="gamecanvas" width="500" height="500">Does not support canvas</canvas>
+                <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>
+                <asp:UpdatePanel ID="ajaxCanvas" runat="server" updatemode="Conditional">
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger controlid="Button1" eventname="Click" />
+                    </Triggers>
+                    <ContentTemplate>
+                        <canvas id="gamecanvas" width="500" height="500">Does not support canvas</canvas>
+                        <asp:Button ID="Button1" runat="server" Text="AJAX Button" OnClick="Button1_Click" />
+                        <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </div>
+
             <br />
+            <asp:Button ID="Button2" runat="server" Text="Button" />
             <asp:Button ID="newGameButton" runat="server" Text="New Game" OnClick="newGameButton_Click" />
         </div>
-
+        <asp:HiddenField ID="shootLocationHiddenField" runat="server" />
+        <asp:HiddenField ID="aiHiddenField" runat="server" />
+        <asp:HiddenField ID="playerHiddenField" runat="server" />
+        <asp:HiddenField ID="winLoseHiddenField" runat="server" />
     </form>
     <script type="text/javascript" src="Javascripts/game.js"></script>
 </body>

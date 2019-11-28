@@ -284,6 +284,10 @@ class MultiTile extends Tile {
         this.updateBounds();
     }
     
+    setTile(coordinates, tileObj) {
+        this.tiles[coordinates] = tileObj;
+    }
+    
     size() {
         return this._size;
     }
@@ -693,22 +697,51 @@ canvas.addEventListener("click", onclick, false);
 canvas.addEventListener("mousemove", onhover, false);
 canvas.addEventListener("mouseout", onhoverout, false);
 
+// For reading json files....
+function getJSON(url) {
+    return new Promise(function(resolve, reject) {
+        let xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function () {
+            if ((this.readyState === 4) && (this.status === 200)) {
+                resolve(JSON.parse(this.responseText));
+            }
+        };
+        
+        xmlhttp.onerror = function() {
+            reject("Unable to load JSON");
+        };
+        
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send(null);
+    })
+}
+
+// For loading images...
+function loadImage(url) {
+    return new Promise(function(resolve, reject) {
+        let img = new Image();
+        
+        img.onload = function() {
+            resolve(img);
+        };
+        img.onerror = function () {
+            reject("Unable to load image");
+        };
+        
+        img.src = url;
+    })
+}
+
+// TODO: Replace dumb loops with promises...
+
 // Array specifies what tiles should be loaded. First value is the final name in the image tiles object. The second
 // value specifies the source image for the tile. The last value specifies the animation speed.
-let imagesSources = [
-    ["water", "Images/TestWaterTiles.png", 150], 
-    ["hover", "Images/TestHoverTiles.png", 200],
-    ["explosion", "Images/TestExplosionTiles.png", 50],
-    ["boatTip", "Images/BoatFrontTile.png", 100],
-    ["boatMiddle", "Images/BoatMiddleTile.png", 100]
-];
+let imagesSources = null;
 
 // Array specifies what sounds should be loaded. First value is the name in the SoundEffects object, second is the 
 // source file, the third is the volume, and the fourth is whether or not the sound is background music.
-let soundSources = [
-    ["explosion", "Audio/tnt.mp3", 1, false],
-    ["missionImpossible", "Audio/mi.mp3", 0.5, true]
-];
+let soundSources = null;
 
 // Stores all loaded image tiles...
 let ImageTiles = {};
@@ -732,6 +765,8 @@ let ClickLocation = {
 
 let lastRender = 0;
 let delayTime = 0;
+let unplacedBoats = null;
+let placedBoats = null;
 battleBoard = new Board(0, 0, canvas.width, canvas.height, 20, 20);
 
 // Create canvas drawing object...
@@ -743,6 +778,9 @@ let drawer = new CanvasDrawer(canvas, ctx);
  * @returns {Promise<void>}
  */
 async function beginGame() {
+    imagesSources = await getJSON("Images/tiles.json");
+    soundSources = await getJSON("Audio/sounds.json");
+    
     // Phase 1, load all sound effects...
     for(let i = 0; i < soundSources.length; i++) {
         let sound = new Sound(soundSources[i][1], soundSources[i][3]);
@@ -753,18 +791,15 @@ async function beginGame() {
     
     // Phase 2, load all game tiles...
     for(let i = 0; i < imagesSources.length; i++) {
-        // Create an image and set its source...
-        let image = new Image();
-        image.src = imagesSources[i][1];
-        // Wait around until image is actually loaded and width has been computed...
-        while((image.width === undefined) || (image.width === 0)) await sleepWait(5);
+        // Create an image and load it...
+        let image = await loadImage(imagesSources[i][1]);
         // Create a new animated tile and set it's render speed to the one specified in the array...
         let tile = new AnimatedTile(drawer, image);
         tile.setRenderRate(imagesSources[i][2]);
         // Add the newly created animated tile to our list of tile objects...
         ImageTiles[imagesSources[i][0]] = tile;
     }
-
+    // Load the boats...
     unplacedBoats = [new Boat(2), new Boat(2), new Boat(3), new Boat(5)];
     placedBoats = [];
     

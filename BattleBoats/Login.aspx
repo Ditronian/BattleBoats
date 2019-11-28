@@ -19,30 +19,43 @@
                 <h2>New User</h2>
                 Username:
                 <br />
-                <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                <asp:TextBox ID="registerUsernameTextBox" runat="server"></asp:TextBox>
+                <br />
+                <asp:RequiredFieldValidator ID="registerUserFieldValidator" ForeColor="Red" runat="server" ErrorMessage="This field is required." ControlToValidate="registerUsernameTextBox" ValidationGroup="validateRegister"></asp:RequiredFieldValidator>
                 <br />
                 Password:
                 <br />
-                <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                <asp:TextBox ID="registerPasswordTextBox" runat="server" TextMode="Password"></asp:TextBox>
+                <br />
+                <asp:RequiredFieldValidator ID="registerPasswordFieldValidator" ForeColor="Red" runat="server" ErrorMessage="This field is required." ControlToValidate="registerPasswordTextBox" ValidationGroup="validateRegister"></asp:RequiredFieldValidator>
                 <br />
                 Confirm Password:
                 <br />
-                <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
-                <br /><br />
-                <asp:Button ID="RegisterButton" runat="server" Text="Continue" OnClick="RegisterButton_Click"/>
-                <br /><br />
+                <asp:TextBox ID="confirmPasswordTextBox" runat="server" TextMode="Password"></asp:TextBox>
+                <br />
+                <asp:RequiredFieldValidator ID="confirmPasswordFieldValidator" ForeColor="Red" runat="server" ErrorMessage="This field is required." ControlToValidate="confirmPasswordTextBox" ValidationGroup="validateRegister"></asp:RequiredFieldValidator>
+                <br />
+                <asp:Button ID="RegisterButton" runat="server" Text="Continue" ValidationGroup="validateRegister" OnClick="RegisterButton_Click"/>
+                <p></p>
+                <asp:Label ID="angryRegisterLabel" runat="server" Text="" ForeColor="Red"></asp:Label>
             </div>
             <div id="ExistingUser">
                 <h2>Existing User</h2>
                 Username:
                 <br />
-                <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
+                <asp:TextBox ID="loginUsernameTextBox" runat="server"></asp:TextBox>
+                <br />
+                <asp:RequiredFieldValidator ID="loginUserFieldValidator" ForeColor="Red" runat="server" ErrorMessage="This field is required." ControlToValidate="loginUsernameTextBox" ValidationGroup="validateLogin"></asp:RequiredFieldValidator>
                 <br />
                 Password:
                 <br />
-                <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
-                <br /><br />
-                <asp:Button ID="ExistingUserButton" runat="server" Text="Continue" OnClick="ExistingUserButton_Click" />
+                <asp:TextBox ID="loginPasswordTextBox" runat="server" TextMode="Password"></asp:TextBox>
+                <br />
+                <asp:RequiredFieldValidator ID="loginPasswordFieldValidator" ForeColor="Red" runat="server" ErrorMessage="This field is required." ControlToValidate="loginPasswordTextBox" ValidationGroup="validateLogin"></asp:RequiredFieldValidator>
+                <br />
+                <asp:Button ID="ExistingUserButton" runat="server" Text="Continue" ValidationGroup="validateLogin" OnClick="ExistingUserButton_Click" />
+                <p></p>
+                <asp:Label ID="angryLoginLabel" runat="server" Text="" ForeColor="Red"></asp:Label>
             </div>
         </section>
         <div id="Creators">

@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
-namespace BattleBoats.App_Code
+namespace BattleBoats
 {
     public static class Security
     {

@@ -65,3 +65,12 @@ Saturay, Sunday, Monday Nov 23-25:
     Isaac: 
         Began and nearly finished tiled rendering engine. Supports rendering animated tiles, and also supports
         group a bunch of tiles into 1 object that can be rotated/drawn. Renders boats, water, explosions etc.
+        
+Tuesday Nov 26:
+    Linda:
+        Worked on Procedures for database 1 hr
+
+Wednesday Nov 27:
+    David & Isaac:
+        Installed Login FieldValidators/Serverside checks, then troubleshot stuff with Isaac.
+        Spent: ~45m

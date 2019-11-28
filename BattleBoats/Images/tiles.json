@@ -1,0 +1,7 @@
+[
+  ["water", "Images/TestWaterTiles.png", 150], 
+  ["hover", "Images/TestHoverTiles.png", 200],
+  ["explosion", "Images/TestExplosionTiles.png", 50],
+  ["boatTip", "Images/BoatFrontTile.png", 100],
+  ["boatMiddle", "Images/BoatMiddleTile.png", 100]
+]
