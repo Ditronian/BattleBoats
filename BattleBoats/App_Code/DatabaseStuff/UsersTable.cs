@@ -46,7 +46,7 @@ namespace BattleBoats
             }
         }
 
-        public int checkUsername(User user)
+        public bool checkUsername(User user)
         {
             string query = "spCheckUsername";
             SqlParameter[] parameters = new SqlParameter[1];
@@ -54,13 +54,13 @@ namespace BattleBoats
 
             DataSet data = database.downloadCommand(query, parameters);
 
-            if (data.Tables[0].Rows.Count == 1)
+            if (data.Tables[0].Rows.Count != 0)
             {
-                return (Int32) data.Tables[0].Rows[0]["UserID"];
+                return true;
             }
             else
             {
-                return 0;
+                return false;
             }
         }
 
