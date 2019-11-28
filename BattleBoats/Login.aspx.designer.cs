@@ -31,6 +31,15 @@ namespace BattleBoats {
         protected global::System.Web.UI.WebControls.TextBox registerUsernameTextBox;
         
         /// <summary>
+        /// registerUserFieldValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator registerUserFieldValidator;
+        
+        /// <summary>
         /// registerPasswordTextBox control.
         /// </summary>
         /// <remarks>
@@ -38,6 +47,15 @@ namespace BattleBoats {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox registerPasswordTextBox;
+        
+        /// <summary>
+        /// registerPasswordFieldValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator registerPasswordFieldValidator;
         
         /// <summary>
         /// confirmPasswordTextBox control.
@@ -49,6 +67,15 @@ namespace BattleBoats {
         protected global::System.Web.UI.WebControls.TextBox confirmPasswordTextBox;
         
         /// <summary>
+        /// confirmPasswordFieldValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator confirmPasswordFieldValidator;
+        
+        /// <summary>
         /// RegisterButton control.
         /// </summary>
         /// <remarks>
@@ -56,6 +83,15 @@ namespace BattleBoats {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button RegisterButton;
+        
+        /// <summary>
+        /// angryRegisterLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label angryRegisterLabel;
         
         /// <summary>
         /// loginUsernameTextBox control.
@@ -67,6 +103,15 @@ namespace BattleBoats {
         protected global::System.Web.UI.WebControls.TextBox loginUsernameTextBox;
         
         /// <summary>
+        /// loginUserFieldValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator loginUserFieldValidator;
+        
+        /// <summary>
         /// loginPasswordTextBox control.
         /// </summary>
         /// <remarks>
@@ -76,6 +121,15 @@ namespace BattleBoats {
         protected global::System.Web.UI.WebControls.TextBox loginPasswordTextBox;
         
         /// <summary>
+        /// loginPasswordFieldValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator loginPasswordFieldValidator;
+        
+        /// <summary>
         /// ExistingUserButton control.
         /// </summary>
         /// <remarks>
@@ -83,5 +137,14 @@ namespace BattleBoats {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ExistingUserButton;
+        
+        /// <summary>
+        /// angryLoginLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label angryLoginLabel;
     }
 }
