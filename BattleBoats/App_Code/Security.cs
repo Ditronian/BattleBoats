@@ -9,16 +9,15 @@ namespace BattleBoats
 {
     public static class Security
     {
-        //Cassens' encrypy code fo sho
+        //New SHA512 encrypt code fo sho
         public static Byte[] encrypt(string unencryptedString)
         {
             // encrypt password before inserted..
             Byte[] hashedDataBytes = null;
             UTF8Encoding encoder = new UTF8Encoding();
 
-            MD5CryptoServiceProvider md5Hasher = new MD5CryptoServiceProvider();
-
-            hashedDataBytes = md5Hasher.ComputeHash(encoder.GetBytes(unencryptedString));
+            SHA512 shaM = new SHA512Managed();
+            hashedDataBytes = shaM.ComputeHash(encoder.GetBytes(unencryptedString));
 
             return hashedDataBytes;
         }
