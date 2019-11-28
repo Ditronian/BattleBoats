@@ -53,9 +53,14 @@ namespace BattleBoats
             user.Username = registerUsernameTextBox.Text;
             user.Password = Security.encrypt(registerPasswordTextBox.Text);
 
-            //Register User in Database
+            //Register User in Database, and check if name already taken.
             UsersTable userTable = new UsersTable(new DataConnection());
-            userTable.insertUser(user);
+            if(userTable.checkUsername(user) == true)
+            {
+                angryRegisterLabel.Text = "A user with that username already exists.";
+                return;
+            }
+            else userTable.insertUser(user);
 
             //Login and save userID to session var
             int userID = userTable.authenticateUser(user);

@@ -46,6 +46,24 @@ namespace BattleBoats
             }
         }
 
+        public bool checkUsername(User user)
+        {
+            string query = "spCheckUsername";
+            SqlParameter[] parameters = new SqlParameter[1];
+            parameters[0] = new SqlParameter("Username", user.Username);
+
+            DataSet data = database.downloadCommand(query, parameters);
+
+            if (data.Tables[0].Rows.Count != 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public void updateYoSelf(User user)
         {
             string query = "spUpdateUser";
