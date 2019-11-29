@@ -82,7 +82,7 @@ namespace BattleBoats
 
 
 
-        //Obviously this is just here for testing purposes.  We can have it do something far more useful in actual usage.
+        // Obviously this is just here for testing purposes.  We can have it do something far more useful in actual usage.
         [WebMethod]
         public static User sayHi()
         {
@@ -91,7 +91,44 @@ namespace BattleBoats
             user.Username = "Bob the Builder";
             return user;
         }
+        
+        // Some example stuff I will try to link into JS...
+        [WebMethod]
+        public static GameSettings getSettings()
+        {
+            return new GameSettings();
+        }
+        
+        // Initializes the game, building the new game object...
+        public static PlayerBoards initGame(int[] initBoard)
+        {
+            // Make the player board... TODO: Add try-catch which will auto-lose the game. (Player was cheating)
+            GameSettings gset = new GameSettings();
+            GameBoard player1 = new GameBoard(gset.boardWidth, gset.boardHeight, gset.boatSizes, initBoard);
+            
+            // Make the AI board... Doesn't work yet as .buildBoard is not yet fully implemented...
+            GameAI gai = new GameAI(gset);
+            GameBoard aiGb = new GameBoard(gset.boardWidth, gset.boardHeight, gset.boatSizes, gai.buildBoard());
+            // Build game manager from everything else...
+            GameManager gm = new GameManager(player1, aiGb);
 
+            HttpContext.Current.Session["game"] = gm;
+            HttpContext.Current.Session["ai"] = gai;
 
+            return gm.getPlayerData(GameManager.PLAYER1);
+        }
+
+        // Plays a move, accepting the player move and then performing the AI move...
+        public static PlayerBoards playMove(int x, int y)
+        {
+            GameManager gm = (GameManager) HttpContext.Current.Session["game"];
+            GameAI ai = (GameAI) HttpContext.Current.Session["ai"];
+
+            gm.playMove(x, y);
+            int[] aiGuess = ai.makeGuess();
+            gm.playMove(aiGuess[0], aiGuess[1]);
+
+            return gm.getPlayerData(GameManager.PLAYER1);
+        }
     }
 }

@@ -8,20 +8,17 @@ namespace BattleBoats
         public const int PLAYER2 = 1;
         private GameBoard player1Board;
         private GameBoard player2Board;
-        private GameController player1;
-        private GameController player2;
+        private GameAI ai;
         private int currentPlayerMove;
         
         /**
          * Constructs a new game.
          */
-        public GameManager(GameController p1, GameController p2, int w, int h, int[] boatSizes)
+        public GameManager(GameBoard p1, GameBoard p2)
         {
-            player1 = p1;
-            player2 = p2;
-
-            player1Board = new GameBoard(w, h, boatSizes, player1.plotShips(w, h, boatSizes));
-            player2Board = new GameBoard(w, h, boatSizes, player2.plotShips(w, h, boatSizes));
+            // Both boards should have settings matching the global settings...
+            player1Board = p1;
+            player2Board = p2;
 
             currentPlayerMove = PLAYER1;
         }
@@ -31,19 +28,17 @@ namespace BattleBoats
             return currentPlayerMove;
         }
 
-        public bool playMove()
+        public bool playMove(int x, int y)
         {
             if (currentPlayerMove == PLAYER1)
             {
-                Coordinate c = player1.playMove(getPlayerData(currentPlayerMove));
                 currentPlayerMove = PLAYER2;
-                return player2Board.attemptShot(c.x, c.y);
+                return player2Board.attemptShot(x, y);
             }
             else
             {
-                Coordinate c = player2.playMove(getPlayerData(currentPlayerMove));
                 currentPlayerMove = PLAYER1;
-                return player1Board.attemptShot(c.x, c.y);
+                return player1Board.attemptShot(x, y);
             }
         }
 
@@ -78,5 +73,13 @@ namespace BattleBoats
             this.shipBoard = shipBoard;
             this.hitBoard = hitBoard;
         }
+    }
+
+    // Adjust to change game settings...
+    public class GameSettings
+    {
+        public int boardWidth = 10;
+        public int boardHeight = 10;
+        public int[] boatSizes = new int[]{2, 2, 3, 5};
     }
 }

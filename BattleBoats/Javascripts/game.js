@@ -699,6 +699,7 @@ canvas.addEventListener("click", onclick, false);
 canvas.addEventListener("mousemove", onhover, false);
 canvas.addEventListener("mouseout", onhoverout, false);
 
+
 // For reading json files....
 function getJSON(url) {
     return new Promise(function(resolve, reject) {
@@ -719,7 +720,8 @@ function getJSON(url) {
     })
 }
 
-// For loading images...
+
+// For loading images... 
 function loadImage(url) {
     return new Promise(function(resolve, reject) {
         let img = new Image();
