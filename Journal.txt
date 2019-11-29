@@ -80,3 +80,7 @@ Thursday Nov 28:
         Discovered an amazing AJAX means of communicating between Javascript front-end and C# middle-ware, allowing the passing of JSON         serialized objects.  Tested and confirmed this new functionality will meet our needs.
         Also basked in the nerd-glory of this great finding.
         Spent: ~1.5hr
+    Isaac: 
+         Implemented Union-Find object to represent the board, implemented object classes for detecting hits/misses/game over 
+         states. Also made game manager class. Broke user login screen....
+         Spent: ~∞ hrs
