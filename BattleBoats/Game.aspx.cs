@@ -24,12 +24,10 @@ namespace BattleBoats
 
                 // partial (asynchronous) postback occured
                 // insert Ajax custom logic here
-                Label1.Text += "PartialPostBack";
             }
             //Check if this is a postback, and a game is active, if so handle the game
             else if (this.IsPostBack && Session["activeGame"] != null)
             {
-                Label1.Text += "PostBack";
                 updateGame();
             }
             else startGame();
@@ -82,19 +80,16 @@ namespace BattleBoats
             Response.Redirect("Home.aspx");
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            Label1.Text += "Click";
-        }
 
 
         //Obviously this is just here for testing purposes.  We can have it do something far more useful in actual usage.
         [WebMethod]
-        public static string sayHi()
+        public static User sayHi()
         {
-            string result = "Hello Motto.";
-
-            return result;
+            User user = new User();
+            user.UserID = (int)HttpContext.Current.Session["UserID"];
+            user.Username = "Bob the Builder";
+            return user;
         }
 
 

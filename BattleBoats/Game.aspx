@@ -21,23 +21,8 @@
                 <canvas id="gamecanvas" width="500" height="500">Does not support canvas</canvas>
                 <br />
                 <asp:ScriptManager ID="scriptManager" runat="server" EnablePageMethods="true"> </asp:ScriptManager>
-                <asp:UpdatePanel ID="ajaxCanvas" runat="server" updatemode="Conditional">
-                    <Triggers>
-                        <asp:AsyncPostBackTrigger controlid="Button1" eventname="Click" />
-                    </Triggers>
-                    <ContentTemplate>
-                        <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
-                        <asp:HiddenField ID="shootLocationHiddenField" runat="server" />
-                        <asp:HiddenField ID="aiHiddenField" runat="server" />
-                        <asp:HiddenField ID="playerHiddenField" runat="server" />
-                        <asp:HiddenField ID="winLoseHiddenField" runat="server" />
-                    </ContentTemplate>
-                </asp:UpdatePanel>
             </div>
-
             <br />
-            <asp:Button ID="Button1" runat="server" Text="AJAX Button" OnClick="Button1_Click" />
-            <asp:Button ID="Button2" runat="server" Text="Button" />
             <asp:Button ID="newGameButton" runat="server" Text="New Game" OnClick="newGameButton_Click" />
         </div>
         

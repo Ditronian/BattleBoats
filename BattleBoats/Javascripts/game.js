@@ -818,7 +818,7 @@ function myFunction()
     //On a success it performs this action, result is output from the C# method
     function onSucess(result)
     {
-        alert(result);
+        alert(result.UserID);
     }
 
     //On a fail it does this.
