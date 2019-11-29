@@ -14,7 +14,7 @@ namespace BattleBoats
         /**
          * Plays a single move. Return an x y coordinate being the tile to attempt to shoot on...
          */
-        public abstract Coordinate playMove(string gameData);
+        public abstract Coordinate playMove(PlayerBoards gameData);
     }
 
     // Stores a coordinate...

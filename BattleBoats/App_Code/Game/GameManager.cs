@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace BattleBoats
-{
+{ 
     public class GameManager
     {
         public const int PLAYER1 = 0;
@@ -54,20 +51,32 @@ namespace BattleBoats
          * Returns JSON representation of player data, containing both the board informing the user of there own board,
          * and the board informing them where they have hit the other player's board...
          */
-        public string getPlayerData(int player)
+        public PlayerBoards getPlayerData(int player)
         {
             if (player == PLAYER1)
             {
-                return "{ board: " + player1Board.getBoatArray() + ", hitboard: " + player2Board.getHitArray() + "}";
+                return new PlayerBoards(player1Board.getBoatArray(), player2Board.getHitArray());
             }
             else if(player == PLAYER2)
             {
-                return "{ board: " + player2Board.getBoatArray() + ", hitboard: " + player1Board.getHitArray() + "}";
+                return new PlayerBoards(player2Board.getBoatArray(), player1Board.getHitArray());
             }
             else
             {
                 throw new ArgumentException("What are you doing???");
             }
+        }
+    }
+
+    public class PlayerBoards
+    {
+        public SimpleBoard shipBoard;
+        public SimpleBoard hitBoard;
+
+        public PlayerBoards(SimpleBoard shipBoard, SimpleBoard hitBoard)
+        {
+            this.shipBoard = shipBoard;
+            this.hitBoard = hitBoard;
         }
     }
 }

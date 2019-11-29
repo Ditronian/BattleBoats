@@ -202,45 +202,50 @@ namespace BattleBoats
         /**
          * Converts the boat array to a valid json string for javascript to parse...
          */
-        public string getBoatArray()
+        public SimpleBoard getBoatArray()
         {
-            string[] shipItems = new string[width * height];
-            
-            for (int i = 0; i < board.Length; i++)
-            {
-                shipItems[i] = board[i].ToString();
-            }
-            
-            return "{ width: " + width + ", height: " + height + ", array: [" + String.Join(",", shipItems) + 
-                   "]}";
+            return new SimpleBoard(width, height, board);
         }
 
         /**
          * Returns the hit array in a valid json format, for javascript to parse... 0 is no attempt, -1 is a miss, and
          * 1 is a hit...
          */
-        public string getHitArray()
+        public SimpleBoard getHitArray()
         {
-            string[] hitItems = new string[width * height];
+            int[] hitItems = new int[width * height];
 
             for (int i = 0; i < shotLoc.Length; i++)
             {
                 if (!shotLoc[i])
                 {
-                    hitItems[i] = "0";
+                    hitItems[i] = 0;
                 }
                 else if (board[i] < 0)
                 {
-                    hitItems[i] = "1";
+                    hitItems[i] = 1;
                 }
                 else
                 {
-                    hitItems[i] = "-1";
+                    hitItems[i] = -1;
                 }
             }
-            
-            return "{ width: " + width + ", height: " + height + ", array: [" + String.Join(",", hitItems) + 
-                   "]}";
+
+            return new SimpleBoard(width, height, hitItems);
+        }
+    }
+
+    public class SimpleBoard
+    {
+        public int width;
+        public int height;
+        public int[] data;
+
+        public SimpleBoard(int width, int height, int[] data)
+        {
+            this.width = width;
+            this.height = height;
+            this.data = data;
         }
     }
 }
