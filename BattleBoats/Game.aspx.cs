@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Services;
 
 namespace BattleBoats
 {
@@ -18,7 +19,7 @@ namespace BattleBoats
             if (Session["UserID"] == null) Response.Redirect("~/Login.aspx");
 
             //Check if AJAX PostBack
-            if (scriptManager.IsInAsyncPostBack )
+            if (scriptManager.IsInAsyncPostBack)
             {
 
                 // partial (asynchronous) postback occured
@@ -26,7 +27,7 @@ namespace BattleBoats
                 Label1.Text += "PartialPostBack";
             }
             //Check if this is a postback, and a game is active, if so handle the game
-            else if (this.IsPostBack && Session["activeGame"] != null) 
+            else if (this.IsPostBack && Session["activeGame"] != null)
             {
                 Label1.Text += "PostBack";
                 updateGame();
@@ -51,7 +52,7 @@ namespace BattleBoats
         private void updateGame()
         {
             //Load existing game state
-            game = (GameManager) Session["activeGame"];
+            game = (GameManager)Session["activeGame"];
 
             //Get User Move from HiddenField that was updated by the JS with the player's move.
             int x = 0;
@@ -85,5 +86,17 @@ namespace BattleBoats
         {
             Label1.Text += "Click";
         }
+
+
+        //Obviously this is just here for testing purposes.  We can have it do something far more useful in actual usage.
+        [WebMethod]
+        public static string sayHi()
+        {
+            string result = "Hello Motto.";
+
+            return result;
+        }
+
+
     }
 }

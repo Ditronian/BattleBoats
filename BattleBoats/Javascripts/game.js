@@ -645,6 +645,8 @@ function onclick(event) {
         Sound.unmute();
         firstMute = false;
     }
+
+    myFunction();
     
     // If the animation is still running return immediately...
     if((ClickLocation.tileX >= 0) || (ClickLocation.tileY >= 0)) return;
@@ -802,9 +804,30 @@ async function beginGame() {
     // Load the boats...
     unplacedBoats = [new Boat(2), new Boat(2), new Boat(3), new Boat(5)];
     placedBoats = [];
-    
+
     // Begin the game loop...
     window.requestAnimationFrame(loop);
 }
 
+
+//Uses the AJAX Script Manager to call the Page's static 'sayHi()' method, which returns a string.
+function myFunction()
+{
+    PageMethods.sayHi(onSucess, onError);
+
+    //On a success it performs this action, result is output from the C# method
+    function onSucess(result)
+    {
+        alert(result);
+    }
+
+    //On a fail it does this.
+    function onError(result)
+    {
+        alert('Cannot process your request at the moment, please try later.');
+    }
+}
+
 beginGame();
+
+

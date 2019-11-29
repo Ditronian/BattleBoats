@@ -21,5 +21,11 @@ namespace BattleBoats
 
             return hashedDataBytes;
         }
+
+        public static string sayHi()
+        {
+            return "Hi";
+        }
     }
+
 }
