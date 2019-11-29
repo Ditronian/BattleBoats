@@ -9,7 +9,8 @@ namespace BattleBoats
 {
     public partial class Game : System.Web.UI.Page
     {
-        GameController game;
+        // Now the game manager handles game data...
+        GameManager game;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -41,7 +42,7 @@ namespace BattleBoats
         private void startGame()
         {
             //Make the new Game and save it to the Session
-            game = new GameController();
+            // New design, this isn't going to work... game = new GameManager();
             Session["activeGame"] = game;
         }
 
@@ -50,14 +51,14 @@ namespace BattleBoats
         private void updateGame()
         {
             //Load existing game state
-            game = (GameController) Session["activeGame"];
+            game = (GameManager) Session["activeGame"];
 
             //Get User Move from HiddenField that was updated by the JS with the player's move.
             int x = 0;
             int y = 0;
 
             //Send Player Move to the GameController where it can then decide on the AI's move, and update itself.
-            game.playerMove(x, y);
+            // Yea not going to work... game.playerMove(x, y);
 
             //Save the updated Game State
             Session["activeGame"] = game;
