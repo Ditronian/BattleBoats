@@ -54,6 +54,62 @@ class CanvasDrawer {
         // Restore original context rendering settings...
         this.context.restore();
     }
+
+    /**
+     * Draws text to the canvas...
+     * Might eventually add rotation support...
+     * 
+     * @param text: The text to draw...
+     * @param canvasX: The x location to draw the text to...
+     * @param canvasY: The y location to draw the text to...
+     * @param fontStyle: The font style being the size followed by family...
+     * @param fontAlignV: The vertical alignment of the font....
+     * @param fontAlignH: The horizontal alignment of the font...
+     * @param fontColor: The color of the font, as a string...
+     * @param outlineColor: The color to outline the font in...
+     */
+    drawText(text, canvasX=0, canvasY=0, fontStyle=defaultFont, fontAlignV="top", fontAlignH="left", fontColor = "black", 
+             outlineColor=null) {
+        this.context.fillStyle = fontColor;
+        this.context.strokeStyle = outlineColor;
+        this.context.textBaseline = fontAlignV;
+        this.context.textAlign = fontAlignH;
+        this.context.font = fontStyle;
+        this.context.fillText(text, canvasX, canvasY);
+        if(outlineColor !== null) this.context.strokeText(text, canvasX, canvasY);
+    }
+
+    /**
+     * Draws a rectangle to the screen... May eventually add ability to rotate rectangle...
+     * 
+     * @param x: The x location of the top right corner...
+     * @param y: The y location of the top right corner...
+     * @param width: The width of the rectangle...
+     * @param height: The height of the rectangle...
+     * @param fillColor: The color to fill the rectangle with...
+     * @param outlineColor: The color to outline the rectangle with...
+     */
+    drawRect(x, y, width, height, fillColor = "black", outlineColor=null) {
+        this.context.fillStyle = fillColor;
+        this.context.strokeStyle = outlineColor;
+        this.context.fillRect(x, y, width, height);
+        if(outlineColor !== null) this.context.strokeRect(x, y, width, height);
+    }
+
+    /**
+     * Get's the width and the height of some text if it were to be plotted on this canvas...
+     * 
+     * @param text: The text to measure the dimensions of...
+     * @param fontStyle: The font size and style to apply to the text while measuring its dimensions...
+     * 
+     * @return: {width: number, height: number}
+     */
+    getTextDimensions(text, fontStyle=defaultFont) {
+        this.context.font = defaultFont;
+        let measurement = this.context.measureText(text);
+        return {"width": measurement.width, "height": measurement.actualBoundingBoxDescent + 
+                measurement.actualBoundingBoxAscent};
+    }
 }
 
 
@@ -155,7 +211,7 @@ class Sound {
         }
     }
 }
-// Firefox doesn't support static variables yet, so have to do dump hack to do class global variables...
+// Firefox doesn't support static variables yet, so have to do dumb hack to do class global variables...
 Sound.MUTED = false;
 Sound.ALL_SOUNDS = [];
 
@@ -573,6 +629,15 @@ function update(progress) {
 
 // Sub-Draw functions....
 
+function drawBackground() {
+    drawer.drawRect(0, 0, canvas.width, canvas.height, "#03466B");
+}
+
+function drawText() {
+    drawer.drawText(scoreText, canvas.width, 0, defaultFont, "top", "right", "white");
+    drawer.drawText(generalMsgText, 0, 0, defaultFont, "top", "left", "white");
+}
+
 function drawWater() {
     // We begin by filling in the background animated water tiles...
     for(let i = 0; i < battleBoard.xTiles; i++) {
@@ -650,7 +715,7 @@ function drawClickStuff() {
 }
 
 // Array stores all draw functions in there original execution order...
-let DrawFunctions = [drawWater, drawBoats, drawHoverIndicator, drawClickStuff];
+let DrawFunctions = [drawBackground, drawWater, drawBoats, drawHoverIndicator, drawClickStuff, drawText];
 
 function draw() {
     // Iterate all drawing functions and execute them...
@@ -837,9 +902,16 @@ let ImageTiles = {};
 let SoundEffects = {};
 
 // Will soon store player board data...
-let playerBoardData = null; 
+let playerBoardData = null;
 
 let firstMute = true;
+
+// Stores font size and style for displaying score...
+let textSize = 20;
+let textFont = "sans-serif";
+let defaultFont = textSize + "px " + textFont;
+let scoreText = "Score: 0";
+let generalMsgText = "Press 'r' to rotate ships!!!";
 
 // Represents current hover location, set to -1, -1 if user mouse in not within canvas...
 let HoverLocation = {
@@ -861,7 +933,6 @@ let lastRender = 0;
 let delayTime = 0;
 let unplacedBoats = null;
 let placedBoats = null;
-let scoreText = "Score: 0";
 // The board...
 let battleBoard = null;
 
@@ -903,7 +974,8 @@ async function beginGame() {
     let GameSettings = await runPageMethod(PageMethods.getSettings, null);
     console.log(JSON.stringify(GameSettings));
     // Load the board for rendering tiles to...
-    battleBoard = new Board(0, 0, canvas.width, canvas.height, GameSettings.boardWidth, GameSettings.boardHeight);
+    battleBoard = new Board(textSize / 2, textSize, canvas.width - textSize, canvas.height - textSize, 
+                            GameSettings.boardWidth, GameSettings.boardHeight);
     // Load the boats with there respective sizes...
     unplacedBoats = [];
     for(const boatSize of GameSettings.boatSizes) {
