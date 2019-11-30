@@ -573,19 +573,25 @@ function update(progress) {
     if(delayTime > 0) delayTime = delayTime - progress;
 }
 
-function draw() {
-    // TODO: Split this into some methods which are iterated throw and executed...
+// Sub-Draw functions....
+
+function drawWater() {
     // We begin by filling in the background animated water tiles...
     for(let i = 0; i < battleBoard.xTiles; i++) {
         for(let j = 0; j < battleBoard.yTiles; j++) {
             battleBoard.renderTile(i, j, ImageTiles.water);
         }
     }
+}
+
+function drawBoats() {
     // Render placed boats...
     for(const [coords, boat] of placedBoats) {
         battleBoard.renderMultiTile(coords[0], coords[1], boat);
     }
-    
+}
+
+function drawHoverIndicator() {
     // If user is hovered over a tile, render a hover tile to that location...
     if((HoverLocation.tileX >= 0) && (HoverLocation.tileY >= 0)) {
         if(unplacedBoats.length > 0) {
@@ -597,9 +603,11 @@ function draw() {
             battleBoard.renderTile(HoverLocation.tileX, HoverLocation.tileY, ImageTiles.hover);
         }
     }
-    
+}
+
+function drawClickStuff() {
     if(delayTime > 0) return;
-    
+
     // If user has 'R' key pressed, rotate current ship at the top of the stack...
     if((unplacedBoats.length) > 0 && ("r" in KeysPressed)) {
         let cboat = unplacedBoats[unplacedBoats.length - 1];
@@ -608,7 +616,7 @@ function draw() {
         delete KeysPressed["r"];
         delayTime = 500;
     }
-    
+
     if((ClickLocation.tileX >= 0) && (ClickLocation.tileY >= 0)) {
         if(boatCollision(ClickLocation.tileX, ClickLocation.tileY)) {
             ClickLocation.tileX = -1;
@@ -616,7 +624,7 @@ function draw() {
             delayTime = 500;
             return;
         }
-        
+
         if(unplacedBoats.length > 0) {
             placedBoats.push([[ClickLocation.tileX, ClickLocation.tileY], unplacedBoats.pop()]);
             ClickLocation.tileX = -1;
@@ -624,10 +632,10 @@ function draw() {
             delayTime = 500;
             return;
         }
-        
+
         if(ClickLocation.initialTrigger) SoundEffects.explosion.play();
         ClickLocation.initialTrigger = false;
-        
+
         if(ImageTiles.explosion.hasCycled()) {
             ClickLocation.tileX = -1;
             ClickLocation.tileY = -1;
@@ -640,6 +648,16 @@ function draw() {
     }
     else {
         ImageTiles.explosion.reset();
+    }
+}
+
+// Array stores all draw functions in there original execution order...
+let DrawFunctions = [drawWater, drawBoats, drawHoverIndicator, drawClickStuff];
+
+function draw() {
+    // Iterate all drawing functions and execute them...
+    for(const func of DrawFunctions) {
+        func();
     }
 }
 
@@ -675,6 +693,7 @@ function onclick(event) {
         Sound.unmute();
         firstMute = false;
     }
+    if(battleBoard === null) return;
     
     // Temp commented out....
     // myFunction();
@@ -691,6 +710,7 @@ function onclick(event) {
 }
 
 function onhover(event) {
+    if(battleBoard === null) return;
     // Get mouse location...
     let [x, y] = getCanvasMousePosition(event, canvas);
     // Get the tile location, if valid set the current hovered over tile location.
@@ -783,6 +803,24 @@ function loadImage(url) {
     })
 }
 
+// For executing C# methods and waiting for there response before continuing...
+/**
+ * Runs the PageMethod provided, passing it the arguments array unpacked, and returns a promise which eventually 
+ * returns the result of the method...
+ * 
+ * @param method: The PageMethod to execute...
+ * @param argsArr: The arguments to pass to the method, an array...
+ */
+function runPageMethod(method, argsArr) {
+    return new Promise(function(resolve, reject) {
+        if(argsArr === null) {
+            method(resolve, reject);
+        }
+        else{
+            method(...argsArr, resolve, reject);
+        }
+    });
+}
 
 // GAME GLOBAL VARIABLES BELOW:
 
@@ -825,7 +863,8 @@ let lastRender = 0;
 let delayTime = 0;
 let unplacedBoats = null;
 let placedBoats = null;
-battleBoard = new Board(0, 0, canvas.width, canvas.height, 20, 20);
+// The board...
+let battleBoard = null;
 
 // Create canvas drawing object...
 let drawer = new CanvasDrawer(canvas, ctx);
@@ -861,8 +900,16 @@ async function beginGame() {
         // Add the newly created animated tile to our list of tile objects...
         ImageTiles[imagesSources[i][0]] = tile;
     }
-    // Load the boats...
-    unplacedBoats = [new Boat(2), new Boat(2), new Boat(3), new Boat(5)];
+    // Load the game settings from the server...
+    let GameSettings = await runPageMethod(PageMethods.getSettings, null);
+    console.log(JSON.stringify(GameSettings));
+    // Load the board for rendering tiles to...
+    battleBoard = new Board(0, 0, canvas.width, canvas.height, GameSettings.boardWidth, GameSettings.boardHeight);
+    // Load the boats with there respective sizes...
+    unplacedBoats = [];
+    for(const boatSize of GameSettings.boatSizes) {
+        unplacedBoats.push(new Boat(boatSize));
+    }
     placedBoats = [];
 
     // Begin the game loop...

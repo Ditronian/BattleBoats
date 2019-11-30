@@ -100,6 +100,7 @@ namespace BattleBoats
         }
         
         // Initializes the game, building the new game object...
+        [WebMethod]
         public static PlayerBoards initGame(int[] initBoard)
         {
             // Make the player board... TODO: Add try-catch which will auto-lose the game. (Player was cheating)
@@ -119,6 +120,7 @@ namespace BattleBoats
         }
 
         // Plays a move, accepting the player move and then performing the AI move...
+        [WebMethod]
         public static PlayerBoards playMove(int x, int y)
         {
             GameManager gm = (GameManager) HttpContext.Current.Session["game"];
