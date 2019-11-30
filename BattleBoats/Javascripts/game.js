@@ -8,6 +8,10 @@ function sleepWait(millis) {
     return new Promise(resolve => setTimeout(resolve, millis));
 }
 
+
+// CORE DRAWING API FOR GAME BELOW:
+
+
 /**
  * Utility class which provides useful methods for drawing to the canvas...
  */
@@ -51,6 +55,10 @@ class CanvasDrawer {
         this.context.restore();
     }
 }
+
+
+// SOUND HANDLING CLASSES BELOW:
+
 
 /**
  * Represents game audio. Can be used to play sounds in game
@@ -151,6 +159,10 @@ class Sound {
         }
     }
 }
+
+
+// TILE RENDERING CLASSES BELOW:
+
 
 /**
  * A Tile, Abstract class used for representing game tiles. Can be updated and rendered... No concept of collision
@@ -317,11 +329,11 @@ class MultiTile extends Tile {
             case Tile.UP:
                 return [x, y];
             case Tile.RIGHT:
-                return [y, -x];
+                return [-y, x];
             case Tile.DOWN:
                 return [-x, -y];
             case Tile.LEFT:
-                return [-y, x];
+                return [y, -x];
             default:
                 throw new RangeError("NOOOO!!!!")
         }
@@ -382,7 +394,8 @@ class MultiTile extends Tile {
         for(const [x, y, transX, transY] of this.getTranslatedCoords(board, tileX, tileY)) {
             // Render, rotating tile relative to rotation of the whole thing...
             let [tile, rot] = this.tiles[[x, y]];
-            board.renderTile(transX, transY, tile, (this.getRotateState() + rot) % 3)
+            let rotState = (this.getRotateState() + rot) % 4;
+            board.renderTile(transX, transY, tile, rotState)
         }
     }
     
@@ -548,6 +561,10 @@ class Board {
     }
 }
 
+
+// UPDATE METHODS, DRAW METHODS, AND GAME LOOP BELOW:
+
+
 function update(progress) {
     // Iterate through the tiles and update the current image they are on...
     for (const tileName in ImageTiles) {
@@ -557,6 +574,7 @@ function update(progress) {
 }
 
 function draw() {
+    // TODO: Split this into some methods which are iterated throw and executed...
     // We begin by filling in the background animated water tiles...
     for(let i = 0; i < battleBoard.xTiles; i++) {
         for(let j = 0; j < battleBoard.yTiles; j++) {
@@ -581,6 +599,15 @@ function draw() {
     }
     
     if(delayTime > 0) return;
+    
+    // If user has 'R' key pressed, rotate current ship at the top of the stack...
+    if((unplacedBoats.length) > 0 && ("r" in KeysPressed)) {
+        let cboat = unplacedBoats[unplacedBoats.length - 1];
+        // Increment boat state by 1 and setup delay to avoid having user rotate the thing 1000 times in a second...
+        cboat.setRotateState((cboat.getRotateState() + 1) % 4);
+        delete KeysPressed["r"];
+        delayTime = 500;
+    }
     
     if((ClickLocation.tileX >= 0) && (ClickLocation.tileY >= 0)) {
         if(boatCollision(ClickLocation.tileX, ClickLocation.tileY)) {
@@ -622,7 +649,6 @@ function boatCollision(attemptXPlace, attemptYPlace) {
     for(const [coords, boat] of placedBoats) {
         let [x, y] = coords;
         if(boat.collision(battleBoard, x, y, unplacedBoats[unplacedBoats.length - 1], attemptXPlace, attemptYPlace)) {
-            console.log("Collision...");
             return true;
         }
     }
@@ -639,14 +665,19 @@ function loop(timestamp) {
     window.requestAnimationFrame(loop);
 }
 
+
+// INPUT HANDLING METHODS BELOW...
+
+
 function onclick(event) {
     // Initialize sound if not already done...
     if(firstMute) {
         Sound.unmute();
         firstMute = false;
     }
-
-    myFunction();
+    
+    // Temp commented out....
+    // myFunction();
     
     // If the animation is still running return immediately...
     if((ClickLocation.tileX >= 0) || (ClickLocation.tileY >= 0)) return;
@@ -674,6 +705,16 @@ function onhoverout(event) {
     HoverLocation.tileY = -1;
 }
 
+// Adds key to keys pressed....
+function onkeydown(event) {
+    KeysPressed[event.key] = true;
+}
+
+// Removes key when key is released...
+function onkeyup(event) {
+    delete KeysPressed[event.key];
+}
+
 /**
  * Returns the current mouse location in the canvas rendering coordinate system...
  * 
@@ -698,6 +739,11 @@ function getCanvasMousePosition(event, canvas) {
 canvas.addEventListener("click", onclick, false);
 canvas.addEventListener("mousemove", onhover, false);
 canvas.addEventListener("mouseout", onhoverout, false);
+window.addEventListener("keydown", onkeydown, false);
+window.addEventListener("keyup", onkeyup, false);
+
+
+// URL RESOURCE READING/LOADING METHODS BELOW
 
 
 // For reading json files....
@@ -737,7 +783,9 @@ function loadImage(url) {
     })
 }
 
-// TODO: Replace dumb loops with promises...
+
+// GAME GLOBAL VARIABLES BELOW:
+
 
 // Array specifies what tiles should be loaded. First value is the final name in the image tiles object. The second
 // value specifies the source image for the tile. The last value specifies the animation speed.
@@ -751,6 +799,9 @@ let soundSources = null;
 let ImageTiles = {};
 // Stores all sound effects...
 let SoundEffects = {};
+
+// Will soon store player board data...
+let playerBoardData = null; 
 
 let firstMute = true;
 
@@ -767,6 +818,9 @@ let ClickLocation = {
     "initialTrigger": false
 };
 
+// Represents any currently pressed keys.... True for pressed and undefined for not pressed....
+let KeysPressed = {};
+
 let lastRender = 0;
 let delayTime = 0;
 let unplacedBoats = null;
@@ -775,6 +829,10 @@ battleBoard = new Board(0, 0, canvas.width, canvas.height, 20, 20);
 
 // Create canvas drawing object...
 let drawer = new CanvasDrawer(canvas, ctx);
+
+
+// GAME LOAD AND START METHOD BELOW:
+
 
 /**
  * Begins game execution and loads tiles, setting up the tiling system...
@@ -813,6 +871,7 @@ async function beginGame() {
 
 
 //Uses the AJAX Script Manager to call the Page's static 'sayHi()' method, which returns a string.
+/*
 function myFunction()
 {
     PageMethods.sayHi(onSucess, onError);
@@ -829,7 +888,9 @@ function myFunction()
         alert('Cannot process your request at the moment, please try later.');
     }
 }
+*/
 
+// Runs the entire game...
 beginGame();
 
 
