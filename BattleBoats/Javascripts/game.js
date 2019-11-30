@@ -64,10 +64,6 @@ class CanvasDrawer {
  * Represents game audio. Can be used to play sounds in game
  */
 class Sound {
-    
-    static MUTED = false;
-    static ALL_SOUNDS = [];
-
     /**
      * Creates a new sound element for playing a sound effect...
      * 
@@ -159,6 +155,9 @@ class Sound {
         }
     }
 }
+// Firefox doesn't support static variables yet, so have to do dump hack to do class global variables...
+Sound.MUTED = false;
+Sound.ALL_SOUNDS = [];
 
 
 // TILE RENDERING CLASSES BELOW:
@@ -169,12 +168,6 @@ class Sound {
  * detection...
  */
 class Tile {
-    
-    static UP = 0;
-    static DOWN = 2;
-    static LEFT = 3;
-    static RIGHT = 1;
-
     /**
      * Construct a new Tile;
      * 
@@ -224,6 +217,11 @@ class Tile {
      */
     hasCycled() {};
 }
+// Again, this is to deal with firefox not supporting the static keyword on variables...
+Tile.UP = 0;
+Tile.DOWN = 2;
+Tile.LEFT = 3;
+Tile.RIGHT = 1;
 
 /**
  * Represents a collection of tiles... These are set up as coordinates away from a relative origin...
@@ -863,6 +861,7 @@ let lastRender = 0;
 let delayTime = 0;
 let unplacedBoats = null;
 let placedBoats = null;
+let scoreText = "Score: 0";
 // The board...
 let battleBoard = null;
 
