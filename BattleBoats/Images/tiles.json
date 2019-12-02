@@ -4,5 +4,8 @@
   ["explosion", "Images/TestExplosionTiles.png", 50],
   ["boatTip", "Images/BoatFrontTile.png", 100],
   ["boatMiddle", "Images/BoatMiddleTile.png", 100],
-  ["beginScreen", "Images/BeginGameScreen.png", 100]
+  ["beginScreen", "Images/BeginGameScreen.png", 100],
+  ["shipHit", "Images/HitShip.png", 200],
+  ["shipMiss", "Images/MissShip.png", 200],
+  ["attackScreen", "Images/AttackTitleScreen.png", 100]
 ]
