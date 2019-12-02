@@ -70,6 +70,7 @@ namespace BattleBoats
         protected void newGameButton_Click(object sender, EventArgs e)
         {
             Session.Remove("activeGame");
+            Session.Remove("activeGame");
             Response.Redirect("Game.aspx");
         }
 
@@ -78,18 +79,6 @@ namespace BattleBoats
         {
             if (Session["activeGame"] != null) Session.Remove("activeGame");
             Response.Redirect("Home.aspx");
-        }
-
-
-
-        // Obviously this is just here for testing purposes.  We can have it do something far more useful in actual usage.
-        [WebMethod]
-        public static User sayHi()
-        {
-            User user = new User();
-            user.UserID = (int)HttpContext.Current.Session["UserID"];
-            user.Username = "Bob the Builder";
-            return user;
         }
         
         // Some example stuff I will try to link into JS...
