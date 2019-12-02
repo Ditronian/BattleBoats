@@ -604,8 +604,8 @@ class Board {
         let tileCoordW = (this.width / this.xTiles);
         let tileCoordH = (this.height / this.yTiles);
         
-        let tileX = Math.floor(x / tileCoordW);
-        let tileY = Math.floor(y / tileCoordH);
+        let tileX = Math.floor((x - this.x) / tileCoordW);
+        let tileY = Math.floor((y - this.y) / tileCoordH);
 
         if(this.invalidCoordinate(tileX, tileY)) {
             return [-1, -1];
@@ -625,9 +625,25 @@ function update(progress) {
         ImageTiles[tileName].update(progress);
     }
     if(delayTime > 0) delayTime = delayTime - progress;
+    if((bannerOnScreen !== null) && (bannerOnScreen > 0)) bannerOnScreen = bannerOnScreen - progress;
 }
 
 // Sub-Draw functions....
+
+function drawBanner() {
+    if(fullScreenImg !== null) {
+        fullScreenImg.draw(0, 0, canvas.width, canvas.height, Tile.UP);
+        if(bannerClickable && (ClickLocation.tileX > 0) && (ClickLocation.tileY > 0)) {
+            stopStatusScreen();
+            ClickLocation.tileX = -1;
+            ClickLocation.tileY = -1;
+            delayTime = 500;
+        }
+        if(bannerOnScreen !== null && bannerOnScreen <= 0) {
+            stopStatusScreen();
+        }
+    }
+}
 
 function drawBackground() {
     drawer.drawRect(0, 0, canvas.width, canvas.height, "#03466B");
@@ -655,6 +671,8 @@ function drawBoats() {
 }
 
 function drawHoverIndicator() {
+    if(inputDisabled) return;
+    
     // If user is hovered over a tile, render a hover tile to that location...
     if((HoverLocation.tileX >= 0) && (HoverLocation.tileY >= 0)) {
         if(unplacedBoats.length > 0) {
@@ -670,6 +688,7 @@ function drawHoverIndicator() {
 
 function drawClickStuff() {
     if(delayTime > 0) return;
+    if(inputDisabled) return;
 
     // If user has 'R' key pressed, rotate current ship at the top of the stack...
     if((unplacedBoats.length) > 0 && ("r" in KeysPressed)) {
@@ -715,7 +734,21 @@ function drawClickStuff() {
 }
 
 // Array stores all draw functions in there original execution order...
-let DrawFunctions = [drawBackground, drawWater, drawBoats, drawHoverIndicator, drawClickStuff, drawText];
+let DrawFunctions = [drawBackground, drawWater, drawBoats, drawHoverIndicator, drawClickStuff, drawText, drawBanner];
+
+// Allow program to pause input/and show a status screen...
+function drawStatusScreen(tile, canClickThrough=false, timeOnScreen=null) {
+    inputDisabled = true;
+    fullScreenImg = tile;
+    bannerClickable = canClickThrough;
+    bannerOnScreen = timeOnScreen;
+}
+
+function stopStatusScreen() {
+    inputDisabled = false;
+    fullScreenImg = null;
+    bannerOnScreen = null;
+}
 
 function draw() {
     // Iterate all drawing functions and execute them...
@@ -748,8 +781,6 @@ function loop(timestamp) {
 
 
 // INPUT HANDLING METHODS BELOW...
-
-
 function onclick(event) {
     // Initialize sound if not already done...
     if(firstMute) {
@@ -900,9 +931,13 @@ let soundSources = null;
 let ImageTiles = {};
 // Stores all sound effects...
 let SoundEffects = {};
+// Stores the current full screen image...
+let fullScreenImg = null;
+let bannerClickable = false;
+let bannerOnScreen = null;
 
 // Will soon store player board data...
-let playerBoardData = null;
+let PlayerData = null;
 
 let firstMute = true;
 
@@ -928,9 +963,10 @@ let ClickLocation = {
 
 // Represents any currently pressed keys.... True for pressed and undefined for not pressed....
 let KeysPressed = {};
-
+// Some other stuff... Last render time, the time to delay and ignore click events..., 
 let lastRender = 0;
 let delayTime = 0;
+let inputDisabled = true;
 let unplacedBoats = null;
 let placedBoats = null;
 // The board...
@@ -982,6 +1018,9 @@ async function beginGame() {
         unplacedBoats.push(new Boat(boatSize));
     }
     placedBoats = [];
+    
+    // Start "Click to Begin" Screen...
+    drawStatusScreen(ImageTiles.beginScreen, true);
 
     // Begin the game loop...
     window.requestAnimationFrame(loop);
