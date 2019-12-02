@@ -1,10 +1,30 @@
 ﻿#outerDiv {
     text-align: center;
     border: groove;
-    margin: 30%;
+    margin: 10%;
     margin-top: 0;
 }
 
 #buttonDiv{
     text-align:center;
+}
+#LeftDiv{
+    float: left;
+    flex: 1;
+    border: none;
+    margin-left: 20%;
+    margin-right: 15%;
+    font-size: 30px;
+}
+#RightDiv{
+    float: right;
+    flex: 1;
+    border: none;
+    margin-right: 20%;
+    margin-left: 3%;
+    font-size: 30px;
+}
+#StatsDivs{
+    display: flex;
+    text-align: center;
 }

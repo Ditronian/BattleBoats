@@ -10,24 +10,28 @@
     <link rel="stylesheet" type="text/css" href="CSS/Statistics.css" />
 </head>
 <body>
+
     <form id="form1" runat="server">
             <div id="buttonDiv">
                 <asp:Button id = "HomeButton" runat="server" Text = "HOME" OnClick="HomeButton_Click"></asp:Button>
             </div>
-        <div id="outerDiv"><h1 id="header">USERNAME STATISTICS!</h1>
-        <div id="bodyDiv">
+        <div id="outerDiv"><h1 id="header">USERNAME STATISTICS!</h1> </div>
+            
+        <Section id = "StatsDivs">
+            <div id="LeftDiv">
                 <asp:Label ID = "GamesPlayedLabel" Text = "Total Games Played: " runat="server"></asp:Label>
                  <p> </p>
                 <asp:Label ID="WinLossLabel" runat="server" Text="Win/Loss Ratio: "></asp:Label>
                 <p> </p>
                 <asp:Label id = "TotalPointsLabel" Text = "Total Points: " runat="server"></asp:Label>
                 <p></p>
-            
-            <h3>
-                LEADER BOARD
-            </h3>
-            
-               <table>
+                </div>
+
+             <div id = "RightDiv">
+                 <h3> LEADER BOARD</h3>
+
+
+                 <table>
                     <tr>
                         <td> 1. </td>
                         <td> <asp:Label ID = "UserLabel1"  runat="server"></asp:Label> </td>
@@ -82,7 +86,7 @@
                </table>
               
         </div>
-    </div>
+            </Section>
     </form>
 </body>
 </html>
