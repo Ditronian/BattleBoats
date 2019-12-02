@@ -78,16 +78,25 @@
     <Content Include="CSS\Statistics.css" />
     <Content Include="Game.aspx" />
     <Content Include="Home.aspx" />
+    <Content Include="Images\AttackTitleScreen.png" />
+    <Content Include="Images\background.jpg" />
+    <Content Include="Images\BeginGameScreen.png" />
     <Content Include="Images\BoatFrontTile.png" />
     <Content Include="Images\BoatMiddleTile.png" />
+    <Content Include="Images\HitShip.png" />
+    <Content Include="Images\MissShip.png" />
     <Content Include="Images\TestExplosionTiles.png" />
     <Content Include="Images\TestHoverTiles.png" />
     <Content Include="Images\TestWaterTiles.png" />
     <Content Include="Images\tiles.json" />
     <Content Include="Javascripts\game.js" />
     <Content Include="Login.aspx" />
+    <Content Include="SourceImageFiles\AttackTitleScreen.svg" />
+    <Content Include="SourceImageFiles\BeginGameScreen.svg" />
     <Content Include="SourceImageFiles\boatfront.svg" />
     <Content Include="SourceImageFiles\boatmiddle.svg" />
+    <Content Include="SourceImageFiles\HitShip.svg" />
+    <Content Include="SourceImageFiles\MissShip.svg" />
     <Content Include="Statistics.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>

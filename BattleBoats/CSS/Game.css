@@ -3,7 +3,8 @@
     margin: auto;
     width: 600px;
     height: 600px;
-    text-align:center;
+    text-align: center;
+    border-radius: 4px;
 }
 
 #gamecanvas {

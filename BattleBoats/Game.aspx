@@ -10,9 +10,6 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div id="navDiv">
-            <asp:Button ID="homeButton" runat="server" Text="Home" OnClick="homeButton_Click" />
-        </div>
         <br />
 
         <div id="greaterDiv">
@@ -24,6 +21,7 @@
             </div>
             <br />
             <asp:Button ID="newGameButton" runat="server" Text="New Game" OnClick="newGameButton_Click" />
+            <asp:Button ID="homeButton" runat="server" Text="Home" OnClick="homeButton_Click" />
         </div>
         
     </form>
