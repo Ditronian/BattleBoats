@@ -74,6 +74,8 @@ Wednesday Nov 27:
     David & Isaac:
         Installed Login FieldValidators/Serverside checks, then troubleshot stuff with Isaac.
         Spent: ~45m
+    Linda:
+        Added a check for existing usernames to UsersTables.cs 20min
 
 Thursday Nov 28:
     David & Isaac:
@@ -84,3 +86,9 @@ Thursday Nov 28:
          Implemented Union-Find object to represent the board, implemented object classes for detecting hits/misses/game over 
          states. Also made game manager class. Broke user login screen....
          Spent: ~∞ hrs
+         
+Monday Dec 2:
+    Linda: 
+        Created ScoresTable.cs functions to instert and get scores. Also created procedures for those. 2hrs
+    David & Isaac:
+        Argue about code organization

@@ -604,8 +604,8 @@ class Board {
         let tileCoordW = (this.width / this.xTiles);
         let tileCoordH = (this.height / this.yTiles);
         
-        let tileX = Math.floor(x / tileCoordW);
-        let tileY = Math.floor(y / tileCoordH);
+        let tileX = Math.floor((x - this.x) / tileCoordW);
+        let tileY = Math.floor((y - this.y) / tileCoordH);
 
         if(this.invalidCoordinate(tileX, tileY)) {
             return [-1, -1];
@@ -625,9 +625,27 @@ function update(progress) {
         ImageTiles[tileName].update(progress);
     }
     if(delayTime > 0) delayTime = delayTime - progress;
+    if((bannerOnScreen !== null) && (bannerOnScreen > 0)) bannerOnScreen = bannerOnScreen - progress;
 }
 
+
 // Sub-Draw functions....
+
+
+function drawBanner() {
+    if(fullScreenImg !== null) {
+        fullScreenImg.draw(0, 0, canvas.width, canvas.height, Tile.UP);
+        if(bannerClickable && (ClickLocation.tileX > 0) && (ClickLocation.tileY > 0)) {
+            stopStatusScreen();
+            ClickLocation.tileX = -1;
+            ClickLocation.tileY = -1;
+            delayTime = 500;
+        }
+        if(bannerOnScreen !== null && bannerOnScreen <= 0) {
+            stopStatusScreen();
+        }
+    }
+}
 
 function drawBackground() {
     drawer.drawRect(0, 0, canvas.width, canvas.height, "#03466B");
@@ -638,23 +656,39 @@ function drawText() {
     drawer.drawText(generalMsgText, 0, 0, defaultFont, "top", "left", "white");
 }
 
-function drawWater() {
+function drawPlayerBoard() {
     // We begin by filling in the background animated water tiles...
     for(let i = 0; i < battleBoard.xTiles; i++) {
         for(let j = 0; j < battleBoard.yTiles; j++) {
             battleBoard.renderTile(i, j, ImageTiles.water);
         }
     }
-}
-
-function drawBoats() {
     // Render placed boats...
     for(const [coords, boat] of placedBoats) {
         battleBoard.renderMultiTile(coords[0], coords[1], boat);
     }
 }
 
-function drawHoverIndicator() {
+function drawExplosionIndicator() {
+    if(inputDisabled) return;
+
+    // If user is hovered over a tile, render a hover tile to that location...
+    if((HoverLocation.tileX >= 0) && (HoverLocation.tileY >= 0)) {
+        let index = (HoverLocation.tileY * PlayerData.hitBoard.height) + HoverLocation.tileX;
+
+        if(PlayerData.hitBoard.data[index] !== 0) {
+            HoverLocation.tileX = -1;
+            HoverLocation.tileY = -1;
+            return;
+        }
+        
+        battleBoard.renderTile(HoverLocation.tileX, HoverLocation.tileY, ImageTiles.hover);
+    }
+}
+
+function drawBoatIndicator() {
+    if(inputDisabled) return;
+    
     // If user is hovered over a tile, render a hover tile to that location...
     if((HoverLocation.tileX >= 0) && (HoverLocation.tileY >= 0)) {
         if(unplacedBoats.length > 0) {
@@ -668,8 +702,9 @@ function drawHoverIndicator() {
     }
 }
 
-function drawClickStuff() {
+function drawClickBoatPlacement() {
     if(delayTime > 0) return;
+    if(inputDisabled) return;
 
     // If user has 'R' key pressed, rotate current ship at the top of the stack...
     if((unplacedBoats.length) > 0 && ("r" in KeysPressed)) {
@@ -695,7 +730,47 @@ function drawClickStuff() {
             delayTime = 500;
             return;
         }
+    }
 
+    // If we are out of boats, enter attack phase after server method is called...
+    if(unplacedBoats.length <= 0) {
+        let boatArr = new Array(battleBoard.xTiles * battleBoard.yTiles).fill(0);
+        let boatID = 1;
+
+        for(const [coord, boat] of placedBoats) {
+            for(const [x, y, rotx, roty] of boat.getTranslatedCoords(battleBoard, coord[0], coord[1])) {
+                boatArr[(roty * battleBoard.yTiles) + rotx] = boatID;
+            }
+            boatID++;
+        }
+
+        function onsuccess(result) {
+            GameState = "Attack";
+            PlayerData = result;
+            ModeSwitched = true;
+            generalMsgText = "Click a spot on the board to attack!!!";
+            drawStatusScreen(ImageTiles.attackScreen, false, 500);
+        }
+
+        function onfail(result) {
+            GameState = "Loss";
+            generalMsgText = "You Cheated!!!";
+        }
+
+        PageMethods.initGame(boatArr, onsuccess, onfail);
+    }
+}
+
+function drawClickAttack() {
+    if ((ClickLocation.tileX >= 0) && (ClickLocation.tileY >= 0)) {
+        let index = (ClickLocation.tileY * PlayerData.hitBoard.height) + ClickLocation.tileX;
+        
+        if(PlayerData.hitBoard.data[index] !== 0) {
+            ClickLocation.tileX = -1;
+            ClickLocation.tileY = -1;
+            return;
+        }
+            
         if(ClickLocation.initialTrigger) SoundEffects.explosion.play();
         ClickLocation.initialTrigger = false;
 
@@ -714,12 +789,51 @@ function drawClickStuff() {
     }
 }
 
+function drawAttackBoard() {
+    for(let y = 0; y < PlayerData.hitBoard.height; y++) {
+        for(let x = 0; x < PlayerData.hitBoard.width; x++) {
+            let index = (y * PlayerData.hitBoard.height) + x;
+            
+            battleBoard.renderTile(x, y, ImageTiles.water);
+            
+            if(PlayerData.hitBoard.data[index] == 1) {
+                battleBoard.renderTile(x, y, ImageTiles.hitShip);
+            }
+            else if(PlayerData.hitBoard.data[index] == 1) {
+                battleBoard.renderTile(x, y, ImageTiles.sunkShip);
+            }
+        }
+    }
+}
+
+// Stores the current mode....
+let GameState = "PlaceShips";
 // Array stores all draw functions in there original execution order...
-let DrawFunctions = [drawBackground, drawWater, drawBoats, drawHoverIndicator, drawClickStuff, drawText];
+let DrawFunctions = {
+    "PlaceShips": [drawBackground, drawPlayerBoard, drawBoatIndicator, drawClickBoatPlacement, drawText, drawBanner],
+    "Attack": [drawBackground, drawAttackBoard, drawExplosionIndicator, drawClickAttack, drawText, drawBanner],
+    "BeAttacked": [],
+};
+// Switched to true right after modes are switched...
+let ModeSwitched = false;
+
+// Allow program to pause input/and show a status screen...
+function drawStatusScreen(tile, canClickThrough=false, timeOnScreen=null) {
+    inputDisabled = true;
+    fullScreenImg = tile;
+    bannerClickable = canClickThrough;
+    bannerOnScreen = timeOnScreen;
+}
+
+function stopStatusScreen() {
+    inputDisabled = false;
+    fullScreenImg = null;
+    bannerOnScreen = null;
+}
 
 function draw() {
     // Iterate all drawing functions and execute them...
-    for(const func of DrawFunctions) {
+    for(const func of DrawFunctions[GameState]) {
         func();
     }
 }
@@ -771,6 +885,7 @@ function onclick(event) {
     ClickLocation.tileY = tileLoc[1];
     ClickLocation.initialTrigger = true;
 }
+
 
 function onhover(event) {
     if(battleBoard === null) return;
@@ -900,9 +1015,13 @@ let soundSources = null;
 let ImageTiles = {};
 // Stores all sound effects...
 let SoundEffects = {};
+// Stores the current full screen image...
+let fullScreenImg = null;
+let bannerClickable = false;
+let bannerOnScreen = null;
 
 // Will soon store player board data...
-let playerBoardData = null;
+let PlayerData = null;
 
 let firstMute = true;
 
@@ -928,9 +1047,10 @@ let ClickLocation = {
 
 // Represents any currently pressed keys.... True for pressed and undefined for not pressed....
 let KeysPressed = {};
-
+// Some other stuff... Last render time, the time to delay and ignore click events..., 
 let lastRender = 0;
 let delayTime = 0;
+let inputDisabled = true;
 let unplacedBoats = null;
 let placedBoats = null;
 // The board...
@@ -972,7 +1092,6 @@ async function beginGame() {
     }
     // Load the game settings from the server...
     let GameSettings = await runPageMethod(PageMethods.getSettings, null);
-    console.log(JSON.stringify(GameSettings));
     // Load the board for rendering tiles to...
     battleBoard = new Board(textSize / 2, textSize, canvas.width - textSize, canvas.height - textSize, 
                             GameSettings.boardWidth, GameSettings.boardHeight);
@@ -982,6 +1101,9 @@ async function beginGame() {
         unplacedBoats.push(new Boat(boatSize));
     }
     placedBoats = [];
+    
+    // Start "Click to Begin" Screen...
+    drawStatusScreen(ImageTiles.beginScreen, true);
 
     // Begin the game loop...
     window.requestAnimationFrame(loop);

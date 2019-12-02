@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Web.Services;
 
-namespace BattleBoats
-{
+namespace BattleBoats {
     public partial class Game : System.Web.UI.Page
     {
         // Now the game manager handles game data...
