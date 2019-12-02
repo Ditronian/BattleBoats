@@ -79,6 +79,7 @@
     <Content Include="Game.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="Images\AttackTitleScreen.png" />
+    <Content Include="Images\background.jpg" />
     <Content Include="Images\BeginGameScreen.png" />
     <Content Include="Images\BoatFrontTile.png" />
     <Content Include="Images\BoatMiddleTile.png" />
