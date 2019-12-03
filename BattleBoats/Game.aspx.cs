@@ -110,13 +110,15 @@ namespace BattleBoats {
             GameManager gm = (GameManager) HttpContext.Current.Session["game"];
             GameAI ai = (GameAI) HttpContext.Current.Session["ai"];
 
-            gm.playMove(x, y);
+            bool hit = gm.playMove(x, y);
             int[] aiGuess = ai.makeGuess();
-            bool hit = gm.playMove(aiGuess[0], aiGuess[1]);
+            gm.playMove(aiGuess[0], aiGuess[1]);
 
             PlayerBoards playerData = gm.getPlayerData(GameManager.PLAYER1);
             playerData.aiHit = aiGuess;
             playerData.hitAShip = hit;
+            playerData.gameOver = gm.gameOver();
+            playerData.playerWins = gm.getWinner() == GameManager.PLAYER1;
 
             return playerData;
         }

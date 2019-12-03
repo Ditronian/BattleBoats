@@ -663,6 +663,10 @@ function drawBackground() {
 }
 
 function drawText() {
+    if(PlayerData !== null) {
+        scoreText = "Score: " + PlayerData.scoreData.score;
+    }
+    
     drawer.drawText(scoreText, canvas.width, 0, defaultFont, "top", "right", "white");
     drawer.drawText(generalMsgText, 0, 0, defaultFont, "top", "left", "white");
 }
@@ -760,7 +764,7 @@ function drawClickBoatPlacement() {
             PlayerData = result;
             ModeSwitched = true;
             generalMsgText = "Click a spot on the board to attack!!!";
-            drawStatusScreen(ImageTiles.attackScreen, false, 500);
+            drawStatusScreen(ImageTiles.attackScreen, false, GameStatusScreenDelay);
         }
 
         function onError(result) {
@@ -788,9 +792,25 @@ function drawClickAttack() {
         if(ImageTiles.explosion.hasCycled()) {
             function onSuccess(result) {
                 GameState = "BeAttacked";
-                // TODO: Add "Defend" title screen...
                 generalMsgText = "AI Attacking...";
                 PlayerData = result;
+                
+                if(PlayerData.gameOver) {
+                    if(PlayerData.playerWins) {
+                        GameState = "Win";
+                        drawStatusScreen(ImageTiles.winScreen, false);
+                    }
+                    return;
+                }
+                
+                if(PlayerData.hitAShip) {
+                    drawStatusScreen(ImageTiles.hitScreen, false, GameStatusScreenDelay);
+                }
+                else {
+                    drawStatusScreen(ImageTiles.missScreen, false, GameStatusScreenDelay);
+
+                }
+                delayTime = GameStatusScreenDelay * 1.5;
                 ModeSwitched = true;
                 
             }
@@ -870,6 +890,15 @@ function drawBeingAttacked() {
             console.log(hitX, hitY, index, boatIdx, coords, ImageTiles.boatTipDamaged, placedBoats[boatIdx][1].getTile(coords));
         }
         PlayerData.aiHit = [-1, -1];
+
+        if(PlayerData.gameOver) {
+            if(!PlayerData.playerWins) {
+                GameState = "Loss";
+                drawStatusScreen(ImageTiles.loseScreen, false);
+            }
+            return;
+        }
+        
         generalMsgText = "Click on the Board to Attack Again!!!";
         
         if((ClickLocation.tileX) >= 0 && (ClickLocation.tileY >= 0)) {
@@ -880,18 +909,22 @@ function drawBeingAttacked() {
             ClickLocation.tileY = -1;
             ImageTiles.explosion.reset();
             generalMsgText = "Click a spot on the board to attack!!!";
-            drawStatusScreen(ImageTiles.attackScreen, false, 500);
+            drawStatusScreen(ImageTiles.attackScreen, false, GameStatusScreenDelay);
         }
     }
 }
 
 // Stores the current mode....
 let GameState = "PlaceShips";
+// Length to show status screens...
+let GameStatusScreenDelay = 750;
 // Array stores all draw functions in there original execution order...
 let DrawFunctions = {
     "PlaceShips": [drawBackground, drawPlayerBoard, drawBoatIndicator, drawClickBoatPlacement, drawText, drawBanner],
     "Attack": [drawBackground, drawAttackBoard, drawExplosionIndicator, drawClickAttack, drawText, drawBanner],
     "BeAttacked": [drawBackground, drawPlayerBoard, drawBeingAttacked, drawText, drawBanner],
+    "Win": [drawBackground, drawAttackBoard, drawText, drawBanner],
+    "Loss": [drawBackground, drawPlayerBoard, drawText, drawBanner]
 };
 // Switched to true right after modes are switched...
 let ModeSwitched = false;
@@ -1187,27 +1220,6 @@ async function beginGame() {
     // Begin the game loop...
     window.requestAnimationFrame(loop);
 }
-
-
-//Uses the AJAX Script Manager to call the Page's static 'sayHi()' method, which returns a string.
-/*
-function myFunction()
-{
-    PageMethods.sayHi(onSucess, onError);
-
-    //On a success it performs this action, result is output from the C# method
-    function onSucess(result)
-    {
-        alert(result.UserID);
-    }
-
-    //On a fail it does this.
-    function onError(result)
-    {
-        alert('Cannot process your request at the moment, please try later.');
-    }
-}
-*/
 
 // Runs the entire game...
 beginGame();

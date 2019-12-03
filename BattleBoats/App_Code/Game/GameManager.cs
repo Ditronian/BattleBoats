@@ -67,6 +67,24 @@ namespace BattleBoats
                 throw new ArgumentException("What are you doing???");
             }
         }
+
+        public bool gameOver()
+        {
+            return player1Board.allShipsDestroyed() || player2Board.allShipsDestroyed();
+        }
+
+        public int getWinner()
+        {
+            if (player2Board.allShipsDestroyed())
+            {
+                return PLAYER1;
+            }
+            else if(player1Board.allShipsDestroyed())
+            {
+                return PLAYER2;
+            }
+            return -1;
+        }
     }
 
     public class PlayerBoards
@@ -76,6 +94,8 @@ namespace BattleBoats
         public ScoreKeeper scoreData;
         public int[] aiHit;
         public bool hitAShip;
+        public bool gameOver;
+        public bool playerWins;
 
         public PlayerBoards(SimpleBoard shipBoard, SimpleBoard hitBoard, ScoreKeeper scoreData)
         {
@@ -88,9 +108,9 @@ namespace BattleBoats
     // Adjust to change game settings...
     public class GameSettings
     {
-        public int boardWidth = 10;
-        public int boardHeight = 10;
-        public int[] boatSizes = new int[]{2, 2, 3, 5, 5, 5};
+        public int boardWidth = 3;
+        public int boardHeight = 3;
+        public int[] boatSizes = new int[]{2};
     }
 
 
@@ -113,6 +133,7 @@ namespace BattleBoats
         {
             numAttempts++;
             movesSinceLastHit++;
+            if (movesSinceLastHit > 10) movesSinceLastHit = 10;
             if (wasHit)
             {
                 score += (MAX_HIT_SCORE / movesSinceLastHit);
