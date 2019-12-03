@@ -13,6 +13,14 @@ namespace BattleBoats
         {
             //Gate Keeper
             if (Session["User"] == null) Response.Redirect("~/Login.aspx");
+            else
+            {
+                nameLabelStats.Text =((User)Session["User"]).Username + "'s STATISTICS";
+                GamesPlayedLabel.Text = "Total Games Played: " + ((User) Session["User"]).GamesWon;
+                WinLossLabel.Text = "Win/Loss Ratio: " + (double) ((User) Session["User"]).GamesWon /
+                                    (double) ((User) Session["User"]).GamesLost;
+                TotalPointsLabel.Text = "Total Points: ";
+            }
         }
 
         protected void HomeButton_Click(object sender, EventArgs e)

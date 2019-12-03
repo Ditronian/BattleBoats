@@ -15,7 +15,8 @@
             <div id="buttonDiv">
                 <asp:Button id = "HomeButton" runat="server" Text = "HOME" OnClick="HomeButton_Click"></asp:Button>
             </div>
-        <div id="outerDiv"><h1 id="header">USERNAME STATISTICS!</h1> </div>
+       
+        <div id="outerDiv"><h1 id="header"><asp:Label ID = "nameLabelStats" CssClass = "headerLabel" runat = "server" Text = "'s STATISTICS"></asp:Label></h1> </div>
             
         <Section id = "StatsDivs">
             <div id="LeftDiv">
