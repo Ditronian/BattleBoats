@@ -7,5 +7,7 @@
   ["beginScreen", "Images/BeginGameScreen.png", 100],
   ["shipHit", "Images/HitShip.png", 200],
   ["shipMiss", "Images/MissShip.png", 200],
-  ["attackScreen", "Images/AttackTitleScreen.png", 100]
+  ["attackScreen", "Images/AttackTitleScreen.png", 100],
+  ["boatTipDamaged", "Images/BoatFrontDamaged.png", 100],
+  ["boatMiddleDamaged", "Images/BoatMiddleDamaged.png", 100]
 ]

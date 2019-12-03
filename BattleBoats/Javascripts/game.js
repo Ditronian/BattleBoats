@@ -340,6 +340,15 @@ class MultiTile extends Tile {
         return this.tiles[coordinates][0];
     }
     
+    getCoordsFromRaw(board, thisX, thisY, tileX, tileY) {
+        for(const [x, y, transX, transY] of this.getTranslatedCoords(board, thisX, thisY)) {
+            if((transX === tileX) && (transY === tileY)) {
+                return [x, y];
+            }
+        }
+        return [-1, -1];
+    }
+    
     getTileRotation(coordinates) {
         return this.tiles[coordinates][1];
     }
@@ -351,7 +360,7 @@ class MultiTile extends Tile {
     }
     
     setTile(coordinates, tileObj) {
-        this.tiles[coordinates] = tileObj;
+        this.tiles[coordinates][0] = tileObj;
     }
     
     size() {
@@ -635,11 +644,13 @@ function update(progress) {
 function drawBanner() {
     if(fullScreenImg !== null) {
         fullScreenImg.draw(0, 0, canvas.width, canvas.height, Tile.UP);
-        if(bannerClickable && (ClickLocation.tileX > 0) && (ClickLocation.tileY > 0)) {
-            stopStatusScreen();
+        if((ClickLocation.tileX > 0) && (ClickLocation.tileY > 0)) {
             ClickLocation.tileX = -1;
             ClickLocation.tileY = -1;
-            delayTime = 500;
+            if(bannerClickable) {
+                stopStatusScreen();
+                delayTime = 500;
+            }
         }
         if(bannerOnScreen !== null && bannerOnScreen <= 0) {
             stopStatusScreen();
@@ -744,7 +755,7 @@ function drawClickBoatPlacement() {
             boatID++;
         }
 
-        function onsuccess(result) {
+        function onSuccess(result) {
             GameState = "Attack";
             PlayerData = result;
             ModeSwitched = true;
@@ -752,12 +763,12 @@ function drawClickBoatPlacement() {
             drawStatusScreen(ImageTiles.attackScreen, false, 500);
         }
 
-        function onfail(result) {
+        function onError(result) {
             GameState = "Loss";
             generalMsgText = "You Cheated!!!";
         }
 
-        PageMethods.initGame(boatArr, onsuccess, onfail);
+        PageMethods.initGame(boatArr, onSuccess, onError);
     }
 }
 
@@ -775,6 +786,21 @@ function drawClickAttack() {
         ClickLocation.initialTrigger = false;
 
         if(ImageTiles.explosion.hasCycled()) {
+            function onSuccess(result) {
+                GameState = "BeAttacked";
+                // TODO: Add "Defend" title screen...
+                generalMsgText = "AI Attacking...";
+                PlayerData = result;
+                ModeSwitched = true;
+                
+            }
+            
+            function onError(result) {
+                generalMsgText = "An Error Occured";
+            }
+            
+            PageMethods.playMove(ClickLocation.tileX, ClickLocation.tileY, onSuccess, onError);
+            inputDisabled = true;
             ClickLocation.tileX = -1;
             ClickLocation.tileY = -1;
             ImageTiles.explosion.reset();
@@ -797,11 +823,64 @@ function drawAttackBoard() {
             battleBoard.renderTile(x, y, ImageTiles.water);
             
             if(PlayerData.hitBoard.data[index] == 1) {
-                battleBoard.renderTile(x, y, ImageTiles.hitShip);
+                battleBoard.renderTile(x, y, ImageTiles.shipHit);
             }
-            else if(PlayerData.hitBoard.data[index] == 1) {
-                battleBoard.renderTile(x, y, ImageTiles.sunkShip);
+            else if(PlayerData.hitBoard.data[index] == -1) {
+                battleBoard.renderTile(x, y, ImageTiles.shipMiss);
             }
+        }
+    }
+}
+
+function drawBeingAttacked() {
+    if(delayTime > 0) {
+        ClickLocation.tileX = -1;
+        ClickLocation.tileY = -1;
+        return;
+    }
+    
+    // Init Explosion
+    let [hitX, hitY] = PlayerData.aiHit;
+    if(ModeSwitched) {
+        ModeSwitched = false;
+        ImageTiles.explosion.reset();
+        SoundEffects.explosion.play();
+    }
+    
+    if(!ImageTiles.explosion.hasCycled()) {
+        battleBoard.renderTile(hitX, hitY, ImageTiles.explosion);
+    }
+    else {
+        SoundEffects.explosion.stop();
+        let index = (PlayerData.shipBoard.height * hitY) + hitX;
+        
+        if((hitX >= 0 && hitY >= 0) && (PlayerData.shipBoard.data[index] !== 0)) {
+            let boatIdx = Math.abs(PlayerData.shipBoard.data[index]) - 1;
+            let [boatX, boatY] = placedBoats[boatIdx][0];
+            let coords = placedBoats[boatIdx][1].getCoordsFromRaw(battleBoard, boatX, boatY, hitX, hitY);
+            let boatTile = placedBoats[boatIdx][1].getTile(coords);
+            
+            if(boatTile === ImageTiles.boatTip) {
+                placedBoats[boatIdx][1].setTile(coords, ImageTiles.boatTipDamaged);
+            }
+            else if(boatTile === ImageTiles.boatMiddle) {
+                placedBoats[boatIdx][1].setTile(coords, ImageTiles.boatMiddleDamaged);
+            }
+            
+            console.log(hitX, hitY, index, boatIdx, coords, ImageTiles.boatTipDamaged, placedBoats[boatIdx][1].getTile(coords));
+        }
+        PlayerData.aiHit = [-1, -1];
+        generalMsgText = "Click on the Board to Attack Again!!!";
+        
+        if((ClickLocation.tileX) >= 0 && (ClickLocation.tileY >= 0)) {
+            GameState = "Attack";
+            ModeSwitched = true;
+            inputDisabled = false;
+            ClickLocation.tileX = -1;
+            ClickLocation.tileY = -1;
+            ImageTiles.explosion.reset();
+            generalMsgText = "Click a spot on the board to attack!!!";
+            drawStatusScreen(ImageTiles.attackScreen, false, 500);
         }
     }
 }
@@ -812,7 +891,7 @@ let GameState = "PlaceShips";
 let DrawFunctions = {
     "PlaceShips": [drawBackground, drawPlayerBoard, drawBoatIndicator, drawClickBoatPlacement, drawText, drawBanner],
     "Attack": [drawBackground, drawAttackBoard, drawExplosionIndicator, drawClickAttack, drawText, drawBanner],
-    "BeAttacked": [],
+    "BeAttacked": [drawBackground, drawPlayerBoard, drawBeingAttacked, drawText, drawBanner],
 };
 // Switched to true right after modes are switched...
 let ModeSwitched = false;

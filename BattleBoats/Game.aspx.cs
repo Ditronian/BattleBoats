@@ -112,9 +112,13 @@ namespace BattleBoats {
 
             gm.playMove(x, y);
             int[] aiGuess = ai.makeGuess();
-            gm.playMove(aiGuess[0], aiGuess[1]);
+            bool hit = gm.playMove(aiGuess[0], aiGuess[1]);
 
-            return gm.getPlayerData(GameManager.PLAYER1);
+            PlayerBoards playerData = gm.getPlayerData(GameManager.PLAYER1);
+            playerData.aiHit = aiGuess;
+            playerData.hitAShip = hit;
+
+            return playerData;
         }
     }
 }

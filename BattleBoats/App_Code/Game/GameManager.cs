@@ -74,6 +74,8 @@ namespace BattleBoats
         public SimpleBoard shipBoard;
         public SimpleBoard hitBoard;
         public ScoreKeeper scoreData;
+        public int[] aiHit;
+        public bool hitAShip;
 
         public PlayerBoards(SimpleBoard shipBoard, SimpleBoard hitBoard, ScoreKeeper scoreData)
         {
@@ -88,7 +90,7 @@ namespace BattleBoats
     {
         public int boardWidth = 10;
         public int boardHeight = 10;
-        public int[] boatSizes = new int[]{2, 2, 3, 5};
+        public int[] boatSizes = new int[]{2, 2, 3, 5, 5, 5};
     }
 
 
