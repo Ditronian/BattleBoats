@@ -8,7 +8,11 @@
 #buttonDiv{
     text-align:center;
 }
+h3{
+    margin-top: 0px;
+}
 #LeftDiv{
+    text-align: left;
     float: left;
     flex: 1;
     border: none;

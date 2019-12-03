@@ -88,7 +88,13 @@ Thursday Nov 28:
          Spent: ~∞ hrs
          
 Monday Dec 2:
-    Linda: 
-        Created ScoresTable.cs functions to instert and get scores. Also created procedures for those. 2hrs
-    David & Isaac:
-        Argue about code organization
+    Group Meeting(2-5pm)
+        Linda: 
+            Created ScoresTable.cs functions to instert and get scores. Also created procedures for those. 2hrs
+        David:
+            Assisted with Database.
+            Worked CSS across the website.
+            Researched and set website background image.
+        Isaac:
+            Worked images for turn selection.
+            WOrked code for changing of turns between AI and Player.
