@@ -122,6 +122,7 @@ namespace BattleBoats {
         }
 
         [WebMethod]
+        [System.Web.Script.Services.ScriptMethod()]
         public static string sayHi()
         {
             return "Hi";

@@ -93,6 +93,7 @@
     <Content Include="Images\TestWaterTiles.png" />
     <Content Include="Images\tiles.json" />
     <Content Include="Login.aspx" />
+    <Content Include="sayHi.js" />
     <Content Include="SourceImageFiles\AttackTitleScreen.svg" />
     <Content Include="SourceImageFiles\BeginGameScreen.svg" />
     <Content Include="SourceImageFiles\boatfront.svg" />
