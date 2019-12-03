@@ -57,6 +57,31 @@ namespace BattleBoats
             return scores;
         }
 
+        public List<Score> getGameScores(Score score)
+        {
+            string query = "spUserScore";
+            SqlParameter[] parameters = new SqlParameter[1];
+            parameters[0] = new SqlParameter("UserID", score.UserID);
+
+            DataSet data = database.downloadCommand(query, parameters);
+
+            List<Score> userScores = new List<Score>();
+            
+            for (int i = 0; i < data.Tables[0].Rows.Count; i++)
+            {
+                            int ScoreID = (Int32) data.Tables[0].Rows[i]["ScoreID"];
+                            int GameScore = (Int32) data.Tables[0].Rows[i]["GameScore"];
+            
+                            Score myUserScore = new Score();
+                            myUserScore.ScoreID = ScoreID;
+                            myUserScore.GameScore = GameScore;
+                            
+                            userScores.Add(myUserScore);
+            }
+            
+            return userScores;
+        }
+
        
 
     }

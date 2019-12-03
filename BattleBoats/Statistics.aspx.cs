@@ -23,6 +23,11 @@ namespace BattleBoats
             }
         }
 
+        protected void TotalScore(Score score)
+        {
+            
+        }
+
         protected void HomeButton_Click(object sender, EventArgs e)
         {
             Response.Redirect("Home.aspx");
