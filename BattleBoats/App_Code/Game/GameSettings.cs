@@ -3,8 +3,8 @@ namespace BattleBoats
     // Adjust to change game settings...
     public class GameSettings
     {
-        public int boardWidth = 3;
-        public int boardHeight = 3;
-        public int[] boatSizes = new int[]{2};
+        public int boardWidth = 10;
+        public int boardHeight = 10;
+        public int[] boatSizes = new int[]{2, 2, 3, 5};
     }
 }
