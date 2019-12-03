@@ -120,7 +120,11 @@
     <Compile Include="App_Code\Game\GameBoard.cs" />
     <Compile Include="App_Code\Game\GameBoardUF.cs" />
     <Compile Include="App_Code\Game\GameManager.cs" />
+    <Compile Include="App_Code\Game\GameSettings.cs" />
+    <Compile Include="App_Code\Game\PlayerBoards.cs" />
     <Compile Include="App_Code\Game\Score.cs" />
+    <Compile Include="App_Code\Game\ScoreKeeper.cs" />
+    <Compile Include="App_Code\Game\SimpleBoard.cs" />
     <Compile Include="App_Code\Security.cs" />
     <Compile Include="App_Code\Game\User.cs" />
     <Compile Include="Game.aspx.cs">
