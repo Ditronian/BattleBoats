@@ -27,7 +27,7 @@ namespace BattleBoats
 
         }
 
-        public int authenticateUser(User user)
+        public User authenticateUser(User user)
         {
             string query = "spAuthenticateUser";
             SqlParameter[] parameters = new SqlParameter[2];
@@ -38,11 +38,14 @@ namespace BattleBoats
 
             if (data.Tables[0].Rows.Count == 1)
             {
-                return (Int32) data.Tables[0].Rows[0]["UserID"];
+                user.UserID = (Int32)data.Tables[0].Rows[0]["UserID"];
+                user.Username = (string)data.Tables[0].Rows[0]["Username"];
+                return user;
             }
             else
             {
-                return 0;
+                user.UserID = 0;
+                return user;
             }
         }
 

@@ -13,7 +13,7 @@
         <h1>BattleBoats</h1>
         <div id="headerDiv">
             <div id="hDiv1"></div>
-            <div id="hDiv2"><h3 class="skinnyHeader"><asp:Label CssClass="headerLabel" runat="server" Text="Welcome, John Smith"></asp:Label></h3></div>
+            <div id="hDiv2"><h3 class="skinnyHeader"><asp:Label ID="nameLabel" CssClass="headerLabel" runat="server" Text="Welcome, "></asp:Label></h3></div>
             <div id="hDiv3">
             </div>
         </div>

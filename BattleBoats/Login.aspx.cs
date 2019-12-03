@@ -24,12 +24,12 @@ namespace BattleBoats
 
             //Authenticate User in Database
             UsersTable userTable = new UsersTable(new DataConnection());
-            int userID = userTable.authenticateUser(user);
+            user = userTable.authenticateUser(user);
 
             //Login and save userID to session var
-            if (userID != 0)
+            if (user.UserID != 0)
             {
-                Session["UserID"] = userID;
+                Session["User"] = user;
                 Response.Redirect("Home.aspx");
             }
 
@@ -63,10 +63,10 @@ namespace BattleBoats
             else userTable.insertUser(user);
 
             //Login and save userID to session var
-            int userID = userTable.authenticateUser(user);
-            if (userID != 0)
+            user = userTable.authenticateUser(user);
+            if (user.UserID != 0)
             {
-                Session["UserID"] = userID;
+                Session["User"] = user;
                 Response.Redirect("Home.aspx");
             }
             else angryRegisterLabel.Text = "An error has occured, it is Linda's fault.";
