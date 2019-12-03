@@ -12,6 +12,7 @@ namespace BattleBoats
         private int hits;
         private int misses;
         private int enemyShipsSunk;
+        private int gameScore;
         
         public int UserID
         {
@@ -22,5 +23,11 @@ namespace BattleBoats
         public int Hits { get => hits; set => hits = value; }
         public int Misses { get => misses; set => misses = value; }
         public int EnemyShipsSunk { get => enemyShipsSunk; set => enemyShipsSunk = value; }
+
+        public int GameScore
+        {
+            get => gameScore;
+            set => gameScore = value;
+        }
     }
 }

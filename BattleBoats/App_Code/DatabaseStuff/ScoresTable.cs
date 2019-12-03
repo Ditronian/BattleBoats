@@ -16,10 +16,11 @@ namespace BattleBoats
         }
         public void insertScores(Score score) {
             string query = "spInsertScores";
-            SqlParameter[] parameters = new SqlParameter[3];
+            SqlParameter[] parameters = new SqlParameter[4];
             parameters[0] = new SqlParameter("Hits", score.Hits);
             parameters[1] = new SqlParameter("Misses", score.Misses);
             parameters[2] = new SqlParameter("EnemyShipsSunk", score.EnemyShipsSunk);
+            parameters[3] = new SqlParameter("GameScore", score.GameScore);
                             
             database.uploadCommand(query, parameters);
                 
@@ -41,12 +42,14 @@ namespace BattleBoats
                 int Hits = (Int32) data.Tables[0].Rows[i]["Hits"];
                 int Misses = (Int32) data.Tables[0].Rows[i]["Misses"];
                 int EnemyShipsSunk = (Int32) data.Tables[0].Rows[i]["EnemyShipsSunk"];
+                int GameScore = (Int32) data.Tables[0].Rows[i]["GameScore"];
 
                 Score myScore = new Score();
                 myScore.ScoreID = ScoreID;
                 myScore.Hits = Hits;
                 myScore.Misses = Misses;
                 myScore.EnemyShipsSunk = EnemyShipsSunk;
+                myScore.GameScore = GameScore;
                 
                 scores.Add(myScore);
             }
