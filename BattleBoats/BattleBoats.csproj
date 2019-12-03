@@ -77,6 +77,7 @@
     <Content Include="CSS\Master.css" />
     <Content Include="CSS\Statistics.css" />
     <Content Include="Game.aspx" />
+    <Content Include="game.js" />
     <Content Include="Home.aspx" />
     <Content Include="Images\AttackTitleScreen.png" />
     <Content Include="Images\background.jpg" />
@@ -91,7 +92,6 @@
     <Content Include="Images\TestHoverTiles.png" />
     <Content Include="Images\TestWaterTiles.png" />
     <Content Include="Images\tiles.json" />
-    <Content Include="Javascripts\game.js" />
     <Content Include="Login.aspx" />
     <Content Include="SourceImageFiles\AttackTitleScreen.svg" />
     <Content Include="SourceImageFiles\BeginGameScreen.svg" />
@@ -154,6 +154,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Javascripts\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -120,5 +120,11 @@ namespace BattleBoats {
 
             return playerData;
         }
+
+        [WebMethod]
+        public static string sayHi()
+        {
+            return "Hi";
+        }
     }
 }
