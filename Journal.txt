@@ -99,4 +99,8 @@ Monday Dec 2:
             Worked images for turn selection.
             WOrked code for changing of turns between AI and Player.
 Tuesday Dec 3:
-    David:  Raged against the machine over the fact that the Deployed Web Application's ajax wouldn't work but the development's would.             Wasted 2 hours, but it now works.
+    David:  
+        Raged against the machine over the fact that the Deployed Web Application's ajax wouldn't work but the development's         would.             Wasted 2 hours, but it now works.
+    Linda:
+        Fixed database issues needing type User 40min
+        Worked on Statistics page 1hr 20min
