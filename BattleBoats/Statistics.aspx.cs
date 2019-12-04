@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Microsoft.SqlServer.Server;
 
 namespace BattleBoats
 {
@@ -19,7 +20,7 @@ namespace BattleBoats
                 GamesPlayedLabel.Text = "Total Games Played: " + ((User) Session["User"]).GamesWon;
                 WinLossLabel.Text = "Win/Loss Ratio: " + (double) ((User) Session["User"]).GamesWon /
                                     (double) ((User) Session["User"]).GamesLost;
-                TotalPointsLabel.Text = "Total Points: ";
+                TotalPointsLabel.Text = "Total Points: " ;
             }
         }
 
