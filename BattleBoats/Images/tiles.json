@@ -8,6 +8,10 @@
   ["shipHit", "Images/HitShip.png", 200],
   ["shipMiss", "Images/MissShip.png", 200],
   ["attackScreen", "Images/AttackTitleScreen.png", 100],
-  ["boatTipDamaged", "Images/BoatFrontDamaged.png", 100],
-  ["boatMiddleDamaged", "Images/BoatMiddleDamaged.png", 100]
+  ["boatTipDamaged", "Images/BoatFrontDamaged.png", 200],
+  ["boatMiddleDamaged", "Images/BoatMiddleDamaged.png", 200],
+  ["winScreen", "Images/WinTitleScreen.png", 100],
+  ["loseScreen", "Images/LoseTitleScreen.png", 100],
+  ["missScreen", "Images/MissTitleScreen.png", 100],
+  ["hitScreen", "Images/HitTitleScreen.png", 100]
 ]

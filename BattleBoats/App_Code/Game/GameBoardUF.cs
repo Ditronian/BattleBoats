@@ -1,11 +1,14 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace BattleBoats
 {
-    // Implements a union find data structure with path compression and weighted sensitive merging to acheive 
-    // best performance...
+    /**
+     * Implements a union find data structure with path compression and weighted sensitive merging to achieve
+     * best performance... Fastest known algorithm, achieves O(log*(n)), or the iterated logarithm on graphs of
+     * n elements...
+     */
     public class GameBoardUF
     {
         private int[] elements;
@@ -27,6 +30,7 @@ namespace BattleBoats
             }
         }
 
+        // Private Method: Finds the root of a element
         private int root(int elem)
         {
             // If the index here equals itself, we have found the root...
@@ -39,6 +43,9 @@ namespace BattleBoats
             return elemRoot;
         }
 
+        /**
+         * Checks if two provided elements are connected to each other, or are in the same component...
+         */
         public bool connected(int p, int q)
         {
             // Cheack if the two elements have the same root...
@@ -70,16 +77,25 @@ namespace BattleBoats
             }
         }
 
+        /**
+         * Gets the size of the component which contains this element.
+         */
         public int componentSize(int elem)
         {
             return elemSize[root(elem)];
         }
 
+        /**
+         * Get all the current components which currently exist...
+         */
         public int[] getComponents()
         {
             return this.components.ToArray();
         }
 
+        /**
+         * Get the number of components in this current union find object...
+         */
         public int numberComponents()
         {
             return components.Count;

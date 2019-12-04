@@ -7,6 +7,8 @@
     <title></title>
     <link rel="stylesheet" type="text/css" href="CSS/Game.css" />
     <link rel="stylesheet" type="text/css" href="CSS/Master.css" />
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/4.5.2/1/MicrosoftAjax.js"></script>
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/4.5.2/1/MicrosoftAjaxWebForms.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -17,7 +19,8 @@
             <div id="gamecontainer">
                 <canvas id="gamecanvas" width="500" height="500">Does not support canvas</canvas>
                 <br />
-                <asp:ScriptManager ID="scriptManager" runat="server" EnablePageMethods="true"> </asp:ScriptManager>
+                <asp:ScriptManager ID="scriptManager" runat="server" EnablePageMethods="true" EnablePartialRendering="true" EnableCdn="true" ScriptMode="Release">
+                </asp:ScriptManager>
             </div>
             <br />
             <asp:Button ID="newGameButton" runat="server" Text="New Game" OnClick="newGameButton_Click" />
@@ -25,6 +28,6 @@
         </div>
         
     </form>
-    <script type="text/javascript" src="Javascripts/game.js"></script>
+    <script type="text/javascript" src="game.js"></script>
 </body>
 </html>

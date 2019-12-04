@@ -86,11 +86,15 @@
     <Content Include="Images\BoatMiddleDamaged.png" />
     <Content Include="Images\BoatMiddleTile.png" />
     <Content Include="Images\HitShip.png" />
+    <Content Include="Images\HitTitleScreen.png" />
+    <Content Include="Images\LoseTitleScreen.png" />
     <Content Include="Images\MissShip.png" />
+    <Content Include="Images\MissTitleScreen.png" />
     <Content Include="Images\TestExplosionTiles.png" />
     <Content Include="Images\TestHoverTiles.png" />
     <Content Include="Images\TestWaterTiles.png" />
     <Content Include="Images\tiles.json" />
+    <Content Include="Images\WinTitleScreen.png" />
     <Content Include="Javascripts\game.js" />
     <Content Include="Login.aspx" />
     <Content Include="SourceImageFiles\AttackTitleScreen.svg" />
@@ -100,7 +104,11 @@
     <Content Include="SourceImageFiles\boatmiddledamaged.svg" />
     <Content Include="SourceImageFiles\boattipdamaged.svg" />
     <Content Include="SourceImageFiles\HitShip.svg" />
+    <Content Include="SourceImageFiles\HitTitleScreen.svg" />
+    <Content Include="SourceImageFiles\LoseTitleScreen.svg" />
     <Content Include="SourceImageFiles\MissShip.svg" />
+    <Content Include="SourceImageFiles\MissTitleScreen.svg" />
+    <Content Include="SourceImageFiles\WinTitleScreen.svg" />
     <Content Include="Statistics.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -112,7 +120,11 @@
     <Compile Include="App_Code\Game\GameBoard.cs" />
     <Compile Include="App_Code\Game\GameBoardUF.cs" />
     <Compile Include="App_Code\Game\GameManager.cs" />
+    <Compile Include="App_Code\Game\GameSettings.cs" />
+    <Compile Include="App_Code\Game\PlayerBoards.cs" />
     <Compile Include="App_Code\Game\Score.cs" />
+    <Compile Include="App_Code\Game\ScoreKeeper.cs" />
+    <Compile Include="App_Code\Game\SimpleBoard.cs" />
     <Compile Include="App_Code\Security.cs" />
     <Compile Include="App_Code\Game\User.cs" />
     <Compile Include="Game.aspx.cs">

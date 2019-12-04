@@ -3,13 +3,15 @@
 namespace BattleBoats
 { 
     public class GameManager {
+        // Integer consant IDs which represent the players...
         public const int PLAYER1 = 0;
         public const int PLAYER2 = 1;
+        // Score keepers and game boards for both players...
         private ScoreKeeper player1Score;
         private ScoreKeeper player2Score;
         private GameBoard player1Board;
         private GameBoard player2Board;
-        private GameAI ai;
+        // Stores the integer ID of the next player who gets to attack next...
         private int currentPlayerMove;
         
         /**
@@ -67,76 +69,29 @@ namespace BattleBoats
                 throw new ArgumentException("What are you doing???");
             }
         }
-    }
-
-    public class PlayerBoards
-    {
-        public SimpleBoard shipBoard;
-        public SimpleBoard hitBoard;
-        public ScoreKeeper scoreData;
-        public int[] aiHit;
-        public bool hitAShip;
-
-        public PlayerBoards(SimpleBoard shipBoard, SimpleBoard hitBoard, ScoreKeeper scoreData)
-        {
-            this.shipBoard = shipBoard;
-            this.hitBoard = hitBoard;
-            this.scoreData = (ScoreKeeper)scoreData.Clone();
-        }
-    }
-
-    // Adjust to change game settings...
-    public class GameSettings
-    {
-        public int boardWidth = 10;
-        public int boardHeight = 10;
-        public int[] boatSizes = new int[]{2, 2, 3, 5, 5, 5};
-    }
-
-
-    /**
-     * Helper class for keeping track of the users score...
-     */
-    public class ScoreKeeper: ICloneable
-    {
-        // Adjust for differing scores...
-        public const int MAX_HIT_SCORE = 100;
         
-        // Keeps track of everything needed for the score system
-        public int score = 0;
-        public int numHits = 0;
-        public int numAttempts = 0;
-        public int movesSinceLastHit = 0;
-        public int shipsSunk = 0;
-
-        public void atempt(bool wasHit)
+        /**
+         * Get if the current game is over....
+         */
+        public bool gameOver()
         {
-            numAttempts++;
-            movesSinceLastHit++;
-            if (wasHit)
+            return player1Board.allShipsDestroyed() || player2Board.allShipsDestroyed();
+        }
+        
+        /**
+         * Return the Integer ID of the player who won the game....
+         */
+        public int getWinner()
+        {
+            if (player2Board.allShipsDestroyed())
             {
-                score += (MAX_HIT_SCORE / movesSinceLastHit);
-                movesSinceLastHit = 0;
-                numHits++;
+                return PLAYER1;
             }
-        }
-
-        public void shipSunk()
-        {
-            // Makes scoring worth half the current amount...
-            shipsSunk++;
-            movesSinceLastHit *= 2;
-        }
-
-        public object Clone()
-        {
-            ScoreKeeper obj = new ScoreKeeper();
-            obj.score = score;
-            obj.numHits = numHits;
-            obj.numAttempts = numAttempts;
-            obj.movesSinceLastHit = movesSinceLastHit;
-            obj.shipsSunk = shipsSunk;
-            return obj;
+            else if(player1Board.allShipsDestroyed())
+            {
+                return PLAYER2;
+            }
+            return -1;
         }
     }
 }
