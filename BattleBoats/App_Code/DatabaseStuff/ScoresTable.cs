@@ -16,21 +16,22 @@ namespace BattleBoats
         }
         public void insertScores(Score score) {
             string query = "spInsertScores";
-            SqlParameter[] parameters = new SqlParameter[4];
+            SqlParameter[] parameters = new SqlParameter[5];
             parameters[0] = new SqlParameter("Hits", score.Hits);
             parameters[1] = new SqlParameter("Misses", score.Misses);
             parameters[2] = new SqlParameter("EnemyShipsSunk", score.EnemyShipsSunk);
             parameters[3] = new SqlParameter("GameScore", score.GameScore);
+            parameters[4] = new SqlParameter("UserID", score.UserID);
                             
             database.uploadCommand(query, parameters);
                 
         }
 
-        public List<Score> getAllScores(Score score)
+        public List<Score> getAllScores(User user)
         {
             string query = "spGetAllScores";
             SqlParameter[] parameters = new SqlParameter[1];
-            parameters[0] = new SqlParameter("UserID", score.UserID);
+            parameters[0] = new SqlParameter("UserID", user.UserID);
 
             DataSet data = database.downloadCommand(query, parameters);
 
@@ -57,29 +58,15 @@ namespace BattleBoats
             return scores;
         }
 
-        public List<Score> getGameScores(Score score)
+        public int getGameScores(User user)
         {
             string query = "spUserScore";
             SqlParameter[] parameters = new SqlParameter[1];
-            parameters[0] = new SqlParameter("UserID", score.UserID);
+            parameters[0] = new SqlParameter("UserID", user.UserID);
 
             DataSet data = database.downloadCommand(query, parameters);
 
-            List<Score> userScores = new List<Score>();
-            
-            for (int i = 0; i < data.Tables[0].Rows.Count; i++)
-            {
-                            int ScoreID = (Int32) data.Tables[0].Rows[i]["ScoreID"];
-                            int GameScore = (Int32) data.Tables[0].Rows[i]["GameScore"];
-            
-                            Score myUserScore = new Score();
-                            myUserScore.ScoreID = ScoreID;
-                            myUserScore.GameScore = GameScore;
-                            
-                            userScores.Add(myUserScore);
-            }
-            
-            return userScores;
+            return (Int32)data.Tables[0].Rows[0]["GameScore"];
         }
 
        
