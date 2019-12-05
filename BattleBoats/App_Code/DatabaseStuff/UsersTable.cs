@@ -59,11 +59,9 @@ namespace BattleBoats
             DataSet data = database.downloadCommand(query, parameters);
 
             
-                user.GamesWon = (Int32) data.Tables[0].Rows[0]["GamesWon"];
-                user.GamesLost = (Int32) data.Tables[0].Rows[0]["GamesLost"];
-                return user;
-            
-            
+            user.GamesWon = (Int32) data.Tables[0].Rows[0]["GamesWon"];
+            user.GamesLost = (Int32) data.Tables[0].Rows[0]["GamesLost"];
+            return user;
         }
 
         public bool checkUsername(User user)
