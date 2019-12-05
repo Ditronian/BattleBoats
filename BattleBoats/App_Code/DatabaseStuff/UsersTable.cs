@@ -49,6 +49,23 @@ namespace BattleBoats
             }
         }
 
+        public User getWinLoss(User user)
+        {
+            string query = "spGetWinLoss";
+            SqlParameter[] parameters = new SqlParameter[1];
+            parameters[0] = new SqlParameter("UserID", user.UserID);
+           
+
+            DataSet data = database.downloadCommand(query, parameters);
+
+            
+                user.GamesWon = (Int32) data.Tables[0].Rows[0]["GamesWon"];
+                user.GamesLost = (Int32) data.Tables[0].Rows[0]["GamesLost"];
+                return user;
+            
+            
+        }
+
         public bool checkUsername(User user)
         {
             string query = "spCheckUsername";
@@ -73,7 +90,7 @@ namespace BattleBoats
             SqlParameter[] parameters = new SqlParameter[4];
             parameters[0] = new SqlParameter("UserID", user.UserID);
             parameters[1] = new SqlParameter("GamesWon", user.GamesWon);
-            parameters[2] = new SqlParameter("TotalGames", user.TotalGames);
+
             parameters[3] = new SqlParameter("GamesLost", user.GamesLost);
             
             
