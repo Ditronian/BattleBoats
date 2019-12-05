@@ -96,6 +96,8 @@
     <Content Include="Images\tiles.json" />
     <Content Include="Images\WinTitleScreen.png" />
     <Content Include="Javascripts\game.js" />
+    <Content Include="Javascripts\MicrosoftAjax.js" />
+    <Content Include="Javascripts\MicrosoftAjaxWebForms.js" />
     <Content Include="Login.aspx" />
     <Content Include="SourceImageFiles\AttackTitleScreen.svg" />
     <Content Include="SourceImageFiles\BeginGameScreen.svg" />

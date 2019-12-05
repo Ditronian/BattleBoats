@@ -28,6 +28,6 @@
         </div>
         
     </form>
-    <script type="text/javascript" src="Javascripts/game.js"></script>
+    <script type="text/javascript" src="game.js"></script>
 </body>
 </html>
