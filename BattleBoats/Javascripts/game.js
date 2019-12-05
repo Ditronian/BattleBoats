@@ -1,13 +1,6 @@
 let canvas = document.getElementById("gamecanvas");
 let ctx = canvas.getContext("2d");
 
-/**
- * Sleeps for the specified amount of milliseconds... should be called with await keyword...
- */
-function sleepWait(millis) {
-    return new Promise(resolve => setTimeout(resolve, millis));
-}
-
 
 // CORE DRAWING API FOR GAME BELOW:
 

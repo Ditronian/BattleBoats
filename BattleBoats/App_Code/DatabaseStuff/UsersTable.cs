@@ -49,7 +49,7 @@ namespace BattleBoats
             }
         }
 
-        public User getWinLoss(User user)
+        public User getWinLoss(User user) 
         {
             string query = "spGetWinLoss";
             SqlParameter[] parameters = new SqlParameter[1];
@@ -57,10 +57,10 @@ namespace BattleBoats
            
 
             DataSet data = database.downloadCommand(query, parameters);
-
             
-            user.GamesWon = (Int32) data.Tables[0].Rows[0]["GamesWon"];
-            user.GamesLost = (Int32) data.Tables[0].Rows[0]["GamesLost"];
+            user.GamesWon = (Int32) ((data.Tables[0].Rows[0]["GamesWon"] != null)? data.Tables[0].Rows[0]["GamesWon"]: 0);
+            user.GamesLost = (Int32) ((data.Tables[0].Rows[0]["GamesLost"] != null)? data.Tables[0].Rows[0]["GamesLost"]: 0);
+            
             return user;
         }
 
