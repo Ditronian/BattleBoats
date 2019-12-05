@@ -815,8 +815,13 @@ function drawClickAttack() {
                 
             }
             
-            function onError(result) {
+            function onError(error) {
                 generalMsgText = "An Error Occured";
+                console.log("Error: " + error.get_message() + "; " +
+                    "Stack Trace: " + error.get_stackTrace() + "; " +
+                    "Status Code: " + error.get_statusCode() + "; " +
+                    "Exception Type: " + error.get_exceptionType() + "; " +
+                    "Timed Out: " + error.get_timedOut());
             }
             
             PageMethods.playMove(ClickLocation.tileX, ClickLocation.tileY, onSuccess, onError);
@@ -886,8 +891,6 @@ function drawBeingAttacked() {
             else if(boatTile === ImageTiles.boatMiddle) {
                 placedBoats[boatIdx][1].setTile(coords, ImageTiles.boatMiddleDamaged);
             }
-            
-            console.log(hitX, hitY, index, boatIdx, coords, ImageTiles.boatTipDamaged, placedBoats[boatIdx][1].getTile(coords));
         }
         PlayerData.aiHit = [-1, -1];
 

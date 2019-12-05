@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Services;
 
@@ -55,7 +56,7 @@ namespace BattleBoats {
                 // something went bad...
                 
                 // Some win/loss entry which does not exist yet... bla bla bla
-                ScoresTable scoreTable = new ScoresTable(new DataConnection());
+                //ScoresTable scoreTable = new ScoresTable(new DataConnection());
                 // scoreTable.insertScore(myNewScore);
                 throw new ArgumentException("CHEATER!!!!!");
             }
@@ -96,12 +97,46 @@ namespace BattleBoats {
             // to submit attack commands...
             if (playerData.gameOver)
             {
+                User usr = (User) HttpContext.Current.Session["User"];
+                
                 ScoresTable scoreTable = new ScoresTable(new DataConnection());
-                // scoreTable.insertScore(myNewScore);
+                
+                Score score = new Score();
+                score.Hits = playerData.scoreData.numHits;
+                score.Misses = playerData.scoreData.numAttempts - playerData.scoreData.numHits;
+                score.GameScore = playerData.scoreData.score;
+                score.EnemyShipsSunk = getShipsSunk(playerData.shipBoard);
+                score.UserID = usr.UserID;
+                
+                scoreTable.insertScores(score);
+                HttpContext.Current.Session.Remove("game");
+                HttpContext.Current.Session.Remove("ai");
             }
             
             // Send the JS frontend the player data...
             return playerData;
+        }
+        
+        // Utility method used by above to compute how many ships were sunk....
+        private static int getShipsSunk(SimpleBoard sb) {
+            HashSet<int> sunkIDs = new HashSet<int>();
+            
+            foreach (int id in sb.data)
+            {
+                if (id < 0)
+                {
+                    sunkIDs.Add(id);
+                }
+            }
+            foreach (int id in sb.data)
+            {
+                if (id > 0)
+                {
+                    sunkIDs.Remove(-id);
+                }
+            }
+            
+            return sunkIDs.Count;
         }
     }
 }
