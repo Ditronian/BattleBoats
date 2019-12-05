@@ -100,13 +100,19 @@ namespace BattleBoats {
                 User usr = (User) HttpContext.Current.Session["User"];
                 
                 ScoresTable scoreTable = new ScoresTable(new DataConnection());
-                
+                // Make score object, copy all data over from the score keeper...
                 Score score = new Score();
                 score.Hits = playerData.scoreData.numHits;
                 score.Misses = playerData.scoreData.numAttempts - playerData.scoreData.numHits;
                 score.GameScore = playerData.scoreData.score;
                 score.EnemyShipsSunk = getShipsSunk(playerData.shipBoard);
                 score.UserID = usr.UserID;
+                // Increment user win/loss depending on who won...
+                if (playerData.playerWins)
+                {
+                    
+                }
+                
                 
                 scoreTable.insertScores(score);
                 HttpContext.Current.Session.Remove("game");
