@@ -85,11 +85,10 @@ namespace BattleBoats
         public void updateYoSelf(User user)
         {
             string query = "spUpdateUser";
-            SqlParameter[] parameters = new SqlParameter[4];
+            SqlParameter[] parameters = new SqlParameter[3];
             parameters[0] = new SqlParameter("UserID", user.UserID);
             parameters[1] = new SqlParameter("GamesWon", user.GamesWon);
-
-            parameters[3] = new SqlParameter("GamesLost", user.GamesLost);
+            parameters[2] = new SqlParameter("GamesLost", user.GamesLost);
             
             
             database.uploadCommand(query, parameters);
