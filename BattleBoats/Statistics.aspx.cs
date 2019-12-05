@@ -16,11 +16,12 @@ namespace BattleBoats
             if (Session["User"] == null) Response.Redirect("~/Login.aspx");
             else
             {
+                ScoresTable scoreTable = new ScoresTable(new DataConnection());
                 nameLabelStats.Text =((User)Session["User"]).Username + "'s STATISTICS";
                 GamesPlayedLabel.Text = "Total Games Played: " + ((User) Session["User"]).GamesWon;
                 WinLossLabel.Text = "Win/Loss Ratio: " + (double) ((User) Session["User"]).GamesWon /
                                     (double) ((User) Session["User"]).GamesLost;
-                TotalPointsLabel.Text = "Total Points: " ;
+                TotalPointsLabel.Text = "Total Points: " + scoreTable.getGameScores(((User)Session["User"]));
             }
         }
 
