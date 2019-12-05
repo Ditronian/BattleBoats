@@ -19,7 +19,7 @@
             <div id="gamecontainer">
                 <canvas id="gamecanvas" width="500" height="500">Does not support canvas</canvas>
                 <br />
-                <asp:ScriptManager ID="scriptManager" runat="server" EnablePageMethods="true" EnablePartialRendering="true" EnableCdn="true" ScriptMode="Release">
+                <asp:ScriptManager ID="scriptManager" runat="server" EnablePageMethods="true" EnablePartialRendering="true" ScriptMode="Release">
                 </asp:ScriptManager>
             </div>
             <br />
@@ -28,6 +28,6 @@
         </div>
         
     </form>
-    <script type="text/javascript" src="Javascripts/game.js"></script>
+    <script type="text/javascript" src="game.js"></script>
 </body>
 </html>
