@@ -104,3 +104,7 @@ Tuesday Dec 3:
     Linda:
         Fixed database issues needing type User 40min
         Worked on Statistics page 1hr 20min
+        
+ Thursday Dec 5:
+    Linda:
+        Worked on Database connections and Statistics page 1hr 20min
