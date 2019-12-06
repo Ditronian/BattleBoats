@@ -45,10 +45,12 @@ namespace BattleBoats
                 
                 // Print other stuff
                 ScoresTable scoreTable = new ScoresTable(datC);
+                
+                string percentMsg = (daUser.TotalGames != 0)? (((double)daUser.GamesWon) / ((double)daUser.TotalGames)) * 100 + "%": "No games played...";
 
                 nameLabelStats.Text = daUser.Username + "'s STATISTICS";
                 GamesPlayedLabel.Text = "Total Games Played: " + daUser.GamesWon;
-                WinLossLabel.Text = "Win Percentage: " + (((double)daUser.GamesWon) / ((double)daUser.TotalGames)) * 100 + "%";
+                WinLossLabel.Text = "Win Percentage: " + percentMsg;
                 TotalPointsLabel.Text = "Total Points: " + scoreTable.getGameScores(daUser);
                 
                 // Print the high scores...
