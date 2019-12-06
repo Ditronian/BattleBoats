@@ -56,8 +56,12 @@ namespace BattleBoats {
                 // something went bad...
                 
                 // Some win/loss entry which does not exist yet... bla bla bla
-                //ScoresTable scoreTable = new ScoresTable(new DataConnection());
-                // scoreTable.insertScore(myNewScore);
+                UsersTable usrTbl = new UsersTable(new DataConnection());
+                User usr = (User)HttpContext.Current.Session["User"];
+                usrTbl.getWinLoss(usr);
+                usr.GamesLost += 1;
+                usrTbl.updateYoSelf(usr);
+                
                 throw new ArgumentException("CHEATER!!!!!");
             }
             
@@ -98,8 +102,14 @@ namespace BattleBoats {
             if (playerData.gameOver)
             {
                 User usr = (User) HttpContext.Current.Session["User"];
+                // Make all tables and db connections...
+                DataConnection dbConnect = new DataConnection();
+                ScoresTable scoreTable = new ScoresTable(dbConnect);
+                UsersTable usrTbl = new UsersTable(dbConnect);
                 
-                ScoresTable scoreTable = new ScoresTable(new DataConnection());
+                // Grab user win/loss data...
+                usrTbl.getWinLoss(usr);
+
                 // Make score object, copy all data over from the score keeper...
                 Score score = new Score();
                 score.Hits = playerData.scoreData.numHits;
@@ -110,10 +120,14 @@ namespace BattleBoats {
                 // Increment user win/loss depending on who won...
                 if (playerData.playerWins)
                 {
-                    
+                    usr.GamesWon += 1;
                 }
-                
-                
+                else
+                {
+                    usr.GamesLost += 1;
+                }
+                usrTbl.updateYoSelf(usr);
+
                 scoreTable.insertScores(score);
                 HttpContext.Current.Session.Remove("game");
                 HttpContext.Current.Session.Remove("ai");
