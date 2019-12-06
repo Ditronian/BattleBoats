@@ -108,3 +108,5 @@ Tuesday Dec 3:
  Thursday Dec 5:
     Linda:
         Worked on Database connections and Statistics page 1hr 20min
+    David:
+        Made a rudimentary Cover Page, and found and hooked up Royalty Free music for game, and put in place html/css to give due               credit.
