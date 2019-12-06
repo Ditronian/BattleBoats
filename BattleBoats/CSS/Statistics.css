@@ -1,34 +1,45 @@
 ﻿#outerDiv {
     text-align: center;
     border: groove;
-    margin: 10%;
-    margin-top: 0;
+    margin-right: 20%;
+    margin-left: 20%;
+    margin-bottom: 1%;
+    margin-top: 1%;
 }
 
-#buttonDiv{
-    text-align:center;
-}
-h3{
-    margin-top: 0px;
-}
-#LeftDiv{
+#LeftDiv {
     text-align: left;
     float: left;
     flex: 1;
-    border: none;
+    border: groove;
     margin-left: 20%;
-    margin-right: 15%;
+    margin-right: 1%;
     font-size: 30px;
+    padding: 10px;
 }
-#RightDiv{
+
+#RightDiv {
     float: right;
     flex: 1;
-    border: none;
+    border: groove;
     margin-right: 20%;
-    margin-left: 3%;
+    margin-left: 1%;
     font-size: 30px;
+    padding: 10px;
 }
+
 #StatsDivs{
     display: flex;
     text-align: center;
+}
+
+#buttonDiv {
+    text-align: center;
+}
+
+h3 {
+    border-bottom: double;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 15px;
 }
