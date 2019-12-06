@@ -28,6 +28,10 @@
     padding: 10px;
 }
 
+#RightDiv td{
+    text-align:left;
+}
+
 #StatsDivs{
     display: flex;
     text-align: center;
