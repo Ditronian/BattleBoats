@@ -66,7 +66,16 @@ namespace BattleBoats
 
             DataSet data = database.downloadCommand(query, parameters);
 
-            return (Int32)data.Tables[0].Rows[0]["Column1"];
+            int result;
+
+            try { result = (Int32)data.Tables[0].Rows[0]["total"]; }
+
+            catch (InvalidCastException)
+            {
+                result = 0;
+            }
+
+            return result;
         }
 
        
