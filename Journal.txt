@@ -109,4 +109,5 @@ Tuesday Dec 3:
     Linda:
         Worked on Database connections and Statistics page 1hr 20min
     David:
-        Made a rudimentary Cover Page, and found and hooked up Royalty Free music for game, and put in place html/css to give due               credit.
+        Made a rudimentary Cover Page, and found and hooked up Royalty Free music for game, and put in place html/css to give due               credit.  (1 hr 40m)
+        Footer was overlapping with buttons for people with tiny screens (aka Isaac), so spent another hour playing around with CSS...
