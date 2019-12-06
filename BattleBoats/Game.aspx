@@ -12,28 +12,29 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <br />
-
         <div id="greaterDiv">
-        <h2>Game Magic Goes Here!!!</h2>
-            <div id="gamecontainer">
-                <canvas id="gamecanvas" width="500" height="500">Does not support canvas</canvas>
+            <div id="lesserDiv">
+            <h2>Game Magic Goes Here!!!</h2>
+                <div id="gamecontainer">
+                    <canvas id="gamecanvas" width="500" height="500">Does not support canvas</canvas>
+                    <br />
+                    <asp:ScriptManager ID="scriptManager" runat="server" EnablePageMethods="true" EnablePartialRendering="true" ScriptMode="Release">
+                    </asp:ScriptManager>
+                </div>
                 <br />
-                <asp:ScriptManager ID="scriptManager" runat="server" EnablePageMethods="true" EnablePartialRendering="true" ScriptMode="Release">
-                </asp:ScriptManager>
+                <asp:Button ID="newGameButton" runat="server" Text="New Game" OnClick="newGameButton_Click" />
+                <asp:Button ID="homeButton" runat="server" Text="Home" OnClick="homeButton_Click" />
             </div>
-            <br />
-            <asp:Button ID="newGameButton" runat="server" Text="New Game" OnClick="newGameButton_Click" />
-            <asp:Button ID="homeButton" runat="server" Text="Home" OnClick="homeButton_Click" />
+            <footer id="gameFooter">
+                Five Armies Kevin MacLeod (incompetech.com)
+                <br />
+                Licensed under Creative Commons: By Attribution 3.0 License
+                <br />
+                http://creativecommons.org/licenses/by/3.0/
+            </footer>
         </div>
 
-        <footer id="gameFooter">
-            Five Armies Kevin MacLeod (incompetech.com)
-            <br />
-            Licensed under Creative Commons: By Attribution 3.0 License
-            <br />
-            http://creativecommons.org/licenses/by/3.0/
-        </footer>
+        
     </form>
     <script type="text/javascript" src="Javascripts/game.js"></script>
 </body>

@@ -12,8 +12,14 @@
     height: 100%;
 }
 
-#greaterDiv{
-    text-align:center;
+#greaterDiv {
+    text-align: center;
+    position: relative;
+    min-height: 98vh;
+}
+
+#lesserDiv {
+    padding-bottom: 80px;
 }
 
 #navDiv{
@@ -22,9 +28,10 @@
 }
 
 #gameFooter {
-    position: fixed;
+    position: absolute;
     left: 0px;
-    bottom: 0px;
+    bottom: 20px;
     width: 100%;
     text-align: center;
+    height: 2.5rem;
 }
