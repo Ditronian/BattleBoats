@@ -770,6 +770,13 @@ function drawClickBoatPlacement() {
 }
 
 function drawClickAttack() {
+    if(delayTime > 0) {
+        ClickLocation.tileX = -1;
+        ClickLocation.tileY = -1;
+        return;
+    }
+    if(inputDisabled) return;
+    
     if ((ClickLocation.tileX >= 0) && (ClickLocation.tileY >= 0)) {
         let index = (ClickLocation.tileY * PlayerData.hitBoard.height) + ClickLocation.tileX;
         

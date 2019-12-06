@@ -68,8 +68,5 @@ namespace BattleBoats
 
             return (Int32)data.Tables[0].Rows[0]["Column1"];
         }
-
-       
-
     }
 }
