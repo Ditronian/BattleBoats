@@ -30,7 +30,7 @@
             <p class="subheader">Rules: </p>
             <ul>
                 <li>Take turns firing shots by selecting a coordinate on opponents grid</li>
-                <li>Cell will turn red if hit, White if missed.</li>
+                <li>Cell will turn green if hit, red if missed.</li>
                 <li>Player wins when all of ships coordinates are hit. </li>
             </ul>
             <asp:Button id="playGameBtn" runat="server" Text="Play Game" OnClick="playGameBtn_Click1"></asp:Button>
