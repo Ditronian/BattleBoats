@@ -26,7 +26,14 @@
             <asp:Button ID="newGameButton" runat="server" Text="New Game" OnClick="newGameButton_Click" />
             <asp:Button ID="homeButton" runat="server" Text="Home" OnClick="homeButton_Click" />
         </div>
-        
+
+        <footer id="gameFooter">
+            Five Armies Kevin MacLeod (incompetech.com)
+            <br />
+            Licensed under Creative Commons: By Attribution 3.0 License
+            <br />
+            http://creativecommons.org/licenses/by/3.0/
+        </footer>
     </form>
     <script type="text/javascript" src="Javascripts/game.js"></script>
 </body>

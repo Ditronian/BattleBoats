@@ -68,7 +68,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Audio\mi.mp3" />
+    <Content Include="Audio\FiveArmies.mp3" />
     <Content Include="Audio\sounds.json" />
     <Content Include="Audio\tnt.mp3" />
     <Content Include="CSS\Game.css" />
@@ -180,7 +180,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50921</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
