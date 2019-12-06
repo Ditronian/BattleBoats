@@ -1,4 +1,4 @@
 [
     ["explosion", "Audio/tnt.mp3", 1, false],
-  [ "fiveArmies", "Audio/FiveArmies.mp3", 0.5, true]
+    ["fiveArmies", "Audio/FiveArmies.mp3", 0.5, true]
 ]

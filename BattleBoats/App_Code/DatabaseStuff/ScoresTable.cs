@@ -77,8 +77,5 @@ namespace BattleBoats
 
             return result;
         }
-
-       
-
     }
 }
