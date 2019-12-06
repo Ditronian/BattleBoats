@@ -22,7 +22,7 @@
             <div id="LeftDiv">
                 <asp:Label ID = "GamesPlayedLabel" Text = "Total Games Played: " runat="server"></asp:Label>
                  <p> </p>
-                <asp:Label ID="WinLossLabel" runat="server" Text="Win/Loss Ratio: "></asp:Label>
+                <asp:Label ID="WinLossLabel" runat="server" Text="Win Percentage: "></asp:Label>
                 <p> </p>
                 <asp:Label id = "TotalPointsLabel" Text = "Total Points: " runat="server"></asp:Label>
                 <p></p>

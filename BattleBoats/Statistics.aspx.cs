@@ -16,12 +16,20 @@ namespace BattleBoats
             if (Session["User"] == null) Response.Redirect("~/Login.aspx");
             else
             {
-                ScoresTable scoreTable = new ScoresTable(new DataConnection());
-                nameLabelStats.Text =((User)Session["User"]).Username + "'s STATISTICS";
-                GamesPlayedLabel.Text = "Total Games Played: " + ((User) Session["User"]).GamesWon;
-                WinLossLabel.Text = "Win/Loss Ratio: " + (double) ((User) Session["User"]).GamesWon /
-                                    (double) ((User) Session["User"]).GamesLost;
-                TotalPointsLabel.Text = "Total Points: " + scoreTable.getGameScores(((User)Session["User"]));
+                // Grab the user...
+                User daUser = ((User) Session["User"]);
+                DataConnection datC = new DataConnection();
+                // Get the user win loss info...
+                UsersTable usrTbl = new UsersTable(datC);
+                usrTbl.getWinLoss(daUser);
+                
+                // Print other stuff
+                ScoresTable scoreTable = new ScoresTable(datC);
+
+                nameLabelStats.Text = daUser.Username + "'s STATISTICS";
+                GamesPlayedLabel.Text = "Total Games Played: " + daUser.GamesWon;
+                WinLossLabel.Text = "Win Percentage: " + (((double)daUser.GamesWon) / ((double)daUser.TotalGames)) * 100 + "%";
+                TotalPointsLabel.Text = "Total Points: " + scoreTable.getGameScores(daUser);
             }
         }
 
