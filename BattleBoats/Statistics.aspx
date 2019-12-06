@@ -12,14 +12,11 @@
 <body>
 
     <form id="form1" runat="server">
-            <div id="buttonDiv">
-                <asp:Button id = "HomeButton" runat="server" Text = "HOME" OnClick="HomeButton_Click"></asp:Button>
-            </div>
-       
         <div id="outerDiv"><h1 id="header"><asp:Label ID = "nameLabelStats" CssClass = "headerLabel" runat = "server" Text = "'s STATISTICS"></asp:Label></h1> </div>
             
-        <Section id = "StatsDivs">
+        <section id = "StatsDivs">
             <div id="LeftDiv">
+                <h3> PLAYER STATS</h3>
                 <asp:Label ID = "GamesPlayedLabel" Text = "Total Games Played: " runat="server"></asp:Label>
                  <p> </p>
                 <asp:Label ID="WinLossLabel" runat="server" Text="Win Percentage: "></asp:Label>
@@ -30,8 +27,6 @@
 
              <div id = "RightDiv">
                  <h3> LEADER BOARD</h3>
-
-
                  <table>
                     <tr>
                         <td> 1. </td>
@@ -85,9 +80,12 @@
                         <td><asp:Label ID = "PointsLabel10" runat="server"></asp:Label></td>
                     </tr>
                </table>
-              
+            </div>
+        </section>
+        <br />
+        <div id="buttonDiv">
+                <asp:Button id = "HomeButton" runat="server" Text = "HOME" OnClick="HomeButton_Click"></asp:Button>
         </div>
-            </Section>
     </form>
 </body>
 </html>
