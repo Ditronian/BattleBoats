@@ -77,5 +77,20 @@ namespace BattleBoats
 
             return result;
         }
+        
+        public KeyValuePair<string, int>[] getHighScores(int amount = 10) {
+            string query = "spGetHighScores";
+            DataSet data = database.downloadCommand(query, null);
+            int endAt = (amount < data.Tables[0].Rows.Count)? amount : data.Tables[0].Rows.Count;
+            KeyValuePair<string, int>[] highScores = new KeyValuePair<string, int>[endAt];
+
+            for (int i = 0; i < endAt; i++)
+            {
+                highScores[i] = new KeyValuePair<string, int>((string)data.Tables[0].Rows[i]["Username"], 
+                               (int)data.Tables[0].Rows[i]["result"]);
+            }
+
+            return highScores;
+        }
     }
 }
