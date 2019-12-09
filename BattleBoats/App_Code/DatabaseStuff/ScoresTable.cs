@@ -86,7 +86,7 @@ namespace BattleBoats
 
             for (int i = 0; i < endAt; i++)
             {
-                highScores[i] = new KeyValuePair<string, int>((string)data.Tables[0].Rows[i]["Username"], 
+                highScores[i] = new KeyValuePair<string, int>(HttpUtility.HtmlEncode(data.Tables[0].Rows[i]["Username"].ToString()), 
                                (int)data.Tables[0].Rows[i]["result"]);
             }
 

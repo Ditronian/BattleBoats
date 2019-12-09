@@ -39,7 +39,7 @@ namespace BattleBoats
             if (data.Tables[0].Rows.Count == 1)
             {
                 user.UserID = (Int32)data.Tables[0].Rows[0]["UserID"];
-                user.Username = (string)data.Tables[0].Rows[0]["Username"];
+                user.Username = HttpUtility.HtmlEncode(data.Tables[0].Rows[0]["Username"].ToString());
                 return user;
             }
             else
