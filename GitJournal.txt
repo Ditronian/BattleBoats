@@ -1,0 +1,1025 @@
+* Author: Ditronian
+| Date: Mon Dec 9 15:59:57 2019 -0700
+| 
+|      Update Journal.txt
+| 
+*   Author: Ditronian
+|\  Date: Mon Dec 9 13:00:00 2019 -0700
+| | 
+| |      Merge branch 'master' of https://github.com/Ditronian/BattleBoats
+| | 
+| * Author: Ditronian
+| | Date: Mon Dec 9 12:38:44 2019 -0700
+| | 
+| |      Update .gitignore
+| | 
+| * Author: Ditronian
+| | Date: Mon Dec 9 12:37:41 2019 -0700
+| | 
+| |      Update .gitignore
+| | 
+* | Author: Ditronian
+|/  Date: Mon Dec 9 12:59:49 2019 -0700
+|   
+|        Added in HTMLEncoding to block XSS attacks.
+|   
+* Author: Ditronian
+| Date: Fri Dec 6 17:03:55 2019 -0700
+| 
+|      CSS for canvas.
+| 
+* Author: Ditronian
+| Date: Fri Dec 6 16:48:54 2019 -0700
+| 
+|      Tweaked css.
+| 
+* Author: isaac
+| Date: Fri Dec 6 16:48:02 2019 -0700
+| 
+|      Fixed divide by 0 error in Statistics.aspx.cs.
+| 
+* Author: isaac
+| Date: Fri Dec 6 16:34:46 2019 -0700
+| 
+|      Clean up and fix some stuff...
+| 
+* Author: Ditronian
+| Date: Fri Dec 6 16:28:04 2019 -0700
+| 
+|      Left aligned stat table.
+| 
+*   Author: isaac
+|\  Date: Fri Dec 6 16:26:03 2019 -0700
+| | 
+| |      Merge remote-tracking branch 'origin/master'
+| | 
+| * Author: Ditronian
+| | Date: Fri Dec 6 01:17:38 2019 -0700
+| | 
+| |      Even more CSS.
+| | 
+| * Author: Ditronian
+| | Date: Fri Dec 6 00:48:05 2019 -0700
+| | 
+| |      Update Journal.txt
+| | 
+* | Author: isaac
+|/  Date: Fri Dec 6 16:25:47 2019 -0700
+|   
+|        Statistics page now actually displays high scores....
+|   
+*   Author: isaac
+|\  Date: Fri Dec 6 00:44:59 2019 -0700
+| | 
+| |      Merge remote-tracking branch 'origin/master'
+| | 
+| * Author: Ditronian
+| | Date: Fri Dec 6 00:41:43 2019 -0700
+| | 
+| |      Corrected Footer overlap. Hopefully.
+| | 
+* | Author: isaac
+|/  Date: Fri Dec 6 00:44:51 2019 -0700
+|   
+|        Fixed some of the statistics.
+|   
+*   Author: Ditronian
+|\  Date: Thu Dec 5 23:58:53 2019 -0700
+| | 
+| |      Merge branch 'master' of https://github.com/Ditronian/BattleBoats
+| | 
+| * Author: isaac
+| | Date: Thu Dec 5 23:44:03 2019 -0700
+| | 
+| |      Fixed splash screens, user can't click through them now...
+| | 
+| * Author: Ditronian
+| | Date: Thu Dec 5 22:23:28 2019 -0700
+| | 
+| |      Update Journal.txt
+| | 
+* | Author: Ditronian
+|/  Date: Thu Dec 5 23:58:48 2019 -0700
+|   
+|        Fixed SQL Sums for Scores, and added Try Catch to prevent any issues if a User has no scores.
+|   
+*   Author: Ditronian
+|\  Date: Thu Dec 5 19:41:06 2019 -0700
+| | 
+| |      Merge branch 'master' of https://github.com/Ditronian/BattleBoats
+| | 
+| *   Author: isaac
+| |\  Date: Thu Dec 5 10:46:08 2019 -0700
+| | | 
+| | |      Merge remote-tracking branch 'origin/master'
+| | | 
+| | * Author: LSchimming
+| | | Date: Thu Dec 5 10:44:14 2019 -0700
+| | | 
+| | |      :(
+| | | 
+| * | Author: isaac
+| |/  Date: Thu Dec 5 10:45:49 2019 -0700
+| |   
+| |        Fixed game settings...
+| |   
+| * Author: isaac
+| | Date: Thu Dec 5 10:44:42 2019 -0700
+| | 
+| |      Added win loss increment on game over, also fixed integer casting in getWinLoss method.
+| | 
+* | Author: Ditronian
+|/  Date: Thu Dec 5 19:40:50 2019 -0700
+|   
+|        Swapped out copyrighted music for Royalty Free 'Five Armies' by Kevin Mcleod.
+|   
+*   Author: loonylunar8
+|\  Date: Thu Dec 5 10:41:12 2019 -0700
+| | 
+| |      Merge remote-tracking branch 'origin/master'
+| | 
+| *   Author: Ditronian
+| |\  Date: Thu Dec 5 10:30:51 2019 -0700
+| | | 
+| | |      Merge branch 'master' of https://github.com/Ditronian/BattleBoats
+| | | 
+| * | Author: Ditronian
+| | | Date: Thu Dec 5 10:30:43 2019 -0700
+| | | 
+| | |      .
+| | | 
+* | | Author: loonylunar8
+| |/  Date: Thu Dec 5 10:40:53 2019 -0700
+|/|   
+| |        Total points for stats page
+| |   
+| | *   Author: isaac
+| | |\  Date: Thu Dec 5 10:43:41 2019 -0700
+| |/ /  
+|/| |        On master: Uncommitted changes before Update at 12/5/19, 10:43 AM
+| | |   
+| | * Author: isaac
+| |/  Date: Thu Dec 5 10:43:41 2019 -0700
+|/|   
+| |        index on master: d089377 UsersTable.cs updateYoSelf
+| |   
+* | Author: loonylunar8
+|/  Date: Thu Dec 5 10:29:44 2019 -0700
+|   
+|        UsersTable.cs updateYoSelf
+|   
+* Author: loonylunar8
+| Date: Thu Dec 5 10:02:41 2019 -0700
+| 
+|      UsersTable.cs getWinLoss()
+| 
+* Author: isaac
+| Date: Wed Dec 4 18:29:32 2019 -0700
+| 
+|      Patched user object to remove TotalGames Field...
+| 
+* Author: Ditronian
+| Date: Wed Dec 4 18:01:33 2019 -0700
+| 
+|      Fixed src.
+| 
+*   Author: isaac
+|\  Date: Wed Dec 4 17:58:20 2019 -0700
+| | 
+| |      Merge remote-tracking branch 'origin/master'
+| | 
+| * Author: Ditronian
+| | Date: Wed Dec 4 17:55:57 2019 -0700
+| | 
+| |      Removing EnableCDN until final publish.
+| | 
+* | Author: isaac
+|/  Date: Wed Dec 4 17:58:07 2019 -0700
+|   
+|        Game score is uploaded on win/loss now....
+|   
+*   Author: Ditronian
+|\  Date: Wed Dec 4 10:37:29 2019 -0700
+| | 
+| |      Merge branch 'master' of https://github.com/Ditronian/BattleBoats
+| | 
+| * Author: LSchimming
+| | Date: Wed Dec 4 10:26:18 2019 -0700
+| | 
+| |      :(
+| | 
+| *   Author: loonylunar8
+| |\  Date: Wed Dec 4 10:18:16 2019 -0700
+| | | 
+| | |      Merge remote-tracking branch 'origin/master'
+| | | 
+| | * Author: Ditronian
+| | | Date: Tue Dec 3 16:00:41 2019 -0700
+| | | 
+| | |      Update Journal.txt
+| | | 
+| * | Author: loonylunar8
+| | | Date: Wed Dec 4 10:18:02 2019 -0700
+| | | 
+| | |      ScoresTable.cs fixes
+| | | 
+* | | Author: Ditronian
+| |/  Date: Wed Dec 4 10:37:18 2019 -0700
+|/|   
+| |        Fixed js location.
+| |   
+* | Author: Ditronian
+| | Date: Tue Dec 3 15:48:25 2019 -0700
+| | 
+| |      Fixed published game web issue.  :)
+| | 
+* | Author: isaac
+| | Date: Tue Dec 3 15:22:05 2019 -0700
+| | 
+| |      Changed game settings :)....
+| | 
+* | Author: isaac
+| | Date: Tue Dec 3 15:19:52 2019 -0700
+| | 
+| |      Added game submit code and cleaned up a lot of the classes. Also separated classes and added some docs to some of them...
+| | 
+* | Author: isaac
+|/  Date: Tue Dec 3 14:17:04 2019 -0700
+|   
+|        Game can now be played, does not submit data to database yet though....
+|   
+| * Author: Ditronian
+| | Date: Tue Dec 3 15:45:35 2019 -0700
+| | 
+| |      Fixed publish problem.
+| | 
+| * Author: Ditronian
+|/  Date: Tue Dec 3 15:21:01 2019 -0700
+|   
+|        Publish Issue experimentation.
+|   
+* Author: loonylunar8
+| Date: Tue Dec 3 12:38:55 2019 -0700
+| 
+|      UserScore total input in ScoresTable.cs
+| 
+* Author: loonylunar8
+| Date: Tue Dec 3 10:34:40 2019 -0700
+| 
+|      GameScore added in Scores
+| 
+* Author: loonylunar8
+| Date: Tue Dec 3 10:13:37 2019 -0700
+| 
+|      edited labels to show value in Statistics
+| 
+* Author: isaac
+| Date: Tue Dec 3 00:33:54 2019 -0700
+| 
+|      More Working Game....
+| 
+*   Author: Ditronian
+|\  Date: Mon Dec 2 19:15:01 2019 -0700
+| | 
+| |      Merge branch 'master' of https://github.com/Ditronian/BattleBoats
+| | 
+| * Author: Ditronian
+| | Date: Mon Dec 2 16:54:18 2019 -0700
+| | 
+| |      Update Journal.txt
+| | 
+| * Author: loonylunar8
+| | Date: Mon Dec 2 16:51:57 2019 -0700
+| | 
+| |      2.0
+| | 
+* | Author: Ditronian
+|/  Date: Mon Dec 2 19:14:54 2019 -0700
+|   
+|        Hooked up the Home page Username label.  Had to adjust the UsersTable authentication method and all related session variables to return User objects instead of just UserIds.
+|   
+*   Author: loonylunar8
+|\  Date: Mon Dec 2 16:45:28 2019 -0700
+| | 
+| |      Merge remote-tracking branch 'origin/master'
+| | 
+| * Author: Ditronian
+| | Date: Mon Dec 2 16:42:13 2019 -0700
+| | 
+| |      Added background
+| | 
+| *   Author: Ditronian
+| |\  Date: Mon Dec 2 16:41:28 2019 -0700
+| | | 
+| | |      .
+| | | 
+| | * Author: isaac
+| | | Date: Mon Dec 2 16:36:59 2019 -0700
+| | | 
+| | |      Started working on game states... Added tons of other stuff....
+| | | 
+| | *   Author: isaac
+| | |\  Date: Mon Dec 2 16:35:24 2019 -0700
+| | | | 
+| | | |      Merge remote-tracking branch 'origin/master'
+| | | | 
+| | * | Author: isaac
+| | | | Date: Mon Dec 2 00:35:23 2019 -0700
+| | | | 
+| | | |      Added Ability to blit transition screens... Also added score tracking classes to backend...
+| | | | 
+| | * | Author: isaac
+| | | | Date: Sun Dec 1 23:02:57 2019 -0700
+| | | | 
+| | | |      Added Score Keeping Code
+| | | | 
+| * | | Author: Ditronian
+| |/ /  Date: Mon Dec 2 16:38:18 2019 -0700
+| | |   
+| | |        Did a bunch of CSS.
+| | |   
+* | | Author: loonylunar8
+| |/  Date: Mon Dec 2 16:45:12 2019 -0700
+|/|   
+| |        worked on Statistics page
+| |   
+* | Author: LSchimming
+| | Date: Mon Dec 2 15:47:00 2019 -0700
+| | 
+| |      ugh
+| | 
+* | Author: loonylunar8
+|/  Date: Mon Dec 2 15:15:05 2019 -0700
+|   
+|        ScoresTable.cs
+|   
+* Author: isaac
+| Date: Sat Nov 30 14:15:17 2019 -0700
+| 
+|      Added Text Labels to Game...
+| 
+* Author: isaac
+| Date: Sat Nov 30 12:45:17 2019 -0700
+| 
+|      Made JS Code FireFox compatible, works in firefox now...
+| 
+* Author: isaac
+| Date: Sat Nov 30 12:14:50 2019 -0700
+| 
+|      JS Frontend now pulls setting from server via the backend...
+| 
+* Author: isaac
+| Date: Fri Nov 29 22:06:54 2019 -0700
+| 
+|      Fixed rotation code and added rotate on 'r' keypress...
+| 
+* Author: isaac
+| Date: Fri Nov 29 19:36:19 2019 -0700
+| 
+|      Added board builder to GameAI class...
+| 
+* Author: isaac
+| Date: Fri Nov 29 15:51:04 2019 -0700
+| 
+|      Added communication methods and object to represent Game AI...
+| 
+* Author: Isaac Robinson
+| Date: Fri Nov 29 13:41:26 2019 -0700
+| 
+|      Update Journal.txt
+| 
+* Author: Ditronian
+| Date: Thu Nov 28 21:04:41 2019 -0700
+| 
+|      Update Journal.txt
+| 
+* Author: isaac
+| Date: Thu Nov 28 20:57:00 2019 -0700
+| 
+|      Changed data getting methods to return objects instead of strings....
+| 
+* Author: Ditronian
+| Date: Thu Nov 28 20:38:57 2019 -0700
+| 
+|      Additional Testing.
+| 
+* Author: Ditronian
+| Date: Thu Nov 28 19:58:06 2019 -0700
+| 
+|      Began testing AJAX PageMethods functionality.
+| 
+* Author: isaac
+| Date: Thu Nov 28 17:05:54 2019 -0700
+| 
+|      Added more game classes,
+| 
+* Author: Ditronian
+| Date: Thu Nov 28 11:37:13 2019 -0700
+| 
+|      Switched encryption from MD5 to SHA512.  Also reintroduced GameController.cs to remove compilation errors until new code is ready for takeover.
+| 
+*   Author: isaac
+|\  Date: Wed Nov 27 22:27:01 2019 -0700
+| | 
+| |      Merge remote-tracking branch 'origin/master'
+| | 
+| * Author: Ditronian
+| | Date: Wed Nov 27 20:46:39 2019 -0700
+| | 
+| |      Finished Login, hopefully.
+| | 
+| *   Author: Ditronian
+| |\  Date: Wed Nov 27 20:41:42 2019 -0700
+| | | 
+| | |      Merge branch 'master' of https://github.com/Ditronian/BattleBoats
+| | | 
+| | *   Author: loonylunar8
+| | |\  Date: Wed Nov 27 20:40:09 2019 -0700
+| | | | 
+| | | |      Merge remote-tracking branch 'origin/master'
+| | | | 
+| | * | Author: loonylunar8
+| | | | Date: Wed Nov 27 20:39:51 2019 -0700
+| | | | 
+| | | |      check usernames
+| | | | 
+| * | | Author: Ditronian
+| | | | Date: Wed Nov 27 20:41:33 2019 -0700
+| | | | 
+| | | |      Added publish profile so I can periodically upload the project to the web.
+| | | | 
+* | | | Author: isaac
+| |_|/  Date: Wed Nov 27 22:26:52 2019 -0700
+|/| |   
+| | |        Finished first version of GameBoard.cs. Has not been tested, need to test later...
+| | |   
+* | | Author: Ditronian
+| | | Date: Wed Nov 27 20:28:05 2019 -0700
+| | | 
+| | |      Update Journal.txt
+| | | 
+* | | Author: isaac
+| | | Date: Wed Nov 27 20:06:36 2019 -0700
+| | | 
+| | |      Made GameBoard class, IT IS NOT DONE!
+| | | 
+* | |   Author: isaac
+|\ \ \  Date: Wed Nov 27 19:50:23 2019 -0700
+| |/ /  
+| | |        Merge remote-tracking branch 'origin/master'
+| | |   
+| * | Author: Ditronian
+| | | Date: Wed Nov 27 19:47:05 2019 -0700
+| | | 
+| | |      Hooked up FieldValidators and AngryLabels to the Login.aspx page to prevent Isaac from abusing the database any further.
+| | | 
+* | | Author: isaac
+|/ /  Date: Wed Nov 27 19:16:09 2019 -0700
+| |   
+| |        Made and tested the now working union find data structure with path compression and weighted union.
+| |   
+* | Author: Ditronian
+| | Date: Wed Nov 27 11:27:48 2019 -0700
+| | 
+| |      Added bunch of stuff.
+| | 
+* |   Author: isaac
+|\ \  Date: Tue Nov 26 16:15:46 2019 -0700
+| | | 
+| | |      Merge remote-tracking branch 'origin/master'
+| | | 
+| * | Author: Ditronian
+| | | Date: Tue Nov 26 13:20:40 2019 -0700
+| | | 
+| | |      Removed Default.aspx and added Logout functionality.
+| | | 
+* | | Author: isaac
+| | | Date: Tue Nov 26 16:15:36 2019 -0700
+| | | 
+| | |      Added initial version of Union Find Data structure...
+| | | 
+* | | Author: isaac
+|/ /  Date: Tue Nov 26 15:34:01 2019 -0700
+| |   
+| |        Game JS Code now uses promises instead of a while loop to wait for images and other things to load...
+| |   
+* |   Author: Ditronian
+|\ \  Date: Tue Nov 26 13:17:49 2019 -0700
+| | | 
+| | |      Merge branch 'master' of https://github.com/Ditronian/BattleBoats
+| | | 
+| * | Author: LSchimming
+| | | Date: Tue Nov 26 12:40:33 2019 -0700
+| | | 
+| | |      Update Journal.txt
+| | | 
+* | | Author: Ditronian
+|/ /  Date: Tue Nov 26 13:17:37 2019 -0700
+| |   
+| |        Hooked up Login page registration and login.  To access any page, an account is now required.
+| |   
+* | Author: Ditronian
+| | Date: Tue Nov 26 10:49:24 2019 -0700
+| | 
+| |      Fixed code
+| | 
+* |   Author: Ditronian
+|\ \  Date: Tue Nov 26 10:47:03 2019 -0700
+| |/  
+| |        Merge branch 'master' of https://github.com/Ditronian/BattleBoats
+| |   
+| *   Author: loonylunar8
+| |\  Date: Tue Nov 26 10:30:24 2019 -0700
+| | | 
+| | |      Merge remote-tracking branch 'origin/master'
+| | | 
+| * | Author: loonylunar8
+| | | Date: Tue Nov 26 10:30:07 2019 -0700
+| | | 
+| | |      fix UsersTable.cs
+| | | 
+* | | Author: Ditronian
+| | | Date: Tue Nov 26 10:46:50 2019 -0700
+| | | 
+| | |      Prepared Login page for database hookup.
+| | | 
+* | | Author: Ditronian
+| |/  Date: Tue Nov 26 10:34:35 2019 -0700
+|/|   
+| |        Added Security
+| |   
+* | Author: Ditronian
+| | Date: Mon Nov 25 21:48:21 2019 -0700
+| | 
+| |      Update Journal.txt
+| | 
+* | Author: Isaac Robinson
+|/  Date: Mon Nov 25 18:52:02 2019 -0700
+|   
+|        Update Journal.txt
+|   
+* Author: LSchimming
+| Date: Mon Nov 25 16:46:52 2019 -0700
+| 
+|      8(
+| 
+* Author: loonylunar8
+| Date: Mon Nov 25 16:41:46 2019 -0700
+| 
+|      remove points
+| 
+*   Author: Ditronian
+|\  Date: Mon Nov 25 16:38:42 2019 -0700
+| | 
+| |      Merge branch 'master' of https://github.com/Ditronian/BattleBoats
+| | 
+| *   Author: loonylunar8
+| |\  Date: Mon Nov 25 16:37:45 2019 -0700
+| | | 
+| | |      Merge remote-tracking branch 'origin/master'
+| | | 
+| | * Author: isaac
+| | | Date: Mon Nov 25 16:34:16 2019 -0700
+| | | 
+| | |      Added Working Boat Collision...
+| | | 
+| | *   Author: isaac
+| | |\  Date: Mon Nov 25 16:14:58 2019 -0700
+| | | | 
+| | | |      Merge remote-tracking branch 'origin/master'
+| | | | 
+| | * | Author: isaac
+| | | | Date: Mon Nov 25 16:14:53 2019 -0700
+| | | | 
+| | | |      Added Broken Boat Collision...
+| | | | 
+| * | | Author: loonylunar8
+| | |/  Date: Mon Nov 25 16:37:26 2019 -0700
+| |/|   
+| | |        made UsersTable.cs
+| | |   
+* | | Author: Ditronian
+|/ /  Date: Mon Nov 25 16:38:30 2019 -0700
+| |   
+| |        Did stuff.
+| |   
+* | Author: loonylunar8
+| | Date: Mon Nov 25 15:19:32 2019 -0700
+| | 
+| |      edit Web.config
+| | 
+* | Author: loonylunar8
+| | Date: Mon Nov 25 15:16:23 2019 -0700
+| | 
+| |      edit Web.config
+| | 
+* | Author: Ditronian
+| | Date: Mon Nov 25 15:10:29 2019 -0700
+| | 
+| |      Fixed bug.
+| | 
+* | Author: LSchimming
+| | Date: Mon Nov 25 15:09:00 2019 -0700
+| | 
+| |      still no feel
+| | 
+* |   Author: loonylunar8
+|\ \  Date: Mon Nov 25 15:06:24 2019 -0700
+| | | 
+| | |      Merge remote-tracking branch 'origin/master'
+| | | 
+| * | Author: Ditronian
+| |/  Date: Mon Nov 25 14:59:30 2019 -0700
+| |   
+| |        Update Journal.txt
+| |   
+| * Author: isaac
+| | Date: Sun Nov 24 22:56:02 2019 -0700
+| | 
+| |      Added boats, which can be placed.... Need to add collision detection to keep them from being stacked...
+| | 
+* | Author: loonylunar8
+|/  Date: Mon Nov 25 15:05:44 2019 -0700
+|   
+|        edit Web.config
+|   
+* Author: isaac
+| Date: Sun Nov 24 16:18:50 2019 -0700
+| 
+|      Added multi-tiles, which group tiles together and allow them to all be moved/rotated at once...
+| 
+* Author: isaac
+| Date: Sat Nov 23 18:58:23 2019 -0700
+| 
+|      Added code for rotating tiles, which works....
+| 
+* Author: isaac
+| Date: Sat Nov 23 14:03:33 2019 -0700
+| 
+|      Fixed issues with canvas being blurry by changing internal coordinate system (width and height of canvas does not change the actual size of the canvas, just the coordinate system used by draw methods).
+| 
+* Author: Ditronian
+| Date: Fri Nov 22 12:07:08 2019 -0700
+| 
+|      Update Journal.txt
+| 
+* Author: Ditronian
+| Date: Fri Nov 22 11:43:12 2019 -0700
+| 
+|      Added more code to Game codebehind.
+| 
+* Author: Ditronian
+| Date: Fri Nov 22 11:39:21 2019 -0700
+| 
+|      Worked on Codebehind for Game Page, and started shell of GameController class.
+| 
+* Author: Ditronian
+| Date: Fri Nov 22 10:51:12 2019 -0700
+| 
+|      Classes weren't loading correctly, switched to compiled.  Fixed.
+| 
+* Author: Ditronian
+| Date: Fri Nov 22 10:46:05 2019 -0700
+| 
+|      Added Page Redirects if not logged in.
+| 
+*   Author: Ditronian
+|\  Date: Fri Nov 22 10:33:59 2019 -0700
+| | 
+| |      Merge branch 'master' of https://github.com/Ditronian/BattleBoats
+| | 
+| * Author: isaac
+| | Date: Fri Nov 22 01:20:26 2019 -0700
+| | 
+| |      Music ;).....
+| | 
+| * Author: isaac
+| | Date: Fri Nov 22 00:24:47 2019 -0700
+| | 
+| |      Music ;).....
+| | 
+| * Author: isaac
+| | Date: Fri Nov 22 00:13:04 2019 -0700
+| | 
+| |      Added Explosion to Game :)...
+| | 
+| * Author: isaac
+| | Date: Thu Nov 21 23:13:22 2019 -0700
+| | 
+| |      Adding more work to support explosions on click.
+| | 
+| * Author: isaac
+| | Date: Thu Nov 21 21:33:29 2019 -0700
+| | 
+| |      Red Highlight on Hover Implemented...
+| | 
+* | Author: Ditronian
+|/  Date: Fri Nov 22 10:33:39 2019 -0700
+|   
+|        Removed extraneous css.
+|   
+*   Author: isaac
+|\  Date: Thu Nov 21 18:27:36 2019 -0700
+| | 
+| |      Merge remote-tracking branch 'origin/master'
+| | 
+| * Author: LSchimming
+| | Date: Thu Nov 21 10:49:37 2019 -0700
+| | 
+| |      :p
+| | 
+| * Author: Ditronian
+| | Date: Thu Nov 21 10:47:14 2019 -0700
+| | 
+| |      Update Journal.txt
+| | 
+| *   Author: loonylunar8
+| |\  Date: Thu Nov 21 10:46:16 2019 -0700
+| | | 
+| | |      Merge remote-tracking branch 'origin/master'
+| | | 
+| | *   Author: Ditronian
+| | |\  Date: Thu Nov 21 10:40:38 2019 -0700
+| | | | 
+| | | |      Merge branch 'master' of https://github.com/Ditronian/BattleBoats
+| | | | 
+| | * | Author: Ditronian
+| | | | Date: Thu Nov 21 10:40:14 2019 -0700
+| | | | 
+| | | |      Made Score/Game classes
+| | | | 
+| * | | Author: loonylunar8
+| | |/  Date: Thu Nov 21 10:45:24 2019 -0700
+| |/|   
+| | |        Database Connection in App code
+| | |   
+| * | Author: LSchimming
+| | | Date: Thu Nov 21 10:05:56 2019 -0700
+| | | 
+| | |      :(
+| | | 
+* | | Author: isaac
+| | | Date: Thu Nov 21 18:27:29 2019 -0700
+| | | 
+| | |      Initial Version of Tiling Engine Working....
+| | | 
+* | | Author: isaac
+| | | Date: Thu Nov 21 13:54:30 2019 -0700
+| | | 
+| | |      Beginings of JS Engine for rendering....
+| | | 
+* | | Author: isaac
+|/ /  Date: Thu Nov 21 10:51:34 2019 -0700
+| |   
+| |        Beginings of JS Engine for rendering....
+| |   
+* | Author: Ditronian
+| | Date: Tue Nov 19 10:28:11 2019 -0700
+| | 
+| |      Update and rename Feelings.txt to Journal.txt
+| | 
+* | Author: LSchimming
+| | Date: Tue Nov 19 10:27:22 2019 -0700
+| | 
+| |      i dont feel
+| | 
+* | Author: Isaac Robinson
+| | Date: Tue Nov 19 10:24:44 2019 -0700
+| | 
+| |      Speak Feelings
+| | 
+* | Author: Ditronian
+|/  Date: Tue Nov 19 10:23:53 2019 -0700
+|   
+|        Update Feelings.txt
+|   
+*   Author: loonylunar8
+|\  Date: Tue Nov 19 10:19:32 2019 -0700
+| | 
+| |      Merge remote-tracking branch 'origin/master'
+| | 
+| * Author: Ditronian
+| | Date: Tue Nov 19 10:13:46 2019 -0700
+| | 
+| |      Create Feelings.txt
+| | 
+* | Author: loonylunar8
+|/  Date: Tue Nov 19 10:18:48 2019 -0700
+|   
+|        Leader board header
+|   
+* Author: loonylunar8
+| Date: Tue Nov 19 10:07:39 2019 -0700
+| 
+|      I made a comment
+| 
+* Author: Ditronian
+| Date: Tue Nov 19 10:02:00 2019 -0700
+| 
+|      Prototype Completed
+| 
+* Author: LSchimming
+| Date: Tue Nov 19 09:43:53 2019 -0700
+| 
+|      Update table and header for statistics
+| 
+* Author: LSchimming
+| Date: Tue Nov 19 09:31:18 2019 -0700
+| 
+|      Update Statistics.aspx
+| 
+* Author: isaac
+| Date: Mon Nov 18 21:11:10 2019 -0700
+| 
+|      More css stuff...
+| 
+* Author: isaac
+| Date: Mon Nov 18 20:43:16 2019 -0700
+| 
+|      Added text box styling...
+| 
+*   Author: isaac
+|\  Date: Mon Nov 18 20:34:03 2019 -0700
+| | 
+| |      Merge remote-tracking branch 'origin/master'
+| | 
+| * Author: Ditronian
+| | Date: Mon Nov 18 19:09:16 2019 -0700
+| | 
+| |      Made CSS changes, to make the pages more uniform.  Also hooked up more buttons.
+| | 
+* | Author: isaac
+|/  Date: Mon Nov 18 20:33:27 2019 -0700
+|   
+|        Added some styling to the buttons...
+|   
+* Author: isaac
+| Date: Mon Nov 18 18:43:56 2019 -0700
+| 
+|      Fixed the home page...
+| 
+* Author: Ditronian
+| Date: Mon Nov 18 18:32:46 2019 -0700
+| 
+|      Added a bunch of css
+| 
+* Author: Emilymartin10
+| Date: Mon Nov 18 16:26:13 2019 -0700
+| 
+|      Login page complete
+| 
+* Author: isaac
+| Date: Mon Nov 18 16:25:00 2019 -0700
+| 
+|      Added Home Page CSS
+| 
+* Author: isaac
+| Date: Mon Nov 18 16:11:33 2019 -0700
+| 
+|      Added Home Page CSS
+| 
+*   Author: Emilymartin10
+|\  Date: Mon Nov 18 15:31:46 2019 -0700
+| | 
+| |      Merge branch 'master' of https://github.com/Ditronian/BattleBoats
+| | 
+| * Author: loonylunar8
+| | Date: Mon Nov 18 15:20:45 2019 -0700
+| | 
+| |      * Default.aspx: I made a comment
+| | 
+| * Author: isaac
+| | Date: Mon Nov 18 15:11:00 2019 -0700
+| | 
+| |      Added Help Info to Home Page
+| | 
+| *   Author: isaac
+| |\  Date: Mon Nov 18 14:57:55 2019 -0700
+| | | 
+| | |      Merge remote-tracking branch 'origin/master'
+| | | 
+| * | Author: isaac
+| | | Date: Mon Nov 18 14:57:33 2019 -0700
+| | | 
+| | |      Fixed Stuff
+| | | 
+* | | Author: Emilymartin10
+| |/  Date: Mon Nov 18 15:31:30 2019 -0700
+|/|   
+| |        Login page / css
+| |   
+* |   Author: Emilymartin10
+|\ \  Date: Mon Nov 18 14:48:10 2019 -0700
+| |/  
+| |        Im committing
+| |   
+| *   Author: isaac
+| |\  Date: Mon Nov 18 14:42:06 2019 -0700
+| | | 
+| | |      Merge remote-tracking branch 'origin/master'
+| | | 
+| | * Author: Ditronian
+| | | Date: Mon Nov 18 14:40:07 2019 -0700
+| | | 
+| | |      CSS
+| | | 
+| * |   Author: isaac
+| |\ \  Date: Mon Nov 18 14:41:31 2019 -0700
+| | |/  
+| | |        Merge remote-tracking branch 'origin/master'
+| | |   
+| * | Author: isaac
+| | | Date: Mon Nov 18 14:41:20 2019 -0700
+| | | 
+| | |      Fixed Stuff
+| | | 
+* | | Author: Emilymartin10
+| |/  Date: Mon Nov 18 14:40:59 2019 -0700
+|/|   
+| |        hi
+| |   
+* |   Author: Emilymartin10
+|\ \  Date: Mon Nov 18 14:29:25 2019 -0700
+| |/  
+| |        Merge branch 'master' of https://github.com/Ditronian/BattleBoats
+| |   
+| * Author: isaac
+| | Date: Mon Nov 18 14:27:47 2019 -0700
+| | 
+| |      Added Game Page
+| | 
+* | Author: Emilymartin10
+|/  Date: Mon Nov 18 14:28:31 2019 -0700
+|   
+|        Added Statistics Page
+|   
+* Author: Ditronian
+| Date: Thu Nov 14 10:39:18 2019 -0700
+| 
+|      Made more pages.
+| 
+* Author: Ditronian
+| Date: Thu Nov 14 10:31:42 2019 -0700
+| 
+|      Made Game.aspx
+| 
+* Author: isaac
+| Date: Thu Nov 14 10:24:30 2019 -0700
+| 
+|      Added Basic Game Page...
+| 
+* Author: Emilymartin10
+| Date: Tue Nov 12 10:23:49 2019 -0700
+| 
+|      changed iis port
+| 
+* Author: Ditronian
+| Date: Tue Nov 12 10:06:35 2019 -0700
+| 
+|      Update Default.aspx.cs
+| 
+* Author: Emilymartin10
+| Date: Tue Nov 12 10:05:10 2019 -0700
+| 
+|      Im here now
+| 
+* Author: Emilymartin10
+| Date: Tue Nov 12 09:53:35 2019 -0700
+| 
+|      Update Default.aspx.cs
+| 
+* Author: Ditronian
+| Date: Tue Nov 5 15:55:53 2019 -0700
+| 
+|      Typo
+| 
+* Author: Ditronian
+| Date: Tue Nov 5 15:54:26 2019 -0700
+| 
+|      Added Section so ppl can easily make changes if they want to.
+| 
+* Author: Ditronian
+| Date: Tue Nov 5 15:46:18 2019 -0700
+| 
+|      I have added a Default.aspx file that showcases how a postback works.  The code behind of the page (Default.aspx.cs) also has some helpful comments.
+| 
+* Author: Ditronian
+| Date: Tue Nov 5 12:59:24 2019 -0700
+| 
+|      Delete test
+| 
+* Author: Ditronian
+| Date: Tue Nov 5 12:55:46 2019 -0700
+| 
+|      Create test
+| 
+* Author: Ditronian
+| Date: Tue Nov 5 10:41:12 2019 -0700
+| 
+|      Add project files.
+| 
+* Author: Ditronian
+  Date: Tue Nov 5 10:41:07 2019 -0700
+  
+       Add .gitignore and .gitattributes.
+  
