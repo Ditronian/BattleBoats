@@ -111,3 +111,13 @@ Tuesday Dec 3:
     David:
         Made a rudimentary Cover Page, and found and hooked up Royalty Free music for game, and put in place html/css to give due               credit.  (1 hr 40m)
         Footer was overlapping with buttons for people with tiny screens (aka Isaac), so spent another hour playing around with CSS...
+        
+Friday Dec 6:
+    David, Isaac, Linda:
+        All hands on deck finishing the last bit of the Implementation, in the form of the Statistics Page.
+        Powered through it with ease, and buttoned everything up nicely.
+
+Monday Dec 9:
+    David:
+        Added Notable Database Features to the Project Description Document.
+        Added in XSS attack defense in the form of HTMLEncoding, since I discovered it had been lost at some point.
