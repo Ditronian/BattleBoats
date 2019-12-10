@@ -14,7 +14,7 @@
     <form id="form1" runat="server">
         <div id="greaterDiv">
             <div id="lesserDiv">
-            <h2>Game Magic Goes Here!!!</h2>
+            
                 <div id="gamecontainer">
                     <canvas id="gamecanvas" width="500" height="500">Does not support canvas</canvas>
                     <br />
