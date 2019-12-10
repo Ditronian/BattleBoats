@@ -14,8 +14,8 @@
     <form id="form1" runat="server">
         <div id="greaterDiv">
             <div id="lesserDiv">
-            
                 <div id="gamecontainer">
+                    <p></p>
                     <canvas id="gamecanvas" width="500" height="500">Does not support canvas</canvas>
                     <br />
                     <asp:ScriptManager ID="scriptManager" runat="server" EnablePageMethods="true" EnablePartialRendering="true" ScriptMode="Release">
