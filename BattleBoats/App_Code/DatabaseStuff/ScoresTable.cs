@@ -92,5 +92,16 @@ namespace BattleBoats
 
             return highScores;
         }
+
+
+        public void deleteYoScores(User user)
+        {
+            string query = "spDeleteAllUserScores";
+            SqlParameter[] parameters = new SqlParameter[1];
+            parameters[0] = new SqlParameter("UserID", user.UserID);
+
+            database.uploadCommand(query, parameters);
+
+        }
     }
 }

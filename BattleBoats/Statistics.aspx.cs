@@ -72,5 +72,23 @@ namespace BattleBoats
         {
             Response.Redirect("Home.aspx");
         }
+
+        protected void deleteAccountButton_Click(object sender, EventArgs e)
+        {
+            User user = ((User)Session["User"]);
+
+            //Database Prep
+            DataConnection connect = new DataConnection();
+            UsersTable userTable = new UsersTable(connect);
+            ScoresTable scoreTable = new ScoresTable(connect);
+
+            //Delete Scores
+            scoreTable.deleteYoScores(user);
+            userTable.deleteYoSelf(user);
+
+            //Return to login
+            Session.Clear();
+            Response.Redirect("Login.aspx");
+        }
     }
 }
