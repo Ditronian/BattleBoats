@@ -29,8 +29,8 @@ namespace BattleBoats
         public GameBoard(int width, int height, int[] boatSizes, int[] initBoard)
         {
             // Initialize width and height....
-            this.height = width;
-            this.width = height;
+            this.height = height;
+            this.width = width;
             // If provided initial board is not big enough for the specified width and height, throw an error...
             if (initBoard.Length != (width * height))
             {
@@ -113,11 +113,11 @@ namespace BattleBoats
          */
         private int to1DIndex(int x, int y)
         {
-            if ((x < 0) || (y < 0) || (x >= width) || (y >= height))
+            if (!isValidIndex(x, y))
             {
                 throw new ArgumentException("Index (" + x + ", " + y + ") out of bounds!!!");
             }
-            return (y * height) + x;
+            return (y * width) + x;
         }
 
         public bool isValidIndex(int x, int y)
