@@ -2,6 +2,12 @@ let canvas = document.getElementById("gamecanvas");
 let ctx = canvas.getContext("2d");
 
 
+// Helper Method for converting 2D indexes to 1D
+function to2D(x, y, width, height) {
+    return (y * width) + x;
+}
+
+
 // CORE DRAWING API FOR GAME BELOW:
 
 
@@ -637,7 +643,7 @@ function update(progress) {
 function drawBanner() {
     if(fullScreenImg !== null) {
         fullScreenImg.draw(0, 0, canvas.width, canvas.height, Tile.UP);
-        if((ClickLocation.tileX > 0) && (ClickLocation.tileY > 0)) {
+        if((ClickLocation.tileX >= 0) && (ClickLocation.tileY >= 0)) {
             ClickLocation.tileX = -1;
             ClickLocation.tileY = -1;
             if(bannerClickable) {
@@ -682,7 +688,7 @@ function drawExplosionIndicator() {
 
     // If user is hovered over a tile, render a hover tile to that location...
     if((HoverLocation.tileX >= 0) && (HoverLocation.tileY >= 0)) {
-        let index = (HoverLocation.tileY * PlayerData.hitBoard.height) + HoverLocation.tileX;
+        let index = to2D(HoverLocation.tileX, HoverLocation.tileY, PlayerData.hitBoard.width, PlayerData.hitBoard.height);
 
         if(PlayerData.hitBoard.data[index] !== 0) {
             HoverLocation.tileX = -1;
@@ -747,13 +753,16 @@ function drawClickBoatPlacement() {
 
         for(const [coord, boat] of placedBoats) {
             for(const [x, y, rotx, roty] of boat.getTranslatedCoords(battleBoard, coord[0], coord[1])) {
-                boatArr[(roty * battleBoard.yTiles) + rotx] = boatID;
+                boatArr[to2D(rotx, roty, battleBoard.xTiles, battleBoard.yTiles)] = boatID;
             }
             boatID++;
         }
+        console.log(boatArr);
 
         function onSuccess(result) {
             GameState = "Attack";
+            console.log(PlayerData);
+            console.log(battleBoard);
             PlayerData = result;
             ModeSwitched = true;
             generalMsgText = "Click a spot on the board to attack!!!";
@@ -778,7 +787,7 @@ function drawClickAttack() {
     if(inputDisabled) return;
     
     if ((ClickLocation.tileX >= 0) && (ClickLocation.tileY >= 0)) {
-        let index = (ClickLocation.tileY * PlayerData.hitBoard.height) + ClickLocation.tileX;
+        let index = to2D(ClickLocation.tileX, ClickLocation.tileY, PlayerData.hitBoard.width, PlayerData.hitBoard.height);
         
         if(PlayerData.hitBoard.data[index] !== 0) {
             ClickLocation.tileX = -1;
@@ -794,7 +803,9 @@ function drawClickAttack() {
                 GameState = "BeAttacked";
                 generalMsgText = "AI Attacking...";
                 PlayerData = result;
-                
+                console.log(PlayerData);
+                console.log(battleBoard);
+
                 if(PlayerData.gameOver) {
                     if(PlayerData.playerWins) {
                         GameState = "Win";
@@ -843,7 +854,7 @@ function drawClickAttack() {
 function drawAttackBoard() {
     for(let y = 0; y < PlayerData.hitBoard.height; y++) {
         for(let x = 0; x < PlayerData.hitBoard.width; x++) {
-            let index = (y * PlayerData.hitBoard.height) + x;
+            let index = (y * PlayerData.hitBoard.width) + x;
             
             battleBoard.renderTile(x, y, ImageTiles.water);
             
@@ -877,7 +888,7 @@ function drawBeingAttacked() {
     }
     else {
         SoundEffects.explosion.stop();
-        let index = (PlayerData.shipBoard.height * hitY) + hitX;
+        let index = (PlayerData.shipBoard.width * hitY) + hitX;
         
         if((hitX >= 0 && hitY >= 0) && (PlayerData.shipBoard.data[index] !== 0)) {
             let boatIdx = Math.abs(PlayerData.shipBoard.data[index]) - 1;

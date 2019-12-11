@@ -78,12 +78,12 @@ namespace BattleBoats
 
         private int from2D(int x, int y)
         {
-            return (y * h) + x;
+            return (y * w) + x;
         }
 
         private int[] from1D(int loc)
         {
-            return new int[] {(loc / w), (loc % w)};
+            return new int[] {(loc % w), (loc / w)};
         }
 
         private bool validIndex(int x, int y)
