@@ -84,7 +84,7 @@
         </section>
         <br />
         <div id="buttonDiv">
-                <asp:Button id = "HomeButton" runat="server" Text = "HOME" OnClick="HomeButton_Click"></asp:Button>
+                <asp:Button id = "HomeButton" runat="server" Text = "Home" OnClick="HomeButton_Click"></asp:Button>
                 <asp:Button id = "deleteAccountButton" runat="server" Text = "Delete Account" OnClientClick="return confirm('Are you sure you would like to do this friend?  Boo will miss you.');" OnClick="deleteAccountButton_Click" /></asp:Button>
         </div>
     </form>
